@@ -7,7 +7,13 @@
     
     var countryApp = angular.module('countryApp', []);
     
-
+    countryApp.config(['$httpProvider', function ($httpProvider) {
+      //Reset headers to avoid OPTIONS request (aka preflight)
+      $httpProvider.defaults.headers.common = {};
+      $httpProvider.defaults.headers.post = {};
+      $httpProvider.defaults.headers.put = {};
+      $httpProvider.defaults.headers.patch = {};
+    }]);
     
     countryApp.controller('CountryCtrl', ['$scope', '$http', function (scope, http) {
       scope.id = "10063679";
