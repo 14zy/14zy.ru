@@ -7,13 +7,7 @@
     
     var countryApp = angular.module('countryApp', []);
     
-    countryApp.config(['$httpProvider', function ($httpProvider) {
-      //Reset headers to avoid OPTIONS request (aka preflight)
-      $httpProvider.defaults.headers.common = {};
-      $httpProvider.defaults.headers.post = {};
-      $httpProvider.defaults.headers.put = {};
-      $httpProvider.defaults.headers.patch = {};
-    }]);
+
     
     countryApp.controller('CountryCtrl', ['$scope', '$http', function (scope, http) {
       scope.id = "10063679";
@@ -22,15 +16,15 @@
       
       scope.calculate = function() {
 
-      http.get('https://api.vk.com/method/users.get?user_id=' + scope.id + '&fields=screen_name').success(function(data) {
+      http.get('http://api.vk.com/method/users.get?user_id=' + scope.id + '&fields=screen_name').success(function(data) {
           scope.name = data.response;
         });
 
-      http.get('https://api.vk.com/method/users.getSubscriptions?user_id=' + scope.id + '&extended=1&count=200').success(function(data) {
+      http.get('http://api.vk.com/method/users.getSubscriptions?user_id=' + scope.id + '&extended=1&count=200').success(function(data) {
         scope.groups = data.response;
         
         angular.forEach(scope.groups,  function(group){
-          http.get('https://api.vk.com/method/groups.getMembers?group_id=' + group.gid + '&extended=1').success(function(data) {
+          http.get('http://api.vk.com/method/groups.getMembers?group_id=' + group.gid + '&extended=1').success(function(data) {
             group.followers = data.response.count;
           });
         });
