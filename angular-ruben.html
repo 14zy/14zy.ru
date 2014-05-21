@@ -40,7 +40,7 @@
       
       scope.calculate = function() {
 
-      http.jsonp('https://api.vk.com/method/users.get?user_id=' + scope.id + '&fields=screen_name,city,sex,photo_50,online,online_mobile,has_mobile,last_seen&callback=JSON_CALLBACK').success(function(data) {
+      http.jsonp('https://api.vk.com/method/users.get?user_id=' + scope.id + '&fields=screen_name,city,sex, photo_50,online,online_mobile,has_mobile,last_seen&callback=JSON_CALLBACK').success(function(data) {
           scope.name = data.response;
         });
 
@@ -81,12 +81,12 @@
       Имя: {{field.first_name}} {{field.last_name}}<br>
       Ник: {{field.screen_name}}<br>
       Город: {{field.city}}<br>
-      sex: {{field.sex}}<br>      
-
+      sex: {{field.sex}}<br> 
       online: {{field.online}}<br>                  
-      online_mobile: {{field.online_mobile}}<br>                        
+      <!-- online_mobile: {{field.online_mobile}}<br>                         -->
       has_mobile: {{field.has_mobile}}<br>    
-      last_seen: {{field.last_seen}}<br>    
+      last_seen: {{field.last_seen}}<br>  
+       
     </span>
     <br>
 
