@@ -1,7 +1,29 @@
+<!DOCTYPE html>
 <html ng-app="countryApp">
   <head>
     <meta charset="utf-8">
-    <title>Angular.js Exampl</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VK.Parser Exampl</title>
+    
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <style>
+          .glyphicon-arrow-true:before {
+            content: "\e094";
+          }
+          .glyphicon-arrow-false:before {
+            content: "\e093";
+          }
+    </style>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
     <script src="http:////cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular.min.js"></script>
     <script>
     
@@ -10,13 +32,15 @@
 
     
     countryApp.controller('CountryCtrl', ['$scope', '$http', function (scope, http) {
-      scope.id = "10063679";
-      scope.name = "Рубен Бабаев";
+      scope.id = Math.floor((Math.random()*90864594)+1);
+      scope.name = "Рубен Бабаев"
+      scope.firstname = "Рубен"
+
       
       
       scope.calculate = function() {
 
-      http.jsonp('https://api.vk.com/method/users.get?user_id=' + scope.id + '&fields=screen_name&callback=JSON_CALLBACK').success(function(data) {
+      http.jsonp('https://api.vk.com/method/users.get?user_id=' + scope.id + '&fields=screen_name,city,sex,photo_50,online,online_mobile,has_mobile,last_seen&callback=JSON_CALLBACK').success(function(data) {
           scope.name = data.response;
         });
 
@@ -32,41 +56,61 @@
     };
 
     scope.calculate();
-    scope.sortField = 'gid';
-    scope.reverse = false;
+    scope.sortField = 'followers';
+    scope.reverse = true;
+    
+    scope.random = function() {
+      scope.id = Math.floor((Math.random()*90864594)+1);
+      scope.calculate();
+    }
     
     }]);
    
     </script>
   </head>
+  
   <body ng-controller="CountryCtrl">
-    ID:<input ng-model="id" type="text" />    <a href='' ng-click="calculate()">Посмотреть</a>
+    <div class="container">
+    <h1>Персональный парсер ВК:</h1>
+    <br>
+    User id <input id="art" ng-model="id" type="text" />    <a href='' class="btn btn-default" ng-click="calculate()">Го</a>
+    или <a href='' class="btn btn-default" ng-click="random()">Рандом</a>
     <br><br>
     <span ng-repeat="field in name">
+      <p><a target="_blank" href="http://vk.com/{{field.screen_name}}"><img ng-src='{{field.photo_50}}'></a></p>
       Имя: {{field.first_name}} {{field.last_name}}<br>
       Ник: {{field.screen_name}}<br>
+      Город: {{field.city}}<br>
+      sex: {{field.sex}}<br>      
+
+      online: {{field.online}}<br>                  
+      online_mobile: {{field.online_mobile}}<br>                        
+      has_mobile: {{field.has_mobile}}<br>    
+      last_seen: {{field.last_seen}}<br>    
     </span>
     <br>
-    <h2>Список сообществ этого человека:</h2>
-    Фильтр:<input ng-model="query" type="text" />
+
+    <h2>{{scope.name}}Сообщества:</h2>    <input placeholder="Поиск" style="margin-top: -35px; float: right;" ng-model="query" type="text" />
+
+
+
 
     <br>
-
-    <br>
-    <table>
+    <table class="table">
       <tr>
+
+        <th><a href="" ng-click="sortField = 'name'; reverse = !reverse;">Название</a></th>
         <th><a href="" ng-click="sortField = 'gid'; reverse = !reverse">ID</a></th>
-        <th><a href="" ng-click="sortField = 'name'; reverse = !reverse">Название</a></th>
         <th><a href="" ng-click="sortField = 'screen_name'; reverse = !reverse">Screen Name</a></th>
-        <th><a href="" ng-click="sortField = 'followers'; reverse = !reverse">Подписчиков</a></th>
+        <th><a href="" ng-click="sortField = 'followers'; reverse = !reverse">Аудитория <span class="glyphicon glyphicon-arrow-{{reverse}}"></span></a></th>
       </tr>
       <tr ng-repeat="group in groups | filter:query | orderBy:sortField:reverse">  <!-- orderBy: 'population' // orderBy: '-population' -->
+        <td><a target="_blank" href="http://vk.com/{{group.screen_name}}">{{group.name}}</a></td>
         <td>{{group.gid}}</td>
-        <td>{{group.name}}</td>
         <td>{{group.screen_name}}</td> <!-- <td>{{country.population | currency}}</td> -->
-        <td>{{group.followers}}</td>
-
+        <td>{{group.followers | number : fractionSize}}</td>
       </tr>
     </table>
+    </div>
   </body>
 </html>
