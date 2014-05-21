@@ -1,0 +1,72 @@
+<html ng-app="countryApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Angular.js Exampl</title>
+    <script src="http:////cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular.min.js"></script>
+    <script>
+    
+    var countryApp = angular.module('countryApp', []);
+    
+
+    
+    countryApp.controller('CountryCtrl', ['$scope', '$http', function (scope, http) {
+      scope.id = "10063679";
+      scope.name = "Рубен Бабаев";
+      
+      
+      scope.calculate = function() {
+
+      http.get('https://api.vk.com/method/users.get?user_id=' + scope.id + '&fields=screen_name').success(function(data) {
+          scope.name = data.response;
+        });
+
+      http.get('https://api.vk.com/method/users.getSubscriptions?user_id=' + scope.id + '&extended=1&count=200').success(function(data) {
+        scope.groups = data.response;
+        
+        angular.forEach(scope.groups,  function(group){
+          http.get('https://api.vk.com/method/groups.getMembers?group_id=' + group.gid + '&extended=1').success(function(data) {
+            group.followers = data.response.count;
+          });
+        });
+      });
+    };
+
+    scope.calculate();
+    scope.sortField = 'gid';
+    scope.reverse = false;
+    
+    }]);
+   
+    </script>
+  </head>
+  <body ng-controller="CountryCtrl">
+    ID:<input ng-model="id" type="text" />    <a href='' ng-click="calculate()">Посмотреть</a>
+    <br><br>
+    <span ng-repeat="field in name">
+      Имя: {{field.first_name}} {{field.last_name}}<br>
+      Ник: {{field.screen_name}}<br>
+    </span>
+    <br>
+    <h2>Список сообществ этого человека:</h2>
+    Фильтр:<input ng-model="query" type="text" />
+
+    <br>
+
+    <br>
+    <table>
+      <tr>
+        <th><a href="" ng-click="sortField = 'gid'; reverse = !reverse">ID</a></th>
+        <th><a href="" ng-click="sortField = 'name'; reverse = !reverse">Название</a></th>
+        <th><a href="" ng-click="sortField = 'screen_name'; reverse = !reverse">Screen Name</a></th>
+        <th><a href="" ng-click="sortField = 'followers'; reverse = !reverse">Подписчиков</a></th>
+      </tr>
+      <tr ng-repeat="group in groups | filter:query | orderBy:sortField:reverse">  <!-- orderBy: 'population' // orderBy: '-population' -->
+        <td>{{group.gid}}</td>
+        <td>{{group.name}}</td>
+        <td>{{group.screen_name}}</td> <!-- <td>{{country.population | currency}}</td> -->
+        <td>{{group.followers}}</td>
+
+      </tr>
+    </table>
+  </body>
+</html>
