@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html ng-app="countryApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VK_Auditory Online Checker</title>
+    
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <style>
+          .glyphicon-arrow-true:before {
+            content: "\e094";
+          }
+          .glyphicon-arrow-false:before {
+            content: "\e093";
+          }
+    </style>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
+    <script src="http:////cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular.min.js"></script>
+    <script>
+    
+    var countryApp = angular.module('countryApp', []);
+    
+
+    
+    countryApp.controller('CountryCtrl', ['$scope', '$http', function (scope, http) {
+      scope.id = Math.floor((Math.random()*90864594)+1);
+      scope.name = "Рубен Бабаев"
+      scope.firstname = "Рубен"
+      scope.all_members = [];
+      scope.offline_members_count = 0
+      scope.online_members_count = 0
+      scope.offline_members = [];
+      scope.online_members = [];
+
+
+      scope.calculate = function() {
+        http.jsonp('https://api.vk.com/method/groups.getById?group_id=' + scope.id + '&extended=1&fields=photo_200,description,members_count&callback=JSON_CALLBACK').success(function(data) {
+            scope.group = data.response;
+        });
+        
+        http.jsonp('https://api.vk.com/method/groups.getMembers?group_id=' + scope.id + '&extended=1&callback=JSON_CALLBACK').success(function(data) {
+            scope.members = data.response.users;
+            scope.members_count = data.response.count;
+            scope.get_members();
+        });
+
+      };
+
+      scope.get_members = function () {
+        angular.forEach(scope.members, function(member){
+          http.jsonp('https://api.vk.com/method/users.get?user_id=' + member + '&fields=screen_name,city,sex, photo_50,online,online_mobile,has_mobile,last_seen&callback=JSON_CALLBACK').success(function(data) {
+            //scope.all_members.push(data.response);
+            scope.infa = data.response;
+            scope.field = scope.infa[0].online;
+            
+             if (scope.field == 0) {
+                scope.offline_members.push(data.response);
+                scope.offline_members_count = scope.offline_members_count + 1
+              } else {
+                scope.online_members.push(data.response);
+                scope.online_members_count = scope.online_members_count + 1
+              }              
+          });
+        });
+      };
+
+
+      scope.calculate();
+
+      scope.sortField = 'name';
+      scope.reverse = true;
+
+    
+      scope.random = function() {
+        scope.all_members = [];
+        scope.offline_members = [];
+        scope.online_members = [];
+        scope.offline_members_count = 0
+        scope.online_members_count = 0
+        scope.id = Math.floor((Math.random()*90864594)+1);
+        scope.calculate();
+      }
+      
+
+
+    }]);
+   
+    </script>
+  </head>
+  
+  <body ng-controller="CountryCtrl">
+    <div class="container">
+    <h1>VK_Auditory Online Checker</h1>
+    <br>
+    
+    Group id <input id="art" ng-model="id" type="text" />    <a href='' class="btn btn-default" ng-click="calculate()">Посмотреть</a>
+     <a href='' class="btn btn-default" ng-click="random()">Случайная группа</a>
+    <br>или выберите:
+    <a href="" ng-click='id=33393308; calculate()'>Цукерберг Позвонит</a>,
+    <a href="" ng-click='id=70435584; calculate()'>Art Challenge</a>,
+    <a href="" ng-click='id=29534144; calculate()'>Лентач</a>,
+    <a href="" ng-click='id=44076247; calculate()'>Look At Art</a>,
+    <a href="" ng-click='id=44076247; calculate()'>Спутник и Погром</a>,
+    <a href="" ng-click='id=30825867; calculate()'>Start Fellows</a>
+
+    
+    <br><br>
+    <span ng-repeat="field in group">
+      <h3>{{field.name}} <small>{{field.screen_name}}</small></h3>
+      <p><a target="_blank" href="http://vk.com/{{field.screen_name}}"><img ng-src='{{field.photo_200}}'></a></p>
+      <p>{{field.members_count | number : fractionSize}} подписчиков</p>
+      <p>{{field.description}}</p>
+    </span>
+
+    <h2>Юзеры Online:</h2>
+    {{online_members_count}} из {{members_count}} ({{online_members_count/(members_count/100)}}%)
+    <br>
+    <table class="table">
+      <tr>
+        <th><a href="" ng-click="sortField = 'photo'; reverse = !reverse;">Фото</a></th>
+        <th><a href="" ng-click="sortField = 'name'; reverse = !reverse">Имя</a></th>
+        <th><a href="" ng-click="sortField = 'online'; reverse = !reverse">Online</a></th>
+      </tr>
+      <tr ng-repeat="member2 in online_members">  <!-- orderBy: 'population' // orderBy: '-population' -->
+        <td><img ng-src={{member2[0].photo_50}}></td>
+        <td>{{member2[0].first_name}} {{member[0].last_name}}</td>
+        <td>{{member2[0].online}}</td>
+      </tr>
+    </table>
+
+
+    <h2>Юзеры Offline:</h2>
+    {{offline_members_count}} из {{members_count}} ({{offline_members_count/(members_count/100)}}%)
+    <br>
+    <table class="table">
+      <tr>
+
+        <th><a href="" ng-click="sortField = 'photo'; reverse = !reverse;">Фото</a></th>
+        <th><a href="" ng-click="sortField = 'name'; reverse = !reverse">Имя</a></th>
+        <th><a href="" ng-click="sortField = 'online'; reverse = !reverse">Online</a></th>
+      </tr>
+      <tr ng-repeat="member in offline_members">  <!-- orderBy: 'population' // orderBy: '-population' -->
+        <td><img ng-src={{member[0].photo_50}}></td>
+        <td>{{member[0].first_name}} {{member[0].last_name}}</td>
+        <td>{{member[0].online}}</td>
+      </tr>
+    </table>   
+
+      
+    
+    
+
+    
+    </div>
+  </body>
+</html>
