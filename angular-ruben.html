@@ -16,15 +16,15 @@
       
       scope.calculate = function() {
 
-      http.get('//api.vk.com/method/users.get?user_id=' + scope.id + '&fields=screen_name').success(function(data) {
+      http.jsonp('https://api.vk.com/method/users.get?user_id=' + scope.id + '&fields=screen_name&callback=JSON_CALLBACK').success(function(data) {
           scope.name = data.response;
         });
 
-      http.get('//api.vk.com/method/users.getSubscriptions?user_id=' + scope.id + '&extended=1&count=200').success(function(data) {
+      http.jsonp('https://api.vk.com/method/users.getSubscriptions?user_id=' + scope.id + '&extended=1&count=200&callback=JSON_CALLBACK').success(function(data) {
         scope.groups = data.response;
         
         angular.forEach(scope.groups,  function(group){
-          http.get('//api.vk.com/method/groups.getMembers?group_id=' + group.gid + '&extended=1').success(function(data) {
+          http.jsonp('https://api.vk.com/method/groups.getMembers?group_id=' + group.gid + '&extended=1&callback=JSON_CALLBACK').success(function(data) {
             group.followers = data.response.count;
           });
         });
