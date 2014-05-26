@@ -1,0 +1,147 @@
+<!-- <html ng-app>
+  <head>
+    <meta charset="utf-8">
+    <title>Angular.js Exampl</title>
+    <script src="http:////cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular.min.js"></script>
+  </head>
+  <body>
+    First name: <input ng-model="first.name" type="text" /><br>
+    Last bame:<input ng-model="last.name" type="text" /><br>
+    Hello {{first.name}} {{last.name}}
+</body>
+</html> -->
+
+
+<!-- <html ng-app="nameApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Angular.js Exampl</title>
+    <script src="http:////cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular.min.js"></script>
+    <script>
+    var nameApp = angular.module('nameApp', []);
+    
+    nameApp.controller('NameCtrl', function ($scope) {
+      $scope.names = ['Larry', 'Curly', 'Moe' ];
+      // $scope.enteredName = "loh";
+      
+      $scope.addName = function () {
+        $scope.names.push($scope.enteredName);
+        $scope.enteredName = '';
+      };
+      
+      $scope.removeName = function(name) {
+        var i = $scope.names.indexOf(name);
+        $scope.names.splice(i,1);
+      };
+      
+    });    
+    
+    </script>
+  </head>
+  <body ng-controller="NameCtrl">
+    <ul>
+      <li ng-repeat="name in names">{{name}}
+        <a href= "" ng-click="removeName(name)">remove</a>
+      </li>
+    </ul>
+    
+    <form ng-submit="addName()">
+      <input type="text" ng-model="enteredName">
+      <input type="submit" value="add">
+    </form>
+    
+    <span>{{enteredName}}</span>
+</body>
+</html> -->
+
+
+<html ng-app="countryApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Angular.js Exampl</title>
+    <script src="http:////cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular.min.js"></script>
+    <script>
+    
+    var countryApp = angular.module('countryApp', []);
+    
+    countryApp.controller('CountryCtrl', ['$scope', '$http', function (scope, http) {
+      http.get('data.json').success(function(data) {
+        scope.companies = data;
+      });
+
+    scope.sortField = 'Company';
+    scope.reverse = false;
+    }]);
+    </script>
+  </head>
+  <body ng-controller="CountryCtrl">
+    Search:<input ng-model="query" type="text" />
+    <table>
+      <tr>
+        <th><a href="" ng-click="sortField = 'Company'; reverse = !reverse">Company</a></th>
+        <th><a href="" ng-click="sortField = 'Year'; reverse = !reverse">Year</a></th>
+        <th><a href="" ng-click="sortField = 'Rank'; reverse = !reverse">Rank</a></th>
+        <th><a href="" ng-click="sortField = 'Profit'; reverse = !reverse">Profit</a></th>
+        <!-- <th>Flag</th> -->
+      </tr>
+      <tr ng-repeat="company in companies | filter:query | orderBy:sortField:reverse">  <!-- orderBy: 'population' // orderBy: '-population' -->
+        <td>{{company.Company}}</td>
+        <td>{{company.Year}}</td>
+        <td>{{company.Rank}}</td> <!-- <td>{{country.population | currency}}</td> -->
+        <td>{{company.Profit | currency}}</td>
+
+        <!-- <td><img ng-src="{{country.flagURL}}" width="100"></img></td> -->
+      </tr>
+    </table>
+  </body>
+</html>
+
+
+<!-- <html ng-app="countryApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Angular.js Exampl</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-js/1.2.16/angular-route.min.js"></script>
+    <script>
+    
+    var countryApp = angular.module('countryApp', [ngRoute]);
+    
+    countryApp.config(function($routeProvider) {
+      $routeProvider.
+        when('/', {
+          templateUrl: 'country-list.html',
+          controller: 'CountryListCtrl'          
+        }).
+        when('/:countryName', {
+          templateUrl: 'country-detail.html',
+          controller: 'CountryDetailCtrl'
+        }). 
+        otherwise({
+          redirectTo: '/'
+        });
+    });
+    
+    countryApp.controller('CountryListCtrl', function ($scope, $http){
+      $http.get('countryes.json').success(function(data) {
+        $scope.countries = data;
+      });
+    });
+
+    countryApp.controller('CountryDetailCtrl', function ($scope, $routeParams){
+      $scope.name = $routeParams.countryName;
+    });
+    </script>
+  </head>
+  <body>
+    <div ng-view></div>
+  </body>
+</html>
+
+country-detail.html
+<h1>{{name}}</h1>
+
+country-list.html
+<ul>
+  <li ng-repeat="country in countries">{{country.name}}</li>
+</ul> -->

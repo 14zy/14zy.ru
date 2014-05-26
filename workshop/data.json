@@ -1,0 +1,387 @@
+[
+ 	{
+		"Year" : "1955",
+		"Rank" : "1",
+		"Revenue" : "9823.5",
+		"Profit" : "806",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1956",
+		"Rank" : "1",
+		"Revenue" : "12443.3",
+		"Profit" : "1189.5",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1957",
+		"Rank" : "1",
+		"Revenue" : "10796.4",
+		"Profit" : "847.4",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1958",
+		"Rank" : "1",
+		"Revenue" : "10989.8",
+		"Profit" : "843.6",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1959",
+		"Rank" : "1",
+		"Revenue" : "9522",
+		"Profit" : "633.6",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1960",
+		"Rank" : "1",
+		"Revenue" : "11233.1",
+		"Profit" : "873.1",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1961",
+		"Rank" : "1",
+		"Revenue" : "12736",
+		"Profit" : "959",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1962",
+		"Rank" : "1",
+		"Revenue" : "11395.9",
+		"Profit" : "892.8",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1963",
+		"Rank" : "1",
+		"Revenue" : "14640.2",
+		"Profit" : "1459.1",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1964",
+		"Rank" : "1",
+		"Revenue" : "16494.8",
+		"Profit" : "1591.8",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1965",
+		"Rank" : "1",
+		"Revenue" : "16997",
+		"Profit" : "1734.8",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1966",
+		"Rank" : "1",
+		"Revenue" : "20734",
+		"Profit" : "2125.6",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1967",
+		"Rank" : "1",
+		"Revenue" : "20208.5",
+		"Profit" : "1793.4",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1968",
+		"Rank" : "1",
+		"Revenue" : "20026.3",
+		"Profit" : "1627.3",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1969",
+		"Rank" : "1",
+		"Revenue" : "22755.4",
+		"Profit" : "1731.9",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1970",
+		"Rank" : "1",
+		"Revenue" : "24295.1",
+		"Profit" : "1710.7",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1971",
+		"Rank" : "1",
+		"Revenue" : "18752.4",
+		"Profit" : "609.1",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1972",
+		"Rank" : "1",
+		"Revenue" : "28263.9",
+		"Profit" : "1935.7",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1973",
+		"Rank" : "1",
+		"Revenue" : "30435.2",
+		"Profit" : "2162.8",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1974",
+		"Rank" : "1",
+		"Revenue" : "35798.3",
+		"Profit" : "2398.1",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1975",
+		"Rank" : "1",
+		"Revenue" : "42061.3",
+		"Profit" : "3142.2",
+		"Company" : "Exxon Mobil"
+	},
+	{
+		"Year" : "1976",
+		"Rank" : "1",
+		"Revenue" : "44864.8",
+		"Profit" : "2503",
+		"Company" : "Exxon Mobil"
+	},
+	{
+		"Year" : "1977",
+		"Rank" : "1",
+		"Revenue" : "48630.8",
+		"Profit" : "2641",
+		"Company" : "Exxon Mobil"
+	},
+	{
+		"Year" : "1978",
+		"Rank" : "1",
+		"Revenue" : "54961.3",
+		"Profit" : "3337.5",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1979",
+		"Rank" : "1",
+		"Revenue" : "63221.1",
+		"Profit" : "3508",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1980",
+		"Rank" : "1",
+		"Revenue" : "79106.5",
+		"Profit" : "4295.2",
+		"Company" : "Exxon Mobil"
+	},
+	{
+		"Year" : "1981",
+		"Rank" : "1",
+		"Revenue" : "103142.8",
+		"Profit" : "5650.1",
+		"Company" : "Exxon Mobil"
+	},
+	{
+		"Year" : "1982",
+		"Rank" : "1",
+		"Revenue" : "108107.7",
+		"Profit" : "5567.5",
+		"Company" : "Exxon Mobil"
+	},
+	{
+		"Year" : "1983",
+		"Rank" : "1",
+		"Revenue" : "97172.5",
+		"Profit" : "4185.9",
+		"Company" : "Exxon Mobil"
+	},
+	{
+		"Year" : "1984",
+		"Rank" : "1",
+		"Revenue" : "88561.1",
+		"Profit" : "4978",
+		"Company" : "Exxon Mobil"
+	},
+	{
+		"Year" : "1985",
+		"Rank" : "1",
+		"Revenue" : "90854",
+		"Profit" : "5528",
+		"Company" : "Exxon Mobil"
+	},
+	{
+		"Year" : "1986",
+		"Rank" : "1",
+		"Revenue" : "96371.7",
+		"Profit" : "3999",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1987",
+		"Rank" : "1",
+		"Revenue" : "102813.7",
+		"Profit" : "2944.7",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1988",
+		"Rank" : "1",
+		"Revenue" : "101782",
+		"Profit" : "3551",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1989",
+		"Rank" : "1",
+		"Revenue" : "121085",
+		"Profit" : "4856",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1990",
+		"Rank" : "1",
+		"Revenue" : "126974.3",
+		"Profit" : "4224.3",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1991",
+		"Rank" : "1",
+		"Revenue" : "125126",
+		"Profit" : "-1985.7",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1992",
+		"Rank" : "1",
+		"Revenue" : "123780.1",
+		"Profit" : "-4452.8",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1993",
+		"Rank" : "1",
+		"Revenue" : "132774.9",
+		"Profit" : "-23498.3",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1994",
+		"Rank" : "1",
+		"Revenue" : "133621.9",
+		"Profit" : "2465.8",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1995",
+		"Rank" : "1",
+		"Revenue" : "154951.2",
+		"Profit" : "4900.6",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1996",
+		"Rank" : "1",
+		"Revenue" : "168828.6",
+		"Profit" : "6880.7",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1997",
+		"Rank" : "1",
+		"Revenue" : "168369",
+		"Profit" : "4963",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1998",
+		"Rank" : "1",
+		"Revenue" : "178174",
+		"Profit" : "6698",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "1999",
+		"Rank" : "1",
+		"Revenue" : "161315",
+		"Profit" : "2956",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "2000",
+		"Rank" : "1",
+		"Revenue" : "189058",
+		"Profit" : "6002",
+		"Company" : "General Motors"
+	},
+	{
+		"Year" : "2001",
+		"Rank" : "1",
+		"Revenue" : "210392",
+		"Profit" : "17720",
+		"Company" : "Exxon Mobil"
+	},
+	{
+		"Year" : "2002",
+		"Rank" : "1",
+		"Revenue" : "219812",
+		"Profit" : "6671",
+		"Company" : "Wal-Mart Stores"
+	},
+	{
+		"Year" : "2003",
+		"Rank" : "1",
+		"Revenue" : "246525",
+		"Profit" : "8039",
+		"Company" : "Wal-Mart Stores"
+	},
+	{
+		"Year" : "2004",
+		"Rank" : "1",
+		"Revenue" : "258681",
+		"Profit" : "9054",
+		"Company" : "Wal-Mart Stores"
+	},
+	{
+		"Year" : "2005",
+		"Rank" : "1",
+		"Revenue" : "288189",
+		"Profit" : "10267",
+		"Company" : "Wal-Mart Stores"
+	},
+	{
+		"Year" : "2006",
+		"Rank" : "1",
+		"Revenue" : "339938",
+		"Profit" : "36130",
+		"Company" : "Exxon Mobil"
+	},
+	{
+		"Year" : "2007",
+		"Rank" : "1",
+		"Revenue" : "351139",
+		"Profit" : "11284",
+		"Company" : "Wal-Mart Stores"
+	},
+	{
+		"Year" : "2008",
+		"Rank" : "1",
+		"Revenue" : "378",
+		"Profit" : "799.00",
+		"Company" : "Wal-Mart Stores"
+	},
+	{
+		"Year" : "2009",
+		"Rank" : "1",
+		"Revenue" : "442",
+		"Profit" : "851.00",
+		"Company" : "Exxon Mobil"
+	}
+]
