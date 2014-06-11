@@ -4,7 +4,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>People Scanner</title>
+    <title>GiveMeSugar - Бесплатный анализатор ВКонтакте</title>
+    <description>Узнать активность сообщества, наличие ботов, количество пользователей онлайн и т.д.</description>
+    <link rel="canonical" href="http://14zy.ru/vk/" />
+    <meta property="og:url" content="http://14zy.ru/vk/" />
+    <link rel="icon" type="image/ico" href="/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel='image_src' href="http://14zy.ru/vk/givemesugar.jpg">
+    <meta property="og:image" content="http://14zy.ru/vk/givemesugar.jpg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="GiveMeSugar - Бесплатный анализатор ВКонтакте" />
+    
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <script src="http:////cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular.min.js"></script>
@@ -12,22 +23,22 @@
   
   <body ng-controller="ScannerCtl" ng-init="random();">
     <div class="container">
-    <h1><small><span class="glyphicon glyphicon-eye-open"></span> People Scanner:</small></h1>
+    <h1><small><span class="glyphicon glyphicon-cutlery"></span> GiveMeSugar:</small></h1>
     <form>
       <div class="input-group input-group-lg">
         <input class="form-control" ng-model="link" type="text"/>
         <span class="input-group-btn">
-          <button type="submit" class="btn btn-success primary" ng-click="getProfile()">
-            <span class="glyphicon glyphicon-search"></span> Сканировать
+          <button type="submit" id="link" class="btn btn-success primary" ng-click="getProfile();">
+            <span class="glyphicon glyphicon-search"></span> Анализировать
           </button>
-          <button type="button" class="btn btn-info" ng-click="random()">
-            Случайный <span class="glyphicon glyphicon-send"></span>
+          <button type="button" class="btn btn-info" ng-click="random();">
+            Рандом <span class="glyphicon glyphicon-send"></span>
           </button>
         </span>
       </div>
     </form>
 
-    <small>id или адрес ВКонтакте (например, <a href="" ng-click="link='http://vk.com/just14zy';getProfile(); ">http://vk.com/just14zy</a>)</small>
+    <small>Введите адрес ВКонтакте (например, <a href="" ng-click="link='http://vk.com/just14zy';getProfile(); ">http://vk.com/just14zy</a>)</small>
 
     <br>
     <br>
@@ -54,7 +65,6 @@
           </span>
         </span>    
         <br>
-
         <span ng-cloak ng-show="profile.interests">
         <h4>Интересы:</h4>
         <span ng-cloak ng-repeat="interest in profile.interests">    
@@ -73,13 +83,17 @@
         <span ng-cloak ng-show="friends.length > 10">
         Вовлечённых в коммуникацию: {{engaged}}<br>
         <span>Ботов: {{suspected}}</span><br>
-        <span style="color:red">{{error}}</span>
-        <div ng-show="error == null" id="donutchart" style="width: 500px; height: 300px"></div>
+        <span ng-show="error != null" style="color:red">
+        <br>{{error}}
+        <img width="200" src="http://static.planetminecraft.com/files/resource_media/screenshot/1209/fuuuu-rage-guy1_1596246.jpg">
+        </span>
+        <div ng-show="error == null" id="donutchart" style="margin: -5px 0 0 -80px ; width: 500px; height: 300px"></div>
         </span>
       </div>        
     
     </div>
-    <div class="row" ng-cloak ng-show="groups.length > 1">
+    
+    <!-- <div class="row" ng-cloak ng-show="groups.length > 1">
       <div class="col-md-6">
       <table class="table">
         <tr>
@@ -92,7 +106,8 @@
         </tr>
       </table>
       </div>
-    </div>
+    </div> -->
+      
   </div>
       
     
@@ -130,6 +145,7 @@
                   return p;
               }, []);
           };
+          if (scope.wall.length > 10) {scope.engaged = "loading..."} else {scope.engaged = 0};
           for (var i = 1; i < scope.wall.length-1; i++) {
             url2 = "https://api.vk.com/method/likes.getList?owner_id=" + scope.profile[0]['uid'] + "&item_id=" + scope.wall[i]['id'] + "&friends_only=1&count=100&filter=likes&type=post&callback=JSON_CALLBACK";
             http.jsonp(url2).success(function(data2) {
@@ -159,23 +175,24 @@
       };
 
       scope.getProfile = function() {
-        window.friends = 0;
-        window.suspected = 0;
-        window.engaged = 0;
-        scope.friends = 0;
-        scope.suspected = 0;
-        scope.engaged = 0;
+        window.friends = null;
+        window.suspected = null;
+        window.engaged = null;
+        scope.friends = null;
+        scope.suspected = null;
+        scope.engaged = null;
         scope.error = null;
         drawChart();
-        scope.id = scope.link.split("/")[scope.link.split("/").length-1]
+        scope.id = scope.link.split("/")[scope.link.split("/").length-1];
+        if (scope.id == "id1") {alert('Вы не можете устремить свой никчёмный взгляд на Создателя!'); return;};
         http.jsonp('https://api.vk.com/method/users.get?user_ids=' + scope.id + '&fields=sex,bdate,city,country,photo_50,photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,online_mobile,lists,domain,has_mobile,contacts,connections,site,education,universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message,status,last_seen,relation,relatives,counters,screen_name,timezone&callback=JSON_CALLBACK').success(function(data) {
           if (data.response[0]['deactivated']) {
             scope.random();
           } else {
             scope.profile = data.response;
             scope.digestProfile();
-            scope.getGroups();
             scope.getFriends();
+            //scope.getGroups();
           }
         });
       };
@@ -206,10 +223,10 @@
       http.jsonp(url).success(function(data) {
         scope.friends = data.response;
         window.friends = scope.friends.length;
-        window.suspected = scope.suspected;
         if (window.friends > 10) {
           scope.getEngaged();
-          drawChart();
+          //drawChart();
+          scope.suspected = 0;
           angular.forEach(scope.friends, function(friend){
             http.jsonp('https://api.vk.com/method/users.get?user_ids=' + friend + '&callback=JSON_CALLBACK').success(function(data) {
               if (data.response[0]['deactivated']) {
@@ -223,6 +240,7 @@
       });
     };
     
+
     scope.random = function() {
       scope.link = "http://vk.com/id" + Math.floor((Math.random()*90864594)+1).toString();
       scope.getProfile();
@@ -230,7 +248,7 @@
 
     scope.digestProfile = function() {  
       http.jsonp('https://api.vk.com/method/database.getCitiesById?city_ids=' + scope.profile[0]['city'] + "&callback=JSON_CALLBACK").success(function(data) {
-        scope.profile[0]['city'] = data.response[0]['name'];
+        if (scope.profile[0]['city']) {scope.profile[0]['city'] = data.response[0]['name']};
       });
 
       if (scope.profile[0]['sex'] == 1) {scope.profile[0]['sex'] = "Женский"};
@@ -328,7 +346,7 @@
         ]);
 
         var options = {
-          title: 'Всего ' + window.friends + ' друзей:',
+          // title: 'Всего ' + window.friends + ' друзей:',
           pieHole: 0.4,
           colors: ['lightgreen','lightblue', 'gray']
         };
