@@ -55,12 +55,14 @@
         </span>    
         <br>
 
+        <span ng-cloak ng-show="profile.interests">
         <h4>Интересы:</h4>
         <span ng-cloak ng-repeat="interest in profile.interests">    
         <li ng-if="!$last">{{interest[interest.length-1]['name']}}</li>
         <li ng-if="$last">{{interest[interest.length-1]['name']}}</li>
         </span>
         <li ng-show="!profile.interests.length">Не удалось определить</li>
+        </span>
         <br>
       </div>
 
@@ -163,6 +165,7 @@
         scope.friends = 0;
         scope.suspected = 0;
         scope.engaged = 0;
+        scope.error = null;
         drawChart();
         scope.id = scope.link.split("/")[scope.link.split("/").length-1]
         http.jsonp('https://api.vk.com/method/users.get?user_ids=' + scope.id + '&fields=sex,bdate,city,country,photo_50,photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,online_mobile,lists,domain,has_mobile,contacts,connections,site,education,universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message,status,last_seen,relation,relatives,counters,screen_name,timezone&callback=JSON_CALLBACK').success(function(data) {
@@ -182,7 +185,7 @@
         http.jsonp(url).success(function(data) {
           scope.groups = data.response;
           if (scope.groups.length > 1) { 
-            scope.getInterests();
+            // scope.getInterests();
             angular.forEach(scope.groups, function(group){
               if (group.type=="profile") {
                 http.jsonp('https://api.vk.com/method/users.getFollowers?user_id=' + group.uid + '&callback=JSON_CALLBACK').success(function(data) {
