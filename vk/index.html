@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>GiveMeSugar - Бесплатный анализатор ВКонтакте</title>
-    <description>Узнать активность сообщества, наличие ботов, количество пользователей онлайн и т.д.</description>
+    <meta name="description" content="Узнать активность сообщества, наличие ботов, количество пользователей онлайн и т.д.">
     <link rel="canonical" href="http://14zy.ru/vk/" />
     <meta property="og:url" content="http://14zy.ru/vk/" />
     <link rel="icon" type="image/ico" href="/favicon.ico" />
@@ -23,16 +23,16 @@
   
   <body ng-controller="ScannerCtl" ng-init="random();">
     <div class="container">
-    <h1><small><span class="glyphicon glyphicon-cutlery"></span> GiveMeSugar:</small></h1>
+    <h1><small><a href="http://vk.com/vk/"><span class="glyphicon glyphicon-cutlery"></span> GiveMeSugar</a></small></h1>
     <form>
       <div class="input-group input-group-lg">
         <input class="form-control" ng-model="link" type="text"/>
         <span class="input-group-btn">
-          <button type="submit" id="link" class="btn btn-success primary" ng-click="getProfile();">
-            <span class="glyphicon glyphicon-search"></span> Анализировать
+          <button title="Анализировать" style="width: 100px;" type="submit" id="link" class="btn btn-success primary" ng-click="getProfile();">
+            <span class="glyphicon glyphicon-search"></span>
           </button>
-          <button type="button" class="btn btn-info" ng-click="random();">
-            Рандом <span class="glyphicon glyphicon-send"></span>
+          <button title="Случайный профиль" style="width: 100px;" type="button" class="btn btn-info" ng-click="random();">
+            <span class="glyphicon glyphicon-send"></span>
           </button>
         </span>
       </div>
