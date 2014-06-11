@@ -81,8 +81,8 @@
         <h3>Аудитория:</h3>        
         <span ng-cloak>Друзей: {{friends.length}}</span><br>  
         <span ng-cloak ng-show="friends.length > 10">
-        Вовлечённых в коммуникацию: {{engaged}}<br>
-        <span>Ботов: {{suspected}}</span><br>
+        <span title="Друзья, которые поставили хоть один лайк на стене пользователя (за последние 100 постов)">Вовлечённых в коммуникацию: {{engaged}}<br></span>
+        <span title="Профили, заблокированные ВКонтакте">Ботов: {{suspected}}</span><br>
         <span ng-show="error != null" style="color:red">
         <br>{{error}}
         <img width="200" src="http://static.planetminecraft.com/files/resource_media/screenshot/1209/fuuuu-rage-guy1_1596246.jpg">
