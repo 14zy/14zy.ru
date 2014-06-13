@@ -24,11 +24,11 @@
   <body ng-controller="ScannerCtl" ng-init="random();">
     <div class="container">
     <h1><small><a href="http://vk.com/vk/"><span class="glyphicon glyphicon-cutlery"></span> GiveMeSugar</a></small></h1>
-    <form>
-      <div class="input-group input-group-lg">
+    <form class="form-group {{wrongId}}">
+      <div class="input-group input-group-lg ">
         <input class="form-control" ng-model="link" type="text"/>
         <span class="input-group-btn">
-          <button title="Анализировать" style="width: 100px;" type="submit" id="link" class="btn btn-success primary" ng-click="getProfile();">
+          <button title="Анализировать" style="width: 100px;" type="submit" id="link" class="btn btn-success primary" ng-click="deside();">
             <span class="glyphicon glyphicon-search"></span>
           </button>
           <button title="Случайный профиль" style="width: 100px;" type="button" class="btn btn-info" ng-click="random();">
@@ -36,25 +36,22 @@
           </button>
         </span>
       </div>
+      <label ng-cloak ng-show="wrongId" class="control-label">Чета хуёвый адрес</label>
+      <small ng-show="!wrongId">Введите адрес сообщества или профиля ВКонтакте (например, <a href="" ng-click="link='http://vk.com/just14zy'; deside(); ">http://vk.com/just14zy</a>)</small>
     </form>
 
-    <small>Введите адрес ВКонтакте (например, <a href="" ng-click="link='http://vk.com/just14zy';getProfile(); ">http://vk.com/just14zy</a>)</small>
-
-    <br>
-    <br>
-    
-    <div class="row">  
+    <div ng-cloak class="row" ng-show="profile != null">
       <div class="col-md-4">
         <span ng-repeat="field in profile" on-finish-render="getCity();">    
-          <h3 ng-cloak>{{field.first_name}} {{field.last_name}} <a target="_blank" href="http://vk.com/{{field.screen_name}}"><small>{{field.screen_name}}</small></a></h3>
+          <h3>{{field.first_name}} {{field.last_name}}<br><a target="_blank" href="http://vk.com/{{field.screen_name}}"><small><span class="glyphicon glyphicon-user"></span> {{field.screen_name}}</small></a></h3>
           <p><a target="_blank" href="http://vk.com/{{field.screen_name}}"><img ng-src='{{field.photo_100}}'></a></p>
-          <span ng-cloak ng-show="!field.deactivated">
+          <span ng-show="!field.deactivated">
             <span ng-show="field.screen_name != ('id' + field.uid.toString())"><small style="color: gray;">id: {{field.uid}}</small><br></span>
             <span style="color: green;" ng-show="field.online==1">Online<br></span>
             <span ng-show="field.city != 0">Город: {{field.city}}<br></span> 
             Пол: {{field.sex}}<br>
             <span ng-show="field.bdate !=nil">День рождения: {{field.bdate}}<br></span>
-            <span ng-show="field.mobile != 'Через сайт'">{{field.mobile}}<br></span>
+            <span ng-show="field.mobile != null"><img width="16" src="icons/{{field.mobile}}.png"> {{field.mobile}}<br></span>
             <span ng-show="field.relation">Семейное положение: {{field.relation}}<br></span>
             <span ng-show="field.connections !=nil">connections: {{field.connections}}<br></span>
             <span ng-show="field.instagram !=nil"><a target="_blank" href="http://instagram.com/{{field.instagram}}">Instagram</a><br></span>
@@ -65,9 +62,9 @@
           </span>
         </span>    
         <br>
-        <span ng-cloak ng-show="profile.interests">
+        <span ng-show="profile.interests">
         <h4>Интересы:</h4>
-        <span ng-cloak ng-repeat="interest in profile.interests">    
+        <span ng-repeat="interest in profile.interests">    
         <li ng-if="!$last">{{interest[interest.length-1]['name']}}</li>
         <li ng-if="$last">{{interest[interest.length-1]['name']}}</li>
         </span>
@@ -76,39 +73,89 @@
         <br>
       </div>
 
-      
-      <div class="col-md-4">
+      <div class="col-md-4" ng-cloak ng-show="friends.length >= 0">
         <h3>Аудитория:</h3>        
-        <span ng-cloak>Друзей: {{friends.length}}</span><br>  
-        <span ng-cloak ng-show="friends.length > 10">
-        <span title="Друзья, которые поставили хоть один лайк на стене пользователя (за последние 100 постов)">Вовлечённых в коммуникацию: {{engaged}}<br></span>
-        <span title="Профили, заблокированные ВКонтакте">Ботов: {{suspected}}</span><br>
-        <span ng-show="error != null" style="color:red">
-        <br>{{error}}
-        <img width="200" src="http://static.planetminecraft.com/files/resource_media/screenshot/1209/fuuuu-rage-guy1_1596246.jpg">
+        <span>{{friends.length}} друзей</span><br>  
+        <span ng-show="friends.length > 10">
+        <span title="Друзья, которые поставили хоть один лайк на стене пользователя (за последние 100 постов)">Вовлечены в коммуникацию:
+          <span ng-show="engaged == 'loading'"> loading...</span>
+          <span ng-show="engaged != 'loading'"> {{engaged.length}}</span>
+          <br>
         </span>
-        <div ng-show="error == null" id="donutchart" style="margin: -5px 0 0 -80px ; width: 500px; height: 300px"></div>
+        <span title="Профили, заблокированные ВКонтакте">Боты: {{suspected.length}}</span><br>
+        <div id="donutchart" style="margin: -5px 0 0 -80px ; width: 500px; height: 300px"></div>
         </span>
-      </div>        
-    
-    </div>
-    
-    <!-- <div class="row" ng-cloak ng-show="groups.length > 1">
-      <div class="col-md-6">
-      <table class="table">
-        <tr>
-          <th><span style="margin-left: -8px;"ng-click="sortField = 'name'; reverse = !reverse;">Подписан на:</span></th>
-          <th><span ng-click="sortField = 'followers'; reverse = !reverse">Аудитория</span></th>
-        </tr>
-        <tr ng-repeat="group in groups | filter:query | orderBy:sortField:reverse">
-          <td><a target="_blank" href="http://vk.com/{{group.screen_name}}">{{group.name || group.first_name + " "+ group.last_name}}</a></td>
-          <td>{{group.followers | number : fractionSize}}</td>
-        </tr>
-      </table>
       </div>
-    </div> -->
+
+      <div class="col-md-4">
+      </div>
+    </div> <!--row end-->
+
+    <div class="row" ng-cloak ng-show="friends.length >= 10">
+
+      <div class="col-md-4">
+        <h3>Вовлечены <span class="badge">{{engaged.length}}</span></h3> 
+          <span ng-repeat="friend in engaged">
+            <a target="_blank" href="http://vk.com/id{{friend.uid}}">
+              <span class="glyphicon glyphicon-user"></span>
+              <span>{{friend.first_name}} {{friend.last_name}}</span>
+            </a>
+            <br>
+          </span>    
+      </div>
+
+
+      <div class="col-md-4">
+        <h3>Не вовлечены <span class="badge">{{friends.length-engaged.length}}</span></h3>
+          <span ng-repeat="friend in friends" ng-if="engagedList.indexOf(friend.uid) < 0">
+            <a target="_blank" href="http://vk.com/id{{friend.uid}}">
+              <span class="glyphicon glyphicon-user"></span>
+              <span>{{friend.first_name}} {{friend.last_name}}</span>
+            </a>
+            <br>
+          </span>
+      </div>
+
+
+      <div class="col-md-4">
+        <h3>Боты <span class="badge">{{suspected.length}}</span></h3>
+        <span ng-repeat="friend in suspected">
+          <a target="_blank" href="http://vk.com/id{{friend.uid}}">
+            <span class="glyphicon glyphicon-user"></span>
+            <span>{{friend.first_name}} {{friend.last_name}}</span>
+          </a>
+          <br>
+        </span>
+      </div>
+
+    </div> <!-- row profile end -->
+
+
+    <!-- row group start -->
+    <div class="row" ng-cloak ng-show="group != null">
+      <div class="col-md-4">        
+        <span ng-repeat="field in group">
+          <h3>{{field.name}}<br><a href="http://vk.com/{{field.screen_name}}"><small><span class="glyphicon glyphicon-comment"></span> {{field.screen_name}}</small></a></h3>
+          <p><a target="_blank" href="http://vk.com/{{field.screen_name}}"><img ng-src='{{field.photo_100}}'></a></p>
+          <span ng-show="field.counters.photos">Фотографий: {{field.counters.photos}}<br></span>
+          <span ng-show="field.counters.albums">Альбомов: {{field.counters.albums}}<br></span>
+          <span ng-show="field.counters.topics">Обсуждения: {{field.counters.topics}}<br></span>
+          <span ng-show="field.counters.videos">Видео: {{field.counters.videos}}<br></span>
+          <span ng-show="field.counters.audios">Аудио: {{field.counters.audios}}<br></span>
+          <!-- <p>{{field.description}}</p> -->
+        </span>
+        
+        
+      </div>
       
-  </div>
+      <div class="col-md-4" ng-cloak ng-show="group[0].members_count >= 0">
+        <h3>Аудитория:</h3>
+        <span>{{group[0].members_count | number : fractionSize}} подписчиков</span>
+      </div>
+    </div> <!-- row group end -->
+
+    <br><br>
+  </div> <!-- container end -->
       
     
     <!-- Agular Controller -->
@@ -123,6 +170,132 @@
     ]);
     
     ScannerApp.controller('ScannerCtl', ['$scope', '$http', function (scope, http) {
+      
+      
+      scope.deside = function() {
+        scope.clean();
+        scope.id = scope.link.split("/")[scope.link.split("/").length-1];
+        if (scope.id.slice(0,2) == "id") {scope.getProfile(); return};
+        if (scope.id.slice(0,4) == "club") {scope.id = scope.id.slice(4,scope.id.length); scope.getGroup(); return};
+        http.jsonp('https://api.vk.com/method/utils.resolveScreenName?screen_name=' + scope.id + '&callback=JSON_CALLBACK').success(function(data) {
+            if (data.response.type == "user") {scope.getProfile(); return};
+            if (data.response.type == "club" || data.response.type == "group") {scope.getGroup(); return};
+            if (!data.response.type) {scope.wrongId="has-error"; return};
+        });
+      };
+            
+      
+      scope.getProfile = function() {
+        if (scope.id == "id1") {alert('Вы не можете устремить свой никчёмный взгляд на Создателя!'); return;};
+        http.jsonp('https://api.vk.com/method/users.get?user_ids=' + scope.id + '&fields=sex,bdate,city,country,photo_50,photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,online_mobile,lists,domain,has_mobile,contacts,connections,site,education,universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message,status,last_seen,relation,relatives,counters,screen_name,timezone&callback=JSON_CALLBACK').success(function(data) {
+          if (data.response[0]['deactivated'] || data.response[0]['photo_50'] == 'http://vk.com/images/camera_50.gif') {
+            scope.random();
+            return true;
+          } else {
+            scope.profile = data.response;
+            scope.digestProfile();
+            scope.getFriends();
+          }
+        });
+      };
+      
+      scope.getGroup = function() {        
+        http.jsonp('https://api.vk.com/method/groups.getById?group_id=' + scope.id + '&fields=photo_200,photo_100,description,members_count,counters&callback=JSON_CALLBACK').success(function(data) {
+          if (data.response[0]['deactivated'] || data.response[0]['name'] == "Закрытая группа" || data.response[0]['photo_100'] == 'http://vk.com/images/community_100.gif') {
+            scope.random();
+            return true;
+          } else {
+            scope.group = data.response;
+            scope.getMembers();
+          };
+        });
+      };
+      
+      scope.getMembers = function() {
+        http.jsonp('https://api.vk.com/method/groups.getMembers?group_id=' + scope.id + '&fields=online,photo_50,last_seen&callback=JSON_CALLBACK').success(function(data) {
+            scope.members = data.response.users;
+            if (scope.members.length > 10) {scope.analyzeMembers()}
+        });
+      };
+      
+      scope.analyzeMembers = function() {
+        
+        
+        
+      }
+
+      scope.getFriends = function() {
+        var url = 'https://api.vk.com/method/friends.get?user_id=' + scope.profile[0]['uid'] + '&callback=JSON_CALLBACK';
+        http.jsonp(url).success(function(data) {
+          scope.friendsList = data.response;
+        });
+        var url = 'https://api.vk.com/method/friends.get?user_id=' + scope.profile[0]['uid'] + '&fields=first_name&callback=JSON_CALLBACK';
+        http.jsonp(url).success(function(data) {
+          scope.friends = data.response;
+          window.friends = scope.friends.length;
+          if (window.friends > 10) {
+            scope.getEngaged();
+            scope.suspected = [];
+            angular.forEach(scope.friends, function(friend){
+              if (friend['deactivated']) {
+                scope.suspected.push(friend);
+                window.suspected = scope.suspected.length;
+              };                
+            });
+           };
+        });
+      };
+
+
+      scope.getEngaged = function() {
+        scope.error = null;
+        var url = "https://api.vk.com/method/wall.get?owner_id=" + scope.profile[0]['uid'] + "&count=100&filter=owner&callback=JSON_CALLBACK";
+        http.jsonp(url).success(function(data) {
+          scope.wall = data.response;
+          if (scope.wall.length > 10) {scope.engaged = "loading"} else {scope.engaged = 0; window.engaged=0};
+          scope.getLost = false;
+          scope.engaged = [];
+          scope.engagedList = [];
+          for (var i = 1; i < scope.wall.length-1; i++) {
+            if (scope.getLost) {break;}
+
+            //count likers
+            url = "https://api.vk.com/method/likes.getList?owner_id=" + scope.profile[0]['uid'] + "&item_id=" + scope.wall[i]['id'] + "&friends_only=1&count=100&filter=likes&extended=1&type=post&callback=JSON_CALLBACK";
+            http.jsonp(url).success(function(data) {
+              window.engaged = scope.engaged.length;
+              drawChart();
+              var result = data.response;
+              if (result['items'] != 0 ) {
+                angular.forEach(result['items'], function(user){
+                  if (scope.friendsList.indexOf(user['uid']) >= 0) {
+                    if (scope.engagedList.indexOf(user['uid']) < 0) {scope.engaged.push(user); scope.engagedList.push(user['uid'])};
+                  };                   
+                });
+              };
+            });              
+
+            // //count commenters              
+            url = "https://api.vk.com/method/wall.getComments?owner_id=" + scope.profile[0]['uid'] + "&post_id=" + scope.wall[i]['id'] + "&count=100&callback=JSON_CALLBACK";
+            http.jsonp(url).success(function(data) {
+              result = data.response;
+              if (result != 0 ) {
+                angular.forEach(result, function(user){
+                  if (user['uid'] != undefined ) {
+                    if (scope.friendsList.indexOf(user['uid']) >= 0) {
+                      if (scope.engagedList.indexOf(user['uid']) < 0) {
+                        user['first_name'] = "id" + user['uid'].toString();
+                        scope.engaged.push(user);
+                        scope.engagedList.push(user['uid'])
+                      };
+                    };                   
+                  };
+                });
+              };
+            });
+          };
+        });
+      };
+
 
       scope.getInterests = function() {
         var url = "http://hidden-reaches-3613.herokuapp.com/getInterest.json?user_id=" + scope.profile[0]['uid'] + "&callback=JSON_CALLBACK";
@@ -133,69 +306,7 @@
           scope.profile.interest_city = response.city;
         });
       };
-        
-      scope.getEngaged = function() {
-        var url = "https://api.vk.com/method/wall.get?owner_id=" + scope.profile[0]['uid'] + "&count=100&filter=owner&callback=JSON_CALLBACK";
-        http.jsonp(url).success(function(data) {
-          scope.wall = data.response;
-          var likers = [];
-          var arrayUnique = function(a) {
-              return a.reduce(function(p, c) {
-                  if (p.indexOf(c) < 0) p.push(c);
-                  return p;
-              }, []);
-          };
-          if (scope.wall.length > 10) {scope.engaged = "loading..."} else {scope.engaged = 0};
-          for (var i = 1; i < scope.wall.length-1; i++) {
-            url2 = "https://api.vk.com/method/likes.getList?owner_id=" + scope.profile[0]['uid'] + "&item_id=" + scope.wall[i]['id'] + "&friends_only=1&count=100&filter=likes&type=post&callback=JSON_CALLBACK";
-            http.jsonp(url2).success(function(data2) {
-              scope.result = data2.response;
-              if (scope.result['users'] != undefined ) {
-                angular.forEach(scope.result['users'], function(user){                  
-                  likers.push(user);
-                  scope.engaged = arrayUnique(likers).length;
-                  window.engaged = scope.engaged;
-                  if (window.engaged > window.friends) {
-                    scope.error = "Что-то пошло не так =(";
-                  }
-                  drawChart();
-                });
-              };
-            });
-          };
-        });
-        //alert('getEngaged.json');
-        // var url2 = "http://localhost:3000/getEngaged.json?user_id=" + scope.profile[0]['uid'] + "&callback=JSON_CALLBACK";
-        // scope.engaged = "loading";
-        // http.get(url2).success(function(response) {
-        //   scope.engaged = response.engaged;
-        //   window.engaged = scope.engaged;
-        //   drawChart();
-        // });  
-      };
-
-      scope.getProfile = function() {
-        window.friends = null;
-        window.suspected = null;
-        window.engaged = null;
-        scope.friends = null;
-        scope.suspected = null;
-        scope.engaged = null;
-        scope.error = null;
-        drawChart();
-        scope.id = scope.link.split("/")[scope.link.split("/").length-1];
-        if (scope.id == "id1") {alert('Вы не можете устремить свой никчёмный взгляд на Создателя!'); return;};
-        http.jsonp('https://api.vk.com/method/users.get?user_ids=' + scope.id + '&fields=sex,bdate,city,country,photo_50,photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,online_mobile,lists,domain,has_mobile,contacts,connections,site,education,universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message,status,last_seen,relation,relatives,counters,screen_name,timezone&callback=JSON_CALLBACK').success(function(data) {
-          if (data.response[0]['deactivated']) {
-            scope.random();
-          } else {
-            scope.profile = data.response;
-            scope.digestProfile();
-            scope.getFriends();
-            //scope.getGroups();
-          }
-        });
-      };
+      
       
       scope.getGroups = function() { 
         var url = 'https://api.vk.com/method/users.getSubscriptions?user_id=' + scope.profile[0]['uid'] + '&extended=1&count=200&callback=JSON_CALLBACK';
@@ -216,111 +327,111 @@
           };
         });
       };
+      
+      
+      scope.digestProfile = function() {  
+        http.jsonp('https://api.vk.com/method/database.getCitiesById?city_ids=' + scope.profile[0]['city'] + "&callback=JSON_CALLBACK").success(function(data) {
+          if (scope.profile[0]['city']) {scope.profile[0]['city'] = data.response[0]['name']};
+        });
 
+        if (scope.profile[0]['sex'] == 1) {scope.profile[0]['sex'] = "Женский"};
+        if (scope.profile[0]['sex'] == 2) {scope.profile[0]['sex'] = "Мужской"};
 
-    scope.getFriends = function() {
-      var url = 'https://api.vk.com/method/friends.get?user_id=' + scope.profile[0]['uid'] + '&callback=JSON_CALLBACK';
-      http.jsonp(url).success(function(data) {
-        scope.friends = data.response;
-        window.friends = scope.friends.length;
-        if (window.friends > 10) {
-          scope.getEngaged();
-          //drawChart();
-          scope.suspected = 0;
-          angular.forEach(scope.friends, function(friend){
-            http.jsonp('https://api.vk.com/method/users.get?user_ids=' + friend + '&callback=JSON_CALLBACK').success(function(data) {
-              if (data.response[0]['deactivated']) {
-                scope.suspected++;
-                window.suspected = scope.suspected;
-                drawChart();
-              };
-            });
-          });
-         };
-      });
-    };
-    
+        switch (scope.profile[0]['last_seen']['platform']) {
+          case 1:
+            scope.profile[0]['mobile'] = null // Через мобильную версию
+            break;
 
-    scope.random = function() {
-      scope.link = "http://vk.com/id" + Math.floor((Math.random()*90864594)+1).toString();
-      scope.getProfile();
-    };    
+          case 2:
+            scope.profile[0]['mobile'] = "iPhone"
+            break;
 
-    scope.digestProfile = function() {  
-      http.jsonp('https://api.vk.com/method/database.getCitiesById?city_ids=' + scope.profile[0]['city'] + "&callback=JSON_CALLBACK").success(function(data) {
-        if (scope.profile[0]['city']) {scope.profile[0]['city'] = data.response[0]['name']};
-      });
+          case 3:
+            scope.profile[0]['mobile'] = "iPad"
+            break;
 
-      if (scope.profile[0]['sex'] == 1) {scope.profile[0]['sex'] = "Женский"};
-      if (scope.profile[0]['sex'] == 2) {scope.profile[0]['sex'] = "Мужской"};
+          case 4:
+            scope.profile[0]['mobile'] = "Android"
+            break;
 
-      switch (scope.profile[0]['last_seen']['platform']) {
-        case 1:
-          scope.profile[0]['mobile'] = "Пользуется обычным телефоном"
-          break;
+          case 5:
+            scope.profile[0]['mobile'] = "Windows Phone"
+            break;
 
-        case 2:
-          scope.profile[0]['mobile'] = "iPhone"
-          break;
+          case 6:
+            scope.profile[0]['mobile'] = "Windows 8"
+            break;
 
-        case 3:
-          scope.profile[0]['mobile'] = "iPad"
-          break;
-
-        case 4:
-          scope.profile[0]['mobile'] = "Android"
-          break;
-
-        case 5:
-          scope.profile[0]['mobile'] = "Windows Phone"
-          break;
-
-        case 6:
-          scope.profile[0]['mobile'] = "Windows 8"
-          break;
-
-        case 7:
-          scope.profile[0]['mobile'] = "Через сайт"
-          break; };
+          case 7:
+            scope.profile[0]['mobile'] = null // Через сайт
+            break; };
           
-      switch (scope.profile[0]['relation']) {
-        case 1:
-          if (scope.profile[0]['sex'] == "Мужской") {scope.profile[0]['relation'] = "не женат"};
-          if (scope.profile[0]['sex'] == "Женский") {scope.profile[0]['relation'] = "не замужем"};
-          break;
+        switch (scope.profile[0]['relation']) {
+          case 1:
+            if (scope.profile[0]['sex'] == "Мужской") {scope.profile[0]['relation'] = "не женат"};
+            if (scope.profile[0]['sex'] == "Женский") {scope.profile[0]['relation'] = "не замужем"};
+            break;
 
-        case 2:
-          if (scope.profile[0]['sex'] == "Мужской") {scope.profile[0]['relation'] = "есть подруга"};
-          if (scope.profile[0]['sex'] == "Женский") {scope.profile[0]['relation'] = "есть друг"};
-          break;
+          case 2:
+            if (scope.profile[0]['sex'] == "Мужской") {scope.profile[0]['relation'] = "есть подруга"};
+            if (scope.profile[0]['sex'] == "Женский") {scope.profile[0]['relation'] = "есть друг"};
+            break;
 
-        case 3:
-          if (scope.profile[0]['sex'] == "Мужской") {scope.profile[0]['relation'] = "помолвлен"};
-          if (scope.profile[0]['sex'] == "Женский") {scope.profile[0]['relation'] = "помолвлена"};
-          break;
+          case 3:
+            if (scope.profile[0]['sex'] == "Мужской") {scope.profile[0]['relation'] = "помолвлен"};
+            if (scope.profile[0]['sex'] == "Женский") {scope.profile[0]['relation'] = "помолвлена"};
+            break;
 
-        case 4:
-          if (scope.profile[0]['sex'] == "Мужской") {scope.profile[0]['relation'] = "женат"};
-          if (scope.profile[0]['sex'] == "Женский") {scope.profile[0]['relation'] = "замужем"};
-          break;
+          case 4:
+            if (scope.profile[0]['sex'] == "Мужской") {scope.profile[0]['relation'] = "женат"};
+            if (scope.profile[0]['sex'] == "Женский") {scope.profile[0]['relation'] = "замужем"};
+            break;
 
-        case 5:
-          scope.profile[0]['relation'] = "всё сложно";
-          break;
+          case 5:
+            scope.profile[0]['relation'] = "всё сложно";
+            break;
 
-        case 6:
-          scope.profile[0]['relation'] = "в активном поиске";
-          break;
+          case 6:
+            scope.profile[0]['relation'] = "в активном поиске";
+            break;
 
-        case 7:
-          if (scope.profile[0]['sex'] == "Мужской") {scope.profile[0]['relation'] = "влюблён"};
-          if (scope.profile[0]['sex'] == "Женский") {scope.profile[0]['relation'] = "влюблёна"};
-          break; };
+          case 7:
+            if (scope.profile[0]['sex'] == "Мужской") {scope.profile[0]['relation'] = "влюблён"};
+            if (scope.profile[0]['sex'] == "Женский") {scope.profile[0]['relation'] = "влюблёна"};
+            break; };
+        };
 
+
+      scope.random = function() {
+        switch (Math.floor((Math.random()*2)+1)) {
+          case 1:
+            scope.link = "http://vk.com/id" + Math.floor((Math.random()*90864594)+1).toString();
+            break;
+
+          case 2:
+            scope.link = "http://vk.com/club" + Math.floor((Math.random()*90864594)+1).toString();
+            break;
+        };
+        scope.deside();
+      };    
+      
+      scope.clean = function() {
+        scope.getLost = true;
+        scope.profile = null;
+        scope.group = null;
+        window.friends = null;
+        window.suspected = null;
+        window.engaged = null;
+        scope.friends = null;
+        scope.suspected = null;
+        scope.engaged = null;
+        scope.error = null;
+        scope.wrongId = null;
+        drawChart();
       };
-    
-    }]);
-    
+      
+      
+    }]); //controller end
     </script>
 
     <!-- Optional theme -->
