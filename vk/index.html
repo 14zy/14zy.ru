@@ -77,7 +77,7 @@
         <h3>Аудитория:</h3>        
         <span>{{friends.length}} друзей</span><br>  
         <span ng-show="friends.length > 10">
-        <span title="Друзья, которые поставили хоть один лайк на стене пользователя (за последние 100 постов)">Вовлечены в коммуникацию:
+        <span title="Друзья, которые сделали хоть один лайк, репост или коммент на стене пользователя за последние 100 постов">Вовлечены в коммуникацию:
           <span ng-show="engaged == 'loading'"> loading...</span>
           <span ng-show="engaged != 'loading'"> {{engaged.length}}</span>
           <br>
@@ -171,8 +171,23 @@
         </div>
       
     </div> <!-- row group end -->
-
     <br><br>
+      <div class="row" ng-cloak>
+        <div class="col-md-4">
+        </div>
+        
+        <div class="col-md-4">
+          <div style="text-align: center;" >
+            <!-- <a target="_blank" href="http://14zy.ru">Контакты</a> //
+            <a target="_blank" href="http://14zy.ru">Вопросы</a> //
+            <a target="_blank" href="http://14zy.ru">Купить</a> -->
+              Все права принадлежат пользователям.<br>
+              <a target="_blank" href="http://14zy.ru">Рубен Бабаев</a>
+          </div>
+        </div>    
+        
+      </div>
+      <br>
   </div> <!-- container end -->
       
     
