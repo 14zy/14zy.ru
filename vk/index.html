@@ -36,8 +36,8 @@
           </button>
         </span>
       </div>
-      <label ng-cloak ng-show="wrongId" class="control-label">Чета хуёвый адрес</label>
-      <small ng-show="!wrongId">Введите адрес сообщества или профиля ВКонтакте (например, <a href="" ng-click="link='http://vk.com/just14zy'; deside(); ">http://vk.com/just14zy</a>)</small>
+      <label ng-cloak ng-show="wrongId" class="control-label">Хуёвый адрес</label>
+      <small ng-show="!wrongId">Введите адрес сообщества или профиля ВКонтакте (например, <a href="" ng-click="link='http://vk.com/art.challenge'; deside(); ">http://vk.com/art.challenge</a> или <a href="" ng-click="link='http://vk.com/just14zy'; deside(); ">http://vk.com/just14zy</a>)</small>
     </form>
 
     <div ng-cloak class="row" ng-show="profile != null">
@@ -51,8 +51,8 @@
             <span ng-show="field.city != 0">Город: {{field.city}}<br></span> 
             Пол: {{field.sex}}<br>
             <span ng-show="field.bdate !=nil">День рождения: {{field.bdate}}<br></span>
-            <span ng-show="field.mobile != null"><img width="16" src="icons/{{field.mobile}}.png"> {{field.mobile}}<br></span>
             <span ng-show="field.relation">Семейное положение: {{field.relation}}<br></span>
+            <span ng-show="field.mobile != null"><img style="margin-top: -5px;" width="16" ng-src="icons/{{field.mobile}}.png"> {{field.mobile}}<br></span>
             <span ng-show="field.connections !=nil">connections: {{field.connections}}<br></span>
             <span ng-show="field.instagram !=nil"><a target="_blank" href="http://instagram.com/{{field.instagram}}">Instagram</a><br></span>
             <span ng-show="field.twitter !=nil"><a target="_blank" href="http://twitter.com/{{field.twitter}}">Twitter</a><br></span>
@@ -137,12 +137,21 @@
         <span ng-repeat="field in group">
           <h3>{{field.name}}<br><a href="http://vk.com/{{field.screen_name}}"><small><span class="glyphicon glyphicon-comment"></span> {{field.screen_name}}</small></a></h3>
           <p><a target="_blank" href="http://vk.com/{{field.screen_name}}"><img ng-src='{{field.photo_100}}'></a></p>
-          <span ng-show="field.counters.photos">Фотографий: {{field.counters.photos}}<br></span>
-          <span ng-show="field.counters.albums">Альбомов: {{field.counters.albums}}<br></span>
-          <span ng-show="field.counters.topics">Обсуждения: {{field.counters.topics}}<br></span>
-          <span ng-show="field.counters.videos">Видео: {{field.counters.videos}}<br></span>
-          <span ng-show="field.counters.audios">Аудио: {{field.counters.audios}}<br></span>
-          <!-- <p>{{field.description}}</p> -->
+          <span ng-show="field.screen_name != ('id' + field.uid.toString())"><small style="color: gray;">id: {{field.gid}}</small><br></span>          
+          <span ng-show="field.counters.photos">Фотографий: {{field.counters.photos | number : fractionSize}}<br></span>
+          <span ng-show="field.counters.albums">Альбомов: {{field.counters.albums | number : fractionSize}}<br></span>
+          <span ng-show="field.counters.topics">Обсуждения: {{field.counters.topics | number : fractionSize}}<br></span>
+          <span ng-show="field.counters.videos">Видео: {{field.counters.videos | number : fractionSize}}<br></span>
+          <span ng-show="field.counters.audios">Аудио: {{field.counters.audios | number : fractionSize}}<br></span>
+          <br>
+          
+          
+          
+          <!-- <span ng-show="group['iPhoneUsers'] > 0">iPhone: {{group['iPhoneUsers']}}<br></span>
+          <span ng-show="group['iPadUsers'] > 0">iPad: {{group['iPadUsers']}}<br></span>
+          <span ng-show="group['AndroidUsers'] > 0">Android: {{group['AndroidUsers']}}<br></span>
+          <span ng-show="group['WindowsUsers'] > 0">Windows: {{group['WindowsUsers']}}<br></span> -->
+
         </span>
         
         
@@ -150,8 +159,15 @@
       
       <div class="col-md-4" ng-cloak ng-show="group[0].members_count >= 0">
         <h3>Аудитория:</h3>
-        <span>{{group[0].members_count | number : fractionSize}} подписчиков</span>
+        <span ng-show="members.length == group[0]['members_count']">{{members.length | number : fractionSize}} подписчиков</span>
+        <span ng-show="members.length < group[0]['members_count']">Анализируем {{members.length | number : fractionSize}} из {{group[0]['members_count'] | number : fractionSize}} подписчиков</span>
+        <br>
       </div>
+      
+        <div class="col-md-4" ng-cloak ng-show="group[0].members_count >= 100">
+          <div id="GroupMobilesChart" style="width: 400px; height: 200px"></div>
+        </div>
+      
     </div> <!-- row group end -->
 
     <br><br>
@@ -212,17 +228,50 @@
       };
       
       scope.getMembers = function() {
-        http.jsonp('https://api.vk.com/method/groups.getMembers?group_id=' + scope.id + '&fields=online,photo_50,last_seen&callback=JSON_CALLBACK').success(function(data) {
-            scope.members = data.response.users;
-            if (scope.members.length > 10) {scope.analyzeMembers()}
-        });
+        window.iphones = scope.group['iPhoneUsers'] = 0;
+        window.ipads = scope.group['iPadUsers'] = 0;
+        window.androids = scope.group['AndroidUsers'] = 0;
+        window.windows = scope.group['WindowsUsers'] = 0;
+        if (scope.group[0]['members_count'] < 1000) {
+          http.jsonp('https://api.vk.com/method/groups.getMembers?group_id=' + scope.id + '&fields=online,photo_50,last_seen&callback=JSON_CALLBACK').success(function(data) {
+            scope.members = data.response.users;      
+            scope.analyzeMembers(scope.members);
+          });
+        } else {
+          scope.members = [];
+          for (var i = 0; i < scope.group[0]['members_count']; i=i+1000) {
+            http.jsonp('https://api.vk.com/method/groups.getMembers?group_id=' + scope.id + '&offset=' + i + '&fields=online,photo_50,last_seen&callback=JSON_CALLBACK').success(function(data) {
+              scope.members = scope.members.concat(data.response.users);  
+              scope.analyzeMembers(data.response.users);
+            });
+          }; // end for
+        }; // end if
       };
-      
-      scope.analyzeMembers = function() {
-        
-        
-        
-      }
+
+      scope.analyzeMembers = function(current) {
+        angular.forEach(current, function(member){
+          if (member['last_seen'] != undefined) {
+            switch (member['last_seen']['platform']) {
+              case 2:
+                window.iphones = scope.group['iPhoneUsers']++ //"iPhone"
+                break;
+              case 3:
+                window.ipads = scope.group['iPadUsers']++ //"iPad"
+                break;
+              case 4:
+                window.androids = scope.group['AndroidUsers']++ //"Android"
+                break;
+              case 5:
+                window.windows = scope.group['WindowsUsers']++ //"Windows Phone"
+                break;
+              case 6:
+                window.windows = scope.group['WindowsUsers']++ //"Windows 8"
+                break;
+            };
+          };
+        });
+      drawChartMobiles(); 
+      };
 
       scope.getFriends = function() {
         var url = 'https://api.vk.com/method/friends.get?user_id=' + scope.profile[0]['uid'] + '&callback=JSON_CALLBACK';
@@ -417,16 +466,17 @@
       
       scope.clean = function() {
         scope.getLost = true;
-        scope.profile = null;
-        scope.group = null;
-        window.friends = null;
-        window.suspected = null;
-        window.engaged = null;
-        scope.friends = null;
-        scope.suspected = null;
-        scope.engaged = null;
-        scope.error = null;
-        scope.wrongId = null;
+        scope.group = scope.profile = null;
+        window.friends = scope.friends = null;
+        window.suspected = scope.suspected = null;
+        window.engaged = scope.engaged = null;
+        scope.error = scope.wrongId = null;
+
+        window.iphones = null;
+        window.ipads = null;
+        window.androids = null;
+        window.windows = null;
+
         drawChart();
       };
       
@@ -464,7 +514,28 @@
 
         var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
         chart.draw(data, options);
-      }
+      };
+
+      function drawChartMobiles() {
+        var data = google.visualization.arrayToDataTable([
+          ['Platform', '',  { role: 'style' }],
+          ['iPhone', window.iphones, "lightgray" ],
+          ['iPad', window.ipads, "gray" ],
+          ['Android', window.androids, "lightgreen" ],
+          ['Windows Phone', window.windows, "lightblue" ]
+        ]);
+
+        var options = {
+          //title: 'Распределение девайсов',
+          legend: { position: "none" },
+          //colors: ['gray','gray', 'green', 'blue']
+          //hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('GroupMobilesChart'));
+        chart.draw(data, options);
+      };
+
 
     </script>
 
