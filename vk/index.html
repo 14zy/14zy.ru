@@ -147,16 +147,21 @@
           <span ng-show="field.counters.videos">Видео: {{field.counters.videos | number : fractionSize}}<br></span>
           <span ng-show="field.counters.audios">Аудио: {{field.counters.audios | number : fractionSize}}<br></span> -->
         </span>
-        
-        
+        <br>
+        <div ng-cloak ng-show="group['iPhoneUsers'] > 0" id="GroupMobilesChart" style="margin: 0 0 0 -40px; width: 400px; height: 200px"></div>
       </div>
       
       <div class="col-md-4" ng-cloak ng-show="group[0].members_count >= 0">
         <h3>Аудитория:</h3>
         <span ng-show="members.length >= group[0]['members_count']">{{members.length | number : fractionSize}} подписчиков<br></span>
         <span ng-show="members.length < group[0]['members_count']">Анализируем {{members.length | number : fractionSize}} из {{group[0]['members_count'] | number : fractionSize}} подписчиков<br></span>
-        <span>Вовлечены: <br></span>
-        <span>Боты: {{group['bots'] | number : fractionSize}}<br></span>
+        <span>Вовлечены в коммуникацию: 
+          <!-- <span ng-show="loading == true">loading...<br></span>
+          <span ng-show="loading == 'calculating...'">calculating...<br></span> -->
+          <span>{{group_engagedList.length | number : fractionSize}}<br></span>
+        </span>
+        <span>Боты: {{group['bots']}}<br></span>
+        <div id="donutchartGroup" style="margin: -5px 0 0 -80px ; width: 500px; height: 300px"></div>
       </div>
       
       <div ng-cloak ng-show="members.length >= 0" class="col-md-4">
@@ -164,9 +169,6 @@
         <img src="why-would-you-do-that.jpg">
       </div>
 
-      <div class="col-md-4" ng-cloak ng-show="group[0].members_count >= 100">
-        <div id="GroupMobilesChart" style="margin: -60px 0 0 -40px; width: 400px; height: 200px"></div>
-      </div>
       
     </div> <!-- row group end -->
     <br><br>
@@ -232,33 +234,111 @@
             return true;
           } else {
             scope.group = data.response;
-            scope.getMembers();
+            window.members = scope.group[0]['members_count'];
+            scope.getGroupWall();
           };
         });
       };
+      
+      scope.getGroupWall = function() {
+        var url = "https://api.vk.com/method/wall.get?owner_id=-" + scope.group[0]['gid'] + "&count=100&filter=owner&callback=JSON_CALLBACK";
+        http.jsonp(url).success(function(data) {
+          scope.groupWall = data.response;
+          scope.getMembers();
+        });        
+      };
+      
       
       scope.getMembers = function() {
         window.iphones = scope.group['iPhoneUsers'] = 0;
         window.ipads = scope.group['iPadUsers'] = 0;
         window.androids = scope.group['AndroidUsers'] = 0;
         window.windows = scope.group['WindowsUsers'] = 0;
-        window.group_bots = scope.group['bots'] = 0;
+        window.group_bots = 0;
+        scope.group['bots'] = 0;
+        //scope.group_engaged = [];
+        scope.group_engagedList = [];
         scope.group['online'] = 0;
+        
         if (scope.group[0]['members_count'] < 1000) {
+          http.jsonp('https://api.vk.com/method/groups.getMembers?group_id=' + scope.id + '&callback=JSON_CALLBACK').success(function(data) {
+            scope.membersList = data.response.users;
+            scope.getEngagedMembers(scope.membersList);
+          });
+
           http.jsonp('https://api.vk.com/method/groups.getMembers?group_id=' + scope.id + '&fields=online,photo_50,last_seen&callback=JSON_CALLBACK').success(function(data) {
-            scope.members = data.response.users;      
+            scope.members = data.response.users;
             scope.analyzeMembers(scope.members);
           });
         } else {
+          scope.membersList = [];
           scope.members = [];
+          //scope.loading = true;
           for (var i = 0; i < scope.group[0]['members_count']; i=i+1000) {
+            http.jsonp('https://api.vk.com/method/groups.getMembers?group_id=' + scope.id + '&offset=' + i + '&callback=JSON_CALLBACK').success(function(data) {
+              scope.membersList = scope.membersList.concat(data.response.users);
+              if (scope.membersList.length == scope.group[0]['members_count']) {
+                scope.getEngagedMembers(scope.membersList);
+              };
+            });
+
             http.jsonp('https://api.vk.com/method/groups.getMembers?group_id=' + scope.id + '&offset=' + i + '&fields=online,photo_50,last_seen&callback=JSON_CALLBACK').success(function(data) {
-              scope.members = scope.members.concat(data.response.users);  
+              scope.members = scope.members.concat(data.response.users);
               scope.analyzeMembers(data.response.users);
             });
+                        
           }; // end for
         }; // end if
       };
+      
+      scope.getEngagedMembers = function(membersList) {
+          angular.forEach(scope.groupWall, function(post){
+            url = "https://api.vk.com/method/likes.getList?owner_id=-" + scope.group[0]['gid'] + "&item_id=" + post['id'] + "&count=100&extended=1&type=post&callback=JSON_CALLBACK";
+            http.jsonp(url, { cache: true}).success(function(data) {
+              if (data.response != undefined && data.response['items'] != undefined) {
+                  angular.forEach(data.response['items'], function(user){
+                    if (membersList.indexOf(user['uid']) >= 0 && scope.group_engagedList.indexOf(user['uid']) < 0) {
+                      //scope.group_engaged.push(user);
+                      scope.group_engagedList.push(user['uid'])
+                    };
+                  });
+              };
+              window.group_engaged = scope.group_engagedList.length;
+              drawChartGroup();
+            }); 
+          });
+
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          //count commenters              
+          // url = "https://api.vk.com/method/wall.getComments?owner_id=" + scope.profile[0]['uid'] + "&post_id=" + scope.wall[i]['id'] + "&count=100&callback=JSON_CALLBACK";
+//           http.jsonp(url).success(function(data) {
+//             result = data.response;
+//             if (result != 0 ) {
+//               angular.forEach(result, function(user){
+//                 if (user['uid'] != undefined ) {
+//                   if (scope.friendsList.indexOf(user['uid']) >= 0) {
+//                     if (scope.engagedList.indexOf(user['uid']) < 0) {
+//                       user['first_name'] = "id" + user['uid'].toString();
+//                       scope.engaged.push(user);
+//                       scope.engagedList.push(user['uid'])
+//                     };
+//                   };                   
+//                 };
+//               });
+//             };
+//           });
+          
+        //};
+      };
+
 
       scope.analyzeMembers = function(current) {
         angular.forEach(current, function(member){
@@ -281,13 +361,15 @@
                 break;
             };
           };
-          if (member['deactivated'] || member['photo_50'] == 'http://vk.com/images/camera_50.gif') {window.group_bots = scope.group['bots']++};
+          if (member['deactivated'] || member['photo_50'] == 'http://vk.com/images/camera_50.gif') {window.group_bots++; scope.group['bots']++};
 
           if (member['online'] == 1) {scope.group['online']++};
           
         });
       drawChartMobiles(); 
+      drawChartGroup();
       };
+
 
       scope.getFriends = function() {
         var url = 'https://api.vk.com/method/friends.get?user_id=' + scope.profile[0]['uid'] + '&callback=JSON_CALLBACK';
@@ -327,23 +409,23 @@
             //count likers
             url = "https://api.vk.com/method/likes.getList?owner_id=" + scope.profile[0]['uid'] + "&item_id=" + scope.wall[i]['id'] + "&friends_only=1&count=100&filter=likes&extended=1&type=post&callback=JSON_CALLBACK";
             http.jsonp(url).success(function(data) {
-              window.engaged = scope.engaged.length;
-              drawChart();
               var result = data.response;
-              if (result['items'] != 0 ) {
+              if (result['items'] != undefined) {
                 angular.forEach(result['items'], function(user){
                   if (scope.friendsList.indexOf(user['uid']) >= 0) {
                     if (scope.engagedList.indexOf(user['uid']) < 0) {scope.engaged.push(user); scope.engagedList.push(user['uid'])};
                   };                   
                 });
               };
+              window.engaged = scope.engaged.length;
+              drawChart();
             });              
 
             // //count commenters              
             url = "https://api.vk.com/method/wall.getComments?owner_id=" + scope.profile[0]['uid'] + "&post_id=" + scope.wall[i]['id'] + "&count=100&callback=JSON_CALLBACK";
             http.jsonp(url).success(function(data) {
               result = data.response;
-              if (result != 0 ) {
+              if (result != undefined ) {
                 angular.forEach(result, function(user){
                   if (user['uid'] != undefined ) {
                     if (scope.friendsList.indexOf(user['uid']) >= 0) {
@@ -483,18 +565,29 @@
       
       scope.clean = function() {
         scope.getLost = true;
-        scope.group = scope.profile = null;
+        //scope.loading = false;
+        scope.group = null;
+        scope.profile = null;
         window.friends = scope.friends = null;
         window.suspected = scope.suspected = null;
-        window.engaged = scope.engaged = null;
+        window.engaged = null;
+        scope.engaged = null;
         scope.error = scope.wrongId = null;
 
+        window.group_engaged = 0;
+        window.group_bots = 0;
+        window.members = 0;
+        //scope.group_engaged = 0;
+
+        
         window.iphones = null;
         window.ipads = null;
         window.androids = null;
         window.windows = null;
-        window.group_bots = null;
+
         drawChart();
+        drawChartMobiles();
+        drawChartGroup();
       };
       
       
@@ -532,6 +625,25 @@
         var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
         chart.draw(data, options);
       };
+
+      function drawChartGroup() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Вовлечены', window.group_engaged  ],
+          ['Не вовлечены', (window.members - window.group_engaged - window.group_bots) ],
+          ['Боты', window.window.group_bots  ],
+        ]);
+
+        var options = {
+          // title: 'Всего ' + window.friends + ' друзей:',
+          pieHole: 0.4,
+          colors: ['lightgreen','lightblue', 'gray']
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchartGroup'));
+        chart.draw(data, options);
+      };
+
 
       function drawChartMobiles() {
         var data = google.visualization.arrayToDataTable([
