@@ -139,21 +139,13 @@
         <span ng-repeat="field in group">
           <h3>{{field.name}}<br><a href="http://vk.com/{{field.screen_name}}"><small><span class="glyphicon glyphicon-comment"></span> {{field.screen_name}}</small></a></h3>
           <p><a target="_blank" href="http://vk.com/{{field.screen_name}}"><img ng-src='{{field.photo_100}}'></a></p>
-          <span ng-show="field.screen_name != ('id' + field.uid.toString())"><small style="color: gray;">id: {{field.gid}}</small><br></span>          
-          <span ng-show="field.counters.photos">Фотографий: {{field.counters.photos | number : fractionSize}}<br></span>
+          <span ng-show="field.screen_name != ('id' + field.uid.toString())"><small style="color: gray;">id: {{field.gid}}</small><br></span>      
+          <span ng-show="group['online'] > 0" style="color: green;">Online: {{group['online'] | number : fractionSize}} ({{(group['online'] / (group[0]['members_count']/100)).toFixed(0)}}%)<br></span>    
+          <!-- <span ng-show="field.counters.photos">Фотографий: {{field.counters.photos | number : fractionSize}}<br></span>
           <span ng-show="field.counters.albums">Альбомов: {{field.counters.albums | number : fractionSize}}<br></span>
           <span ng-show="field.counters.topics">Обсуждения: {{field.counters.topics | number : fractionSize}}<br></span>
           <span ng-show="field.counters.videos">Видео: {{field.counters.videos | number : fractionSize}}<br></span>
-          <span ng-show="field.counters.audios">Аудио: {{field.counters.audios | number : fractionSize}}<br></span>
-          <br>
-          
-          
-          
-          <!-- <span ng-show="group['iPhoneUsers'] > 0">iPhone: {{group['iPhoneUsers']}}<br></span>
-          <span ng-show="group['iPadUsers'] > 0">iPad: {{group['iPadUsers']}}<br></span>
-          <span ng-show="group['AndroidUsers'] > 0">Android: {{group['AndroidUsers']}}<br></span>
-          <span ng-show="group['WindowsUsers'] > 0">Windows: {{group['WindowsUsers']}}<br></span> -->
-
+          <span ng-show="field.counters.audios">Аудио: {{field.counters.audios | number : fractionSize}}<br></span> -->
         </span>
         
         
@@ -161,35 +153,34 @@
       
       <div class="col-md-4" ng-cloak ng-show="group[0].members_count >= 0">
         <h3>Аудитория:</h3>
-        <span ng-show="members.length == group[0]['members_count']">{{members.length | number : fractionSize}} подписчиков</span>
-        <span ng-show="members.length < group[0]['members_count']">Анализируем {{members.length | number : fractionSize}} из {{group[0]['members_count'] | number : fractionSize}} подписчиков</span>
-        <br>
+        <span ng-show="members.length >= group[0]['members_count']">{{members.length | number : fractionSize}} подписчиков<br></span>
+        <span ng-show="members.length < group[0]['members_count']">Анализируем {{members.length | number : fractionSize}} из {{group[0]['members_count'] | number : fractionSize}} подписчиков<br></span>
+        <span>Вовлечены: <br></span>
+        <span>Боты: {{group['bots'] | number : fractionSize}}<br></span>
       </div>
       
-        <div class="col-md-4" ng-cloak ng-show="group[0].members_count >= 100">
-          <div id="GroupMobilesChart" style="width: 400px; height: 200px"></div>
-        </div>
+      <div ng-cloak ng-show="members.length >= 0" class="col-md-4">
+        <h3>Тут будет реклама</h3>
+        <img src="why-would-you-do-that.jpg">
+      </div>
+
+      <div class="col-md-4" ng-cloak ng-show="group[0].members_count >= 100">
+        <div id="GroupMobilesChart" style="margin: -60px 0 0 -40px; width: 400px; height: 200px"></div>
+      </div>
       
     </div> <!-- row group end -->
     <br><br>
-      <div class="row" ng-cloak>
-        <div class="col-md-4">
-        </div>
-        
-        
-        
-        <div class="col-md-4">
-          <div style="text-align: center;" >
-            <!-- <a target="_blank" href="http://14zy.ru">Контакты</a> //
-            <a target="_blank" href="http://14zy.ru">Вопросы</a> //
-            <a target="_blank" href="http://14zy.ru">Купить</a> -->
-              Все права принадлежат пользователям.<br>
-              <a target="_blank" href="http://14zy.ru">Рубен Бабаев</a>
-          </div>
-        </div>    
-        
+    <div class="row" ng-cloak>
+      <div class="col-md-4">
       </div>
-      <br>
+      <div class="col-md-4">
+        <div style="text-align: center;" >
+            Все права принадлежат пользователям.<br>
+            <a target="_blank" href="http://14zy.ru">Рубен Бабаев</a>
+        </div>
+      </div>        
+    </div>
+    <br>
   </div> <!-- container end -->
       
     
@@ -251,6 +242,8 @@
         window.ipads = scope.group['iPadUsers'] = 0;
         window.androids = scope.group['AndroidUsers'] = 0;
         window.windows = scope.group['WindowsUsers'] = 0;
+        window.group_bots = scope.group['bots'] = 0;
+        scope.group['online'] = 0;
         if (scope.group[0]['members_count'] < 1000) {
           http.jsonp('https://api.vk.com/method/groups.getMembers?group_id=' + scope.id + '&fields=online,photo_50,last_seen&callback=JSON_CALLBACK').success(function(data) {
             scope.members = data.response.users;      
@@ -288,6 +281,10 @@
                 break;
             };
           };
+          if (member['deactivated'] || member['photo_50'] == 'http://vk.com/images/camera_50.gif') {window.group_bots = scope.group['bots']++};
+
+          if (member['online'] == 1) {scope.group['online']++};
+          
         });
       drawChartMobiles(); 
       };
@@ -406,9 +403,9 @@
         if (scope.profile[0]['sex'] == 2) {scope.profile[0]['sex'] = "Мужской"};
 
         switch (scope.profile[0]['last_seen']['platform']) {
-          case 1:
-            scope.profile[0]['mobile'] = null // Через мобильную версию
-            break;
+          // case 1:
+          //   scope.profile[0]['mobile'] = null // Через мобильную версию
+          //   break;
 
           case 2:
             scope.profile[0]['mobile'] = "iPhone"
@@ -430,9 +427,10 @@
             scope.profile[0]['mobile'] = "Windows 8"
             break;
 
-          case 7:
-            scope.profile[0]['mobile'] = null // Через сайт
-            break; };
+          // case 7:
+          //   scope.profile[0]['mobile'] = null // Через сайт
+          //   break; 
+        };
           
         switch (scope.profile[0]['relation']) {
           case 1:
@@ -495,7 +493,7 @@
         window.ipads = null;
         window.androids = null;
         window.windows = null;
-
+        window.group_bots = null;
         drawChart();
       };
       
@@ -545,7 +543,7 @@
         ]);
 
         var options = {
-          //title: 'Распределение девайсов',
+          title: 'Распределение устройств',
           legend: { position: "none" },
           //colors: ['gray','gray', 'green', 'blue']
           //hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
