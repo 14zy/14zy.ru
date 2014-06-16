@@ -264,16 +264,23 @@
       };
       
       scope.parseGroupWall = function(){
-
+        scope.groupWallLikes = [];
+        scope.groupWallComments = [];
         angular.forEach(scope.groupWall, function(post){
           url = "https://api.vk.com/method/likes.getList?owner_id=-" + scope.group[0]['gid'] + "&item_id=" + post['id'] + "&count=1000&extended=1&type=post&callback=JSON_CALLBACK";
           http.jsonp(url).success(function(data) {
-            post['result'] = data.response;
+            //post['resultLikes'] = data.response;
+            if (data.response != undefined && data.response['items'] != undefined) {
+              scope.groupWallLikes.push(data.response['items']);
+            };
           });
 
           url2 = "https://api.vk.com/method/wall.getComments?owner_id=-" + scope.group[0]['gid'] + "&post_id=" + post['id'] + "&count=100&callback=JSON_CALLBACK";
           http.jsonp(url2).success(function(data) {
-            post['resultComments'] = data.response;
+            //post['resultComments'] = data.response;
+            if (data.response != undefined && data.response[0] > 0) {
+              scope.groupWallComments.push(data.response);
+            };
           });
         });
       };
@@ -284,6 +291,7 @@
         window.ipads = scope.group['iPadUsers'] = 0;
         window.androids = scope.group['AndroidUsers'] = 0;
         window.windows = scope.group['WindowsUsers'] = 0;
+        window.mobiles = scope.group['Mobiles'] = 0;
         window.group_bots = 0;
         scope.group['bots'] = 0;
         scope.group_engagedList = [];
@@ -329,49 +337,26 @@
       
       
       scope.getEngagedMembers = function(membersList) {
-          //count likes
-          angular.forEach(scope.groupWall, function(post){
-            if (post['result'] != undefined && post['result']['items'] != undefined) {
-                angular.forEach(post['result']['items'], function(user){
-                  if (membersList.indexOf(user['uid']) >= 0 && scope.group_engagedList.indexOf(user['uid']) < 0) {
-                    scope.group_engagedList.push(user['uid'])
-                  };
-                });
-              };
 
-            if (post['resultComments'] != undefined) {
-                angular.forEach(post['resultComments'], function(user){
-                  if (membersList.indexOf(user['uid']) >= 0 && scope.group_engagedList.indexOf(user['uid']) < 0) {
-                    scope.group_engagedList.push(user['uid'])
+          angular.forEach(scope.groupWallLikes, function(likes){
+                for (var i = 0; i < likes.length; i++) {
+                  if (scope.group_engagedList.indexOf(likes[i]['uid']) < 0 && membersList.indexOf(likes[i]['uid']) >= 0) {
+                    scope.group_engagedList.push(likes[i]['uid'])
                   };
-                });
-            };
-            window.group_engaged = scope.group_engagedList.length;
-            drawChartGroup();
+                };
+                window.group_engaged = scope.group_engagedList.length;
+                drawChartGroup();
           });
-
-          
-          
-          //count commenters              
-          // url = "https://api.vk.com/method/wall.getComments?owner_id=" + scope.profile[0]['uid'] + "&post_id=" + scope.wall[i]['id'] + "&count=100&callback=JSON_CALLBACK";
-//           http.jsonp(url).success(function(data) {
-//             result = data.response;
-//             if (result != 0 ) {
-//               angular.forEach(result, function(user){
-//                 if (user['uid'] != undefined ) {
-//                   if (scope.friendsList.indexOf(user['uid']) >= 0) {
-//                     if (scope.engagedList.indexOf(user['uid']) < 0) {
-//                       user['first_name'] = "id" + user['uid'].toString();
-//                       scope.engaged.push(user);
-//                       scope.engagedList.push(user['uid'])
-//                     };
-//                   };                   
-//                 };
-//               });
-//             };
-//           });
-          
-       
+              
+          angular.forEach(scope.groupWallComments, function(comments){
+                for (var i = 0; i < comments[0]; i++) {
+                    if (scope.group_engagedList.indexOf(comments[i]['uid']) < 0 && membersList.indexOf(comments[i]['uid']) >= 0) {
+                      scope.group_engagedList.push(comments[i]['uid'])
+                    };
+                  };
+                  window.group_engaged = scope.group_engagedList.length;
+                  drawChartGroup();
+          });
       };
 
 
@@ -379,20 +364,23 @@
         angular.forEach(current, function(member){
           if (member['last_seen'] != undefined) {
             switch (member['last_seen']['platform']) {
+              case 1:
+                window.mobiles = scope.group['Mobiles']++
+                break;
               case 2:
-                window.iphones = scope.group['iPhoneUsers']++ //"iPhone"
+                window.iphones = scope.group['iPhoneUsers']++
                 break;
               case 3:
-                window.ipads = scope.group['iPadUsers']++ //"iPad"
+                window.ipads = scope.group['iPadUsers']++
                 break;
               case 4:
-                window.androids = scope.group['AndroidUsers']++ //"Android"
+                window.androids = scope.group['AndroidUsers']++
                 break;
               case 5:
-                window.windows = scope.group['WindowsUsers']++ //"Windows Phone"
+                window.windows = scope.group['WindowsUsers']++
                 break;
               case 6:
-                window.windows = scope.group['WindowsUsers']++ //"Windows 8"
+                window.windows = scope.group['WindowsUsers']++
                 break;
             };
           };
@@ -617,7 +605,7 @@
         window.ipads = null;
         window.androids = null;
         window.windows = null;
-
+        window.mobile = null;
         drawChart();
         drawChartMobiles();
         drawChartGroup();
@@ -684,7 +672,8 @@
           ['iPhone', window.iphones, "lightgray" ],
           ['iPad', window.ipads, "gray" ],
           ['Android', window.androids, "lightgreen" ],
-          ['Windows Phone', window.windows, "lightblue" ]
+          ['Windows Phone', window.windows, "purple" ],
+          ['Моб. версия', window.mobiles, "lightblue" ]
         ]);
 
         var options = {
