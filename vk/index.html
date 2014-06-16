@@ -210,7 +210,7 @@
       }
     ]);
     
-    ScannerApp.controller('ScannerCtl', ['$scope', '$http', function (scope, http) {
+    ScannerApp.controller('ScannerCtl', ['$scope', '$http', '$q', function (scope, http, q) {
       
       
       scope.deside = function() {
@@ -309,7 +309,9 @@
             scope.members = data.response.users;
             scope.analyzeMembers(scope.members);
             scope.loading = false;
+
           });
+
         } else {
           scope.membersList = [];
           scope.members = [];
@@ -318,8 +320,9 @@
             http.jsonp('https://api.vk.com/method/groups.getMembers?group_id=' + scope.id + '&offset=' + i + '&callback=JSON_CALLBACK').success(function(data) {
               scope.membersList = scope.membersList.concat(data.response.users);
               if (scope.membersList.length >= scope.group[0]['members_count']) {
-                scope.getEngagedMembers(scope.membersList);
-              };
+                 console.log('Go to getEngagedMembers');
+                 scope.getEngagedMembers(scope.membersList);
+               };
               if (scope.membersList.length+3000 >= scope.group[0]['members_count']) {
                 scope.group_engagedListLoad = "calculating";
               };
@@ -328,35 +331,60 @@
             http.jsonp('https://api.vk.com/method/groups.getMembers?group_id=' + scope.id + '&offset=' + i + '&fields=online,photo_50,last_seen&callback=JSON_CALLBACK').success(function(data) {
               scope.members = scope.members.concat(data.response.users);
               scope.analyzeMembers(data.response.users);
-              scope.loading = false;
+              scope.loading = false
             });
-                        
+            
           }; // end for
+
         }; // end if
+
       };
+      
+      scope.render = function(){
+        console.log('render');
+        window.group_engaged = scope.group_engagedList.length;
+        drawChartGroup();
+      }
       
       
       scope.getEngagedMembers = function(membersList) {
-
+        
+        //var defer = q.defer();
+        console.log('getEngagedMembers: ' + membersList.length);
           angular.forEach(scope.groupWallLikes, function(likes){
                 for (var i = 0; i < likes.length; i++) {
                   if (scope.group_engagedList.indexOf(likes[i]['uid']) < 0 && membersList.indexOf(likes[i]['uid']) >= 0) {
-                    scope.group_engagedList.push(likes[i]['uid'])
+                      scope.group_engagedList.push(likes[i]['uid']);
                   };
                 };
-                window.group_engaged = scope.group_engagedList.length;
-                drawChartGroup();
+                //window.group_engaged = scope.group_engagedList.length;
+             
           });
               
           angular.forEach(scope.groupWallComments, function(comments){
-                for (var i = 0; i < comments[0]; i++) {
+                for (var i = 1; i < comments.length; i++) {
                     if (scope.group_engagedList.indexOf(comments[i]['uid']) < 0 && membersList.indexOf(comments[i]['uid']) >= 0) {
-                      scope.group_engagedList.push(comments[i]['uid'])
+                      scope.group_engagedList.push(comments[i]['uid']);
                     };
-                  };
-                  window.group_engaged = scope.group_engagedList.length;
-                  drawChartGroup();
+                };
+                //window.group_engaged = scope.group_engagedList.length;
+
           });
+          
+          console.log('before q');
+          q.all(scope.group_engagedList).then(scope.render());
+          
+          // function lastTask(){
+//             window.group_engaged = scope.group_engagedList.length;
+//             drawChartGroup();
+//             //defer.resolve();
+//                  // writeSome('finish').then( function(){
+//                    //defer.resolve();
+//                    // });
+//              };
+        //return defer.promise;
+        //return true;
+        
       };
 
 
