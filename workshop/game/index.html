@@ -8,10 +8,21 @@
       nameApp.controller('GameCtrl', function ($scope) {
       
         $scope.me = "-stand.png";
-        $scope.marginTop = 300
-        $scope.marginLeft = 0
-        $scope.pass = 20
-        $scope.gravity = 50
+        $scope.marginTop = 300;
+        $scope.marginLeft = 0;
+        $scope.pass = 20;
+        $scope.gravity = 50;
+        $scope.rocketHidden = "hidden";
+        $scope.blastHidden = "hidden";
+                
+        $scope.rocketblast = function() {
+          $scope.blastHidden = "false";
+          setTimeout(function () {
+            $scope.$apply(function () {
+              $scope.blastHidden = "hidden";
+            });
+          }, 500);
+        };
 
         $scope.jump = function() {
           $scope.marginTop = $scope.marginTop - $scope.gravity 
@@ -20,6 +31,35 @@
               $scope.marginTop = $scope.marginTop + $scope.gravity});
           }, 150);
         };
+
+        $scope.fire = function() {
+
+          $scope.rocketHidden = "false"
+          $scope.rocketLeft = $scope.marginLeft + 70;
+          $scope.rocketTop = $scope.marginTop-40;
+
+          setTimeout(function () {
+              $scope.$apply(function () {
+                $scope.rocketLeft = $scope.rocketLeft + 170;
+              });
+          }, 200);
+
+          setTimeout(function () {
+              $scope.$apply(function () {
+                $scope.rocketLeft = $scope.rocketLeft + 170;
+              });
+          }, 300);
+
+          setTimeout(function () {
+              $scope.$apply(function () {
+                $scope.rocketHidden = "hidden"
+                $scope.rocketblast();
+              });
+          }, 400);
+
+
+        };
+
 
         $scope.moveWASD = function(keyEvent) {
           $scope.me = ".gif";
@@ -44,7 +84,7 @@
           };
           
           if (keyEvent.which === 32) {
-            $scope.jump();
+            $scope.fire();
           };
         };   
               
@@ -87,6 +127,19 @@
        top: 40;
        left: 700;
       }
+
+      #rocket {
+       position: absolute;
+       top: 40;
+       left: 0;
+      }
+
+      #rocketBlast {
+       position: absolute;
+      }
+
+
+
     </style>
 
   </head>
@@ -97,13 +150,20 @@
                                                                     left: {{marginLeft}};
                                                                     -webkit-transform: scaleX({{wind}});">
     <img id="enemy" width="100" ng-src="enemy/tumblr_mkweh7l1Dx1s3bc1no3_r2_400.gif">
+    <img id="rocket" width="40" ng-src="bullets/Queen_rocket.gif" style="
+                                                        top: {{marginTop + 50}};
+                                                        left: {{rocketLeft}};
+                                                        visibility: {{rocketHidden}};">                                                                                                                           
+    <img id="rocketBlast" width="120" ng-src="bullets/explosion.gif" style="
+                                                        top: {{rocketTop}};
+                                                        left: {{rocketLeft}};
+                                                        visibility: {{blastHidden}};">
                                                                     
-                                                                    
-                                                                    
-                                                                    
-    <span>Top: {{marginTop}}px ||  </span>
+
+    <span>WASD - ходить, SPACE - стрелять</span>
+    <!-- <span>Top: {{marginTop}}px ||  </span>
     <span>Left: {{marginLeft}}px ||  </span>
-    <span>mouseclick: {{click}}</span>
+    <span>mouseclick: {{click}}</span> -->
   </body>
 </html>
 
