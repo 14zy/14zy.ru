@@ -10,19 +10,52 @@
         $scope.me = "-stand.png";
         $scope.marginTop = 300
         $scope.marginLeft = 0
-        $scope.level = 0
         $scope.pass = 20
+        $scope.gravity = 50
+
+        $scope.jump = function() {
+          $scope.marginTop = $scope.marginTop - $scope.gravity 
+          setTimeout(function () {
+            $scope.$apply(function () {
+              $scope.marginTop = $scope.marginTop + $scope.gravity});
+          }, 150);
+        };
+
+        $scope.moveWASD = function(keyEvent) {
+          $scope.me = ".gif";
+
+          //alert(keyEvent.which);
+          if (keyEvent.which === 119 && $scope.marginTop > 240 ) {
+            $scope.marginTop = $scope.marginTop - $scope.pass
+          };
+
+          if (keyEvent.which === 115 && $scope.marginTop < 400) {
+            $scope.marginTop = $scope.marginTop + $scope.pass
+          };
+
+          if (keyEvent.which === 100) {
+            $scope.marginLeft = $scope.marginLeft + $scope.pass
+            $scope.wind = 1
+          };
+
+          if (keyEvent.which === 97 && $scope.marginLeft > 0) {
+            $scope.marginLeft = $scope.marginLeft - $scope.pass
+            $scope.wind = -1
+          };
+          
+          if (keyEvent.which === 32) {
+            $scope.jump();
+          };
+        };   
               
         $scope.move = function(evt) {
           $scope.me = ".gif";
           evt = (evt || event);
-
-          // alert(window.click);
         
           $scope.click = evt.clientX + ' ' + evt.clientY        
         
           if (evt.clientX-60 > $scope.marginLeft) {
-            $scope.marginLeft = $scope.marginLeft + $scope.pass + $scope.level
+            $scope.marginLeft = $scope.marginLeft + $scope.pass
             $scope.wind = 1
           };
 
@@ -47,15 +80,27 @@
        position: absolute;
        cursor: pointer;
       }
+
+      #enemy {
+       position: absolute;
+       cursor: pointer;
+       top: 40;
+       left: 700;
+      }
     </style>
 
   </head>
-  <body ng-controller="GameCtrl">
+  <body ng-controller="GameCtrl" ng-keypress="moveWASD($event)">
     <img id="background" draggable="false" src="back.png" height="600" ng-click="move();" >
-    <img id="player" ng-src="me/8_bit_finn_by_mnrart-d6uxg5n{{me}}"  style="
+    <img id="player" ng-src="me/8_bit_finn_by_mnrart-d6uxg5n{{me}}" ng-click="jump();" style="
                                                                     top: {{marginTop}};
                                                                     left: {{marginLeft}};
                                                                     -webkit-transform: scaleX({{wind}});">
+    <img id="enemy" width="100" ng-src="enemy/tumblr_mkweh7l1Dx1s3bc1no3_r2_400.gif">
+                                                                    
+                                                                    
+                                                                    
+                                                                    
     <span>Top: {{marginTop}}px ||  </span>
     <span>Left: {{marginLeft}}px ||  </span>
     <span>mouseclick: {{click}}</span>
