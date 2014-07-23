@@ -1,0 +1,71 @@
+<html ng-app="gameApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Заблудший Роберт</title>
+    <script src="http:////cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular.min.js"></script>
+    <script>
+    var nameApp = angular.module('gameApp', []);
+    
+    nameApp.controller('GameCtrl', function ($scope) {
+      
+      $scope.me = "-stand.png";
+      $scope.marginTop = 300
+      $scope.marginLeft = 900
+      $scope.level = 0
+      $scope.pass = 20
+              
+      $scope.move = function(evt) {
+        $scope.me = ".gif";
+        evt = (evt || event);
+
+        // alert(window.click);
+        
+        
+        $scope.click = evt.clientX + ' ' + evt.clientY        
+        
+        if (evt.clientX-60 > $scope.marginLeft) {
+          $scope.marginLeft = $scope.marginLeft + $scope.pass + $scope.level
+          $scope.wind = 1
+        };
+
+        if (evt.clientX-60 < $scope.marginLeft) {
+          $scope.marginLeft = $scope.marginLeft - $scope.pass
+          $scope.wind = -1
+        };
+
+        if (evt.clientY-60 > $scope.marginTop) {
+          $scope.marginTop = $scope.marginTop + $scope.pass
+        };
+
+        if (evt.clientY-60 < $scope.marginTop) {
+          $scope.marginTop = $scope.marginTop - $scope.pass
+        };
+      };
+    });    
+    </script>
+
+    
+    <style>
+      #player {
+       position: absolute;
+       cursor: pointer;
+
+
+      }
+    </style>
+
+  </head>
+  <body ng-controller="GameCtrl">
+    <span>Boy top: {{marginTop}} ||  </span>
+    <span>Boy left: {{marginLeft}} ||  </span>
+    <span>Last click: {{click}}</span>
+    <img id="background" draggable="false" src="back.png" height="600" ng-click="move();" >
+    <img id="player" ng-src="me/8_bit_finn_by_mnrart-d6uxg5n{{me}}"  style="
+                                                                    top: {{marginTop}};
+                                                                    left: {{marginLeft}};
+                                                                    -webkit-transform: scaleX({{wind}});">
+  </body>
+</html>
+
+
+
