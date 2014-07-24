@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8">
     <title>Синий Всадник</title>
-    <script src="http:////cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular.min.js"></script>
+    <script src="angular.js"></script>
     <script>
       var nameApp = angular.module('gameApp', []);
       nameApp.controller('GameCtrl', function ($scope) {
@@ -15,7 +15,7 @@
         $scope.rocketHidden = "hidden";
         $scope.blastHidden = "hidden";
         $scope.enemyes = Array.new;
-        $scope.enemyes = {"apples": 3, "oranges": 4, "bananas": {"green": 10, "yellow": 25}}; 
+        $scope.enemyes = ["zero", "true", "440", "900", "true", "370", "1500", "true", "500", "600"]; 
         var $a = new Audio('audio/02 Down Is The New Up.mp3');
         $a.loop = true;
         $a.play();
@@ -30,11 +30,10 @@
           }, 500);
         };
 
-        $scope.enemy1Blast = function() {
-
+        $scope.enemyBlast = function(enemy) {
           new Audio('audio/blast.mp3').play();
-          
-          
+          $scope.blastTop = $scope.enemyes[enemy+1];
+          $scope.blastLeft = $scope.enemyes[enemy+2];
           $scope.blastHidden = "false";
           setTimeout(function () {
             $scope.$apply(function () {
@@ -63,8 +62,8 @@
 
           setTimeout(function () {
               $scope.$apply(function () {
-                $scope.enemy1Display = "none";
-                $scope.enemy1Blast();          
+                $scope.enemyBlast(enemy);
+                $scope.enemyes[enemy] = "none";
               });
           }, 100);
 
@@ -72,34 +71,34 @@
           
         };
 
-        $scope.fire = function(enemy) {
-
-          $scope.rocketHidden = "false"
-          $scope.rocketLeft = $scope.marginLeft + 70;
-          $scope.rocketTop = $scope.marginTop-40;
-          $scope.enemy1Display = "none"
-
-          setTimeout(function () {
-              $scope.$apply(function () {
-                $scope.rocketLeft = $scope.rocketLeft + 170;
-              });
-          }, 200);
-
-          setTimeout(function () {
-              $scope.$apply(function () {
-                $scope.rocketLeft = $scope.rocketLeft + 170;
-              });
-          }, 300);
-
-          setTimeout(function () {
-              $scope.$apply(function () {
-                $scope.rocketHidden = "hidden"
-                $scope.rocketblast();
-              });
-          }, 400);
-
-
-        };
+        // $scope.fire = function(enemy) {
+        //
+        //   $scope.rocketHidden = "false"
+        //   $scope.rocketLeft = $scope.marginLeft + 70;
+        //   $scope.rocketTop = $scope.marginTop-40;
+        //   $scope.enemy1Display = "none"
+        //
+        //   setTimeout(function () {
+        //       $scope.$apply(function () {
+        //         $scope.rocketLeft = $scope.rocketLeft + 170;
+        //       });
+        //   }, 200);
+        //
+        //   setTimeout(function () {
+        //       $scope.$apply(function () {
+        //         $scope.rocketLeft = $scope.rocketLeft + 170;
+        //       });
+        //   }, 300);
+        //
+        //   setTimeout(function () {
+        //       $scope.$apply(function () {
+        //         $scope.rocketHidden = "hidden"
+        //         $scope.rocketblast();
+        //       });
+        //   }, 400);
+        //
+        //
+        // };
 
 
         $scope.moveWASD = function(keyEvent) {
@@ -129,7 +128,7 @@
             $scope.jump();
           };
 
-          if (keyEvent.which === 109) {
+          if (keyEvent.which === 112) {
 
             if (window.pause == 1) {
               window.pause = 0; 
@@ -141,9 +140,21 @@
             } 
           };
           
-          if ($scope.marginLeft > 800 && $scope.marginTop < 480 && $scope.marginLeft < 960 && $scope.enemy1Display != "none") {
+          
+          
+          
+          if ($scope.enemyes[1] != "none" && $scope.marginTop+20 > $scope.enemyes[2] && $scope.marginTop-20 < $scope.enemyes[2] && $scope.marginLeft > $scope.enemyes[3]-100 && $scope.marginLeft < $scope.enemyes[3]) {
             alert('попался');
-          }
+          };
+
+          if ($scope.enemyes[4] != "none" && $scope.marginTop+20 > $scope.enemyes[5] && $scope.marginTop-20 < $scope.enemyes[5] && $scope.marginLeft > $scope.enemyes[6]-100 && $scope.marginLeft < $scope.enemyes[6]) {
+            alert('попался');
+          };
+
+          if ($scope.enemyes[7] != "none" && $scope.marginTop+20 > $scope.enemyes[8] && $scope.marginTop-20 < $scope.enemyes[8] && $scope.marginLeft > $scope.enemyes[9]-100 && $scope.marginLeft < $scope.enemyes[9]) {
+            alert('попался');
+          };
+
           
         };   
               
@@ -180,11 +191,9 @@
        cursor: pointer;
       }
 
-      #enemy {
+      .enemy {
        position: absolute;
        cursor: pointer;
-       top: 440;
-       left: 900;
       }
 
 /*      #rocket {
@@ -193,10 +202,8 @@
        left: 0;
       }
 */
-      #rocketBlast {
+      #blast {
        position: absolute;
-       top: 440;
-       left: 900;
       }
 
 
@@ -207,9 +214,25 @@
   <body ng-controller="GameCtrl" ng-keypress="moveWASD($event)">
     <img id="background" draggable="false" src="back2.gif" height="600"  >
     
-    <img id="enemy" width="100" ng-src="enemy/tumblr_mkweh7l1Dx1s3bc1no3_r2_400.gif" ng-click="fireMagic(1);" style="
-                                                                            display: {{enemy1Display}};
+    <img class="enemy" width="100" ng-src="enemy/tumblr_mkweh7l1Dx1s3bc1no3_r2_400.gif" ng-click="fireMagic(1);" style="
+                                                                            display: {{enemyes[1]}};
+                                                                            top: {{enemyes[1+1]}};
+                                                                            left: {{enemyes[1+2]}};
                                                                             ">
+
+    <img class="enemy" width="200" ng-src="enemy/giphy.gif" ng-click="fireMagic(4);" style="
+                                                                            display: {{enemyes[4]}};
+                                                                            top: {{enemyes[4+1]}};
+                                                                            left: {{enemyes[4+2]}};
+                                                                            ">
+
+    <img class="enemy" width="100" ng-src="enemy/tumblr_mkweh7l1Dx1s3bc1no3_r2_400.gif" ng-click="fireMagic(7);" style="
+                                                                            display: {{enemyes[7]}};
+                                                                            top: {{enemyes[7+1]}};
+                                                                            left: {{enemyes[7+2]}};
+                                                                            ">
+
+
     
     <img id="player" ng-src="me/imperial_guard___run_cycle_by_papercaves-d51dgrx.gif" ng-click="jump();" style="
                                                                     top: {{marginTop}};
@@ -225,10 +248,12 @@
                                                         top: {{marginTop + 50}};
                                                         left: {{rocketLeft}};
                                                         visibility: {{rocketHidden}};">                                                        -->                                                                    
-    <img id="rocketBlast" width="120" ng-src="bullets/explosion.gif" style="
+    <img id="blast" width="120" ng-src="bullets/explosion.gif" style="
+                                                        top: {{blastTop}};
+                                                        left: {{blastLeft}};
                                                         visibility: {{blastHidden}};"></img>
 
-    <span>WASD - ходить, SPACE - прыгать, CLICK - стрелять, m - музыка</span>
+    <!-- <span>WASD - ходить, SPACE - прыгать, CLICK - стрелять, P - музыка</span> -->
     <!-- <span>Top: {{marginTop}}px ||  </span>
     <span>Left: {{marginLeft}}px ||  </span>
     <span>mouseclick: {{click}}</span> -->
