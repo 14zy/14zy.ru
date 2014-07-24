@@ -1,7 +1,7 @@
 <html ng-app="gameApp">
   <head>
     <meta charset="utf-8">
-    <title>Заблудший Роберт</title>
+    <title>Синий Всадник</title>
     <script src="http:////cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular.min.js"></script>
     <script>
       var nameApp = angular.module('gameApp', []);
@@ -14,6 +14,12 @@
         $scope.gravity = 50;
         $scope.rocketHidden = "hidden";
         $scope.blastHidden = "hidden";
+        $scope.enemyes = Array.new;
+        $scope.enemyes = {"apples": 3, "oranges": 4, "bananas": {"green": 10, "yellow": 25}}; 
+        var $a = new Audio('audio/1.mp3');
+        $a.loop = true;
+        $a.play();
+        
                 
         $scope.rocketblast = function() {
           $scope.blastHidden = "false";
@@ -24,6 +30,20 @@
           }, 500);
         };
 
+        $scope.enemy1Blast = function() {
+
+          new Audio('audio/blast.mp3').play();
+          
+          
+          $scope.blastHidden = "false";
+          setTimeout(function () {
+            $scope.$apply(function () {
+              $scope.blastHidden = "hidden";
+            });
+          }, 500);
+        };
+
+
         $scope.jump = function() {
           $scope.marginTop = $scope.marginTop - $scope.gravity 
           setTimeout(function () {
@@ -31,12 +51,37 @@
               $scope.marginTop = $scope.marginTop + $scope.gravity});
           }, 150);
         };
+        
+        $scope.fireMagic = function(enemy) {
+          $scope.rocketHidden = "hidden";
+          $scope.jump();
 
-        $scope.fire = function() {
+
+
+          
+          // setTimeout(function () {
+          //     $scope.$apply(function () {
+          //       $scope.rocketLeft = $scope.rocketLeft + 170;
+          //     });
+          // }, 200);
+
+          setTimeout(function () {
+              $scope.$apply(function () {
+                $scope.enemy1Display = "none";
+                $scope.enemy1Blast();          
+              });
+          }, 100);
+
+                
+          
+        };
+
+        $scope.fire = function(enemy) {
 
           $scope.rocketHidden = "false"
           $scope.rocketLeft = $scope.marginLeft + 70;
           $scope.rocketTop = $scope.marginTop-40;
+          $scope.enemy1Display = "none"
 
           setTimeout(function () {
               $scope.$apply(function () {
@@ -64,7 +109,8 @@
         $scope.moveWASD = function(keyEvent) {
           $scope.me = ".gif";
 
-          //alert(keyEvent.which);
+          // alert(keyEvent.which);
+          
           if (keyEvent.which === 119 && $scope.marginTop > 240 ) {
             $scope.marginTop = $scope.marginTop - $scope.pass
           };
@@ -84,8 +130,24 @@
           };
           
           if (keyEvent.which === 32) {
-            $scope.fire();
+            $scope.jump();
           };
+
+          if (keyEvent.which === 109) {
+
+            if (window.pause == 1) {
+              window.pause = 0; 
+              $a.play();
+            }
+            else {
+              $a.pause();
+              window.pause = 1; 
+            } 
+          };
+
+          
+
+          
         };   
               
         $scope.move = function(evt) {
@@ -144,23 +206,29 @@
 
   </head>
   <body ng-controller="GameCtrl" ng-keypress="moveWASD($event)">
-    <img id="background" draggable="false" src="back.png" height="600" ng-click="move();" >
-    <img id="player" ng-src="me/8_bit_finn_by_mnrart-d6uxg5n{{me}}" ng-click="jump();" style="
+    <img id="background" draggable="false" src="back.png" height="600"  >
+    <img id="player" ng-src="me/imperial_guard___run_cycle_by_papercaves-d51dgrx.gif" ng-click="jump();" style="
                                                                     top: {{marginTop}};
                                                                     left: {{marginLeft}};
                                                                     -webkit-transform: scaleX({{wind}});">
-    <img id="enemy" width="100" ng-src="enemy/tumblr_mkweh7l1Dx1s3bc1no3_r2_400.gif">
+    <!-- <span ng-repeat="enemy in enemyes">
+      {{enemy}}
+    </span> -->
+    
+    
+    <img id="enemy" width="100" ng-src="enemy/tumblr_mkweh7l1Dx1s3bc1no3_r2_400.gif" ng-click="fireMagic(1);" style="
+                                                                            display: {{enemy1Display}};
+                                                                            ">
     <img id="rocket" width="40" ng-src="bullets/Queen_rocket.gif" style="
                                                         top: {{marginTop + 50}};
                                                         left: {{rocketLeft}};
                                                         visibility: {{rocketHidden}};">                                                                                                                           
     <img id="rocketBlast" width="120" ng-src="bullets/explosion.gif" style="
-                                                        top: {{rocketTop}};
-                                                        left: {{rocketLeft}};
-                                                        visibility: {{blastHidden}};">
-                                                                    
+                                                        top: 40;
+                                                        left: 700;
+                                                        visibility: {{blastHidden}};"></img>
 
-    <span>WASD - ходить, SPACE - стрелять</span>
+    <span>WASD - ходить, SPACE - прыгать, CLICK - стрелять, m - музыка</span>
     <!-- <span>Top: {{marginTop}}px ||  </span>
     <span>Left: {{marginLeft}}px ||  </span>
     <span>mouseclick: {{click}}</span> -->
