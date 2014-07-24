@@ -8,7 +8,7 @@
       nameApp.controller('GameCtrl', function ($scope) {
       
         $scope.me = "-stand.png";
-        $scope.marginTop = 300;
+        $scope.marginTop = 450;
         $scope.marginLeft = 0;
         $scope.pass = 20;
         $scope.gravity = 50;
@@ -54,11 +54,7 @@
         
         $scope.fireMagic = function(enemy) {
           $scope.rocketHidden = "hidden";
-          $scope.jump();
-
-
-
-          
+          $scope.jump();          
           // setTimeout(function () {
           //     $scope.$apply(function () {
           //       $scope.rocketLeft = $scope.rocketLeft + 170;
@@ -111,20 +107,20 @@
 
           // alert(keyEvent.which);
           
-          if (keyEvent.which === 119 && $scope.marginTop > 240 ) {
+          if (keyEvent.which === 119 && $scope.marginTop > 420 ) {
             $scope.marginTop = $scope.marginTop - $scope.pass
           };
 
-          if (keyEvent.which === 115 && $scope.marginTop < 400) {
+          if (keyEvent.which === 115 && $scope.marginTop < 490) {
             $scope.marginTop = $scope.marginTop + $scope.pass
           };
 
-          if (keyEvent.which === 100) {
+          if (keyEvent.which === 100 && $scope.marginLeft < 1800) {
             $scope.marginLeft = $scope.marginLeft + $scope.pass
             $scope.wind = 1
           };
 
-          if (keyEvent.which === 97 && $scope.marginLeft > 0) {
+          if (keyEvent.which === 97 && $scope.marginLeft > 0 ) {
             $scope.marginLeft = $scope.marginLeft - $scope.pass
             $scope.wind = -1
           };
@@ -144,36 +140,37 @@
               window.pause = 1; 
             } 
           };
-
           
-
+          if ($scope.marginLeft > 800 && $scope.marginTop < 480 && $scope.marginLeft < 960 && $scope.enemy1Display != "none") {
+            alert('попался');
+          }
           
         };   
               
-        $scope.move = function(evt) {
-          $scope.me = ".gif";
-          evt = (evt || event);
-        
-          $scope.click = evt.clientX + ' ' + evt.clientY        
-        
-          if (evt.clientX-60 > $scope.marginLeft) {
-            $scope.marginLeft = $scope.marginLeft + $scope.pass
-            $scope.wind = 1
-          };
-
-          if (evt.clientX-60 < $scope.marginLeft) {
-            $scope.marginLeft = $scope.marginLeft - $scope.pass
-            $scope.wind = -1
-          };
-
-          if (evt.clientY-60 > $scope.marginTop && $scope.marginTop < 400) {
-            $scope.marginTop = $scope.marginTop + $scope.pass
-          };
-
-          if (evt.clientY-60 < $scope.marginTop && $scope.marginTop > 240) {
-            $scope.marginTop = $scope.marginTop - $scope.pass
-          };
-        };
+        // $scope.move = function(evt) {
+        //   $scope.me = ".gif";
+        //   evt = (evt || event);
+        //
+        //   $scope.click = evt.clientX + ' ' + evt.clientY
+        //
+        //   if (evt.clientX-60 > $scope.marginLeft) {
+        //     $scope.marginLeft = $scope.marginLeft + $scope.pass
+        //     $scope.wind = 1
+        //   };
+        //
+        //   if (evt.clientX-60 < $scope.marginLeft) {
+        //     $scope.marginLeft = $scope.marginLeft - $scope.pass
+        //     $scope.wind = -1
+        //   };
+        //
+        //   if (evt.clientY-60 > $scope.marginTop && $scope.marginTop < 400) {
+        //     $scope.marginTop = $scope.marginTop + $scope.pass
+        //   };
+        //
+        //   if (evt.clientY-60 < $scope.marginTop && $scope.marginTop > 240) {
+        //     $scope.marginTop = $scope.marginTop - $scope.pass
+        //   };
+        // };
       });    
     </script>
     
@@ -186,18 +183,20 @@
       #enemy {
        position: absolute;
        cursor: pointer;
-       top: 40;
-       left: 700;
+       top: 440;
+       left: 900;
       }
 
-      #rocket {
+/*      #rocket {
        position: absolute;
-       top: 40;
+       top: 440;
        left: 0;
       }
-
+*/
       #rocketBlast {
        position: absolute;
+       top: 440;
+       left: 900;
       }
 
 
@@ -206,7 +205,12 @@
 
   </head>
   <body ng-controller="GameCtrl" ng-keypress="moveWASD($event)">
-    <img id="background" draggable="false" src="back.png" height="600"  >
+    <img id="background" draggable="false" src="back2.gif" height="600"  >
+    
+    <img id="enemy" width="100" ng-src="enemy/tumblr_mkweh7l1Dx1s3bc1no3_r2_400.gif" ng-click="fireMagic(1);" style="
+                                                                            display: {{enemy1Display}};
+                                                                            ">
+    
     <img id="player" ng-src="me/imperial_guard___run_cycle_by_papercaves-d51dgrx.gif" ng-click="jump();" style="
                                                                     top: {{marginTop}};
                                                                     left: {{marginLeft}};
@@ -216,16 +220,12 @@
     </span> -->
     
     
-    <img id="enemy" width="100" ng-src="enemy/tumblr_mkweh7l1Dx1s3bc1no3_r2_400.gif" ng-click="fireMagic(1);" style="
-                                                                            display: {{enemy1Display}};
-                                                                            ">
-    <img id="rocket" width="40" ng-src="bullets/Queen_rocket.gif" style="
+    
+    <!-- <img id="rocket" width="40" ng-src="bullets/Queen_rocket.gif" style="
                                                         top: {{marginTop + 50}};
                                                         left: {{rocketLeft}};
-                                                        visibility: {{rocketHidden}};">                                                                                                                           
+                                                        visibility: {{rocketHidden}};">                                                        -->                                                                    
     <img id="rocketBlast" width="120" ng-src="bullets/explosion.gif" style="
-                                                        top: 40;
-                                                        left: 700;
                                                         visibility: {{blastHidden}};"></img>
 
     <span>WASD - ходить, SPACE - прыгать, CLICK - стрелять, m - музыка</span>
