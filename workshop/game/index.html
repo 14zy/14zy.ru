@@ -16,7 +16,7 @@
         $scope.blastHidden = "hidden";
         $scope.enemyes = Array.new;
         $scope.enemyes = ["zero", "true", "440", "900", "true", "370", "1500", "true", "500", "600"]; 
-        var $a = new Audio('audio/02 Down Is The New Up.mp3');
+        var $a = new Audio('assets/audio/Кино - Группа Крови.mp3');
         $a.loop = true;
         $a.play();
         
@@ -31,7 +31,7 @@
         };
 
         $scope.enemyBlast = function(enemy) {
-          new Audio('audio/blast.mp3').play();
+          new Audio('assets/audio/blast.mp3').play();
           $scope.blastTop = $scope.enemyes[enemy+1];
           $scope.blastLeft = $scope.enemyes[enemy+2];
           $scope.blastHidden = "false";
@@ -212,21 +212,21 @@
 
   </head>
   <body ng-controller="GameCtrl" ng-keypress="moveWASD($event)">
-    <img id="background" draggable="false" src="back2.gif" height="600"  >
+    <img id="background" draggable="false" src="assets/back2.gif" height="600"  >
     
-    <img class="enemy" width="100" ng-src="enemy/tumblr_mkweh7l1Dx1s3bc1no3_r2_400.gif" ng-click="fireMagic(1);" style="
+    <img class="enemy" width="100" ng-src="assets/enemy/tumblr_mkweh7l1Dx1s3bc1no3_r2_400.gif" ng-click="fireMagic(1);" style="
                                                                             display: {{enemyes[1]}};
                                                                             top: {{enemyes[1+1]}};
                                                                             left: {{enemyes[1+2]}};
                                                                             ">
 
-    <img class="enemy" width="200" ng-src="enemy/giphy.gif" ng-click="fireMagic(4);" style="
+    <img class="enemy" width="200" ng-src="assets/enemy/giphy.gif" ng-click="fireMagic(4);" style="
                                                                             display: {{enemyes[4]}};
                                                                             top: {{enemyes[4+1]}};
                                                                             left: {{enemyes[4+2]}};
                                                                             ">
 
-    <img class="enemy" width="100" ng-src="enemy/tumblr_mkweh7l1Dx1s3bc1no3_r2_400.gif" ng-click="fireMagic(7);" style="
+    <img class="enemy" width="100" ng-src="assets/enemy/tumblr_mkweh7l1Dx1s3bc1no3_r2_400.gif" ng-click="fireMagic(7);" style="
                                                                             display: {{enemyes[7]}};
                                                                             top: {{enemyes[7+1]}};
                                                                             left: {{enemyes[7+2]}};
@@ -234,7 +234,7 @@
 
 
     
-    <img id="player" ng-src="me/imperial_guard___run_cycle_by_papercaves-d51dgrx.gif" ng-click="jump();" style="
+    <img id="player" ng-src="assets/me/imperial_guard___run_cycle_by_papercaves-d51dgrx.gif" ng-click="jump();" style="
                                                                     top: {{marginTop}};
                                                                     left: {{marginLeft}};
                                                                     -webkit-transform: scaleX({{wind}});">
@@ -248,7 +248,7 @@
                                                         top: {{marginTop + 50}};
                                                         left: {{rocketLeft}};
                                                         visibility: {{rocketHidden}};">                                                        -->                                                                    
-    <img id="blast" width="120" ng-src="bullets/explosion.gif" style="
+    <img id="blast" width="120" ng-src="assets/bullets/explosion.gif" style="
                                                         top: {{blastTop}};
                                                         left: {{blastLeft}};
                                                         visibility: {{blastHidden}};"></img>
