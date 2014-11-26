@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html ng-app="countryApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script 1src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
+    <script src="http:////cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular.min.js"></script>
+
+    <script>
+    
+    var countryApp = angular.module('countryApp', []);
+    
+    countryApp.controller('CountryCtrl', ['$scope', '$http', function (scope, http) {
+        
+        http.get('beauty.json').success(function(data) {
+          scope.data = data;
+          console.log(scope.data);
+        });
+
+      }
+    
+    ]);
+   
+    </script>
+  </head>
+  
+  <body ng-controller="CountryCtrl">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="jumbotron">
+            <h1>Афанасий</h1>
+            <p>База beauty-блогеров рунета</p>
+            <p>...</p>
+            <p>...</p>
+          </div>
+        </div>
+      </div>
+
+      <table class="table">
+        <tr>
+          <th>Beauty-блогер</th>
+          <th>Подписчики</th>
+          <th>Контактный E-mail</th>
+          <th></th>
+          <th></th> 
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr ng-repeat="blogger in data | orderBy: ''">
+          <td><a href="{{blogger['Канал']}}"><img src="img/youtube2.png" width="32" style="padding: 0 5px 3px 0;">{{blogger['Блоггер']}}</a></td>
+          <td>{{blogger['Подписчики']}}</td>
+          <td><a href="mailto:{{blogger['E-mail']}}">{{blogger['E-mail']}}</a></td>
+          <td><a ng-show="blogger['Instagram']" target="_blank" href="{{blogger['Instagram']}}"><img src="img/instagram.png" width="24"></a></td>
+          <td><a ng-show="blogger['Twitter']" target="_blank" href="{{blogger['Twitter']}}"><img src="img/twitter.png" width="24"></a></td>
+          <td><a ng-show="blogger['ВКонтакте']" target="_blank" href="{{blogger['ВКонтакте']}}"><img src="img/vkontakte.png" width="24"></a></td>
+          <td><a ng-show="blogger['Facebook']" target="_blank" href="{{blogger['Facebook']}}"><img src="img/facebook.png" width="24"></a></td>
+          <td><a ng-show="blogger['Google+']" target="_blank" href="{{blogger['Google+']}}"><img src="img/google.png" width="24"></a></td>
+          <td><a ng-show="blogger['Блог']" target="_blank" href="{{blogger['Блог']}}"><img src="img/blogger.png" width="24"></a></td>
+
+        </tr>
+      </table>
+      
+    </div>
+  </body>
+</html>
