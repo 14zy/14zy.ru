@@ -62,7 +62,7 @@
           <th></th>
         </tr>
         <tr ng-repeat="blogger in data | orderBy: ''">
-          <td><a href="{{blogger['Канал']}}"><img src="img/youtube2.png" width="32" style="padding: 0 5px 3px 0;">{{blogger['Блоггер']}}</a></td>
+          <td><a target="_blank" href="{{blogger['Канал']}}"><img src="img/youtube2.png" width="32" style="padding: 0 5px 3px 0;">{{blogger['Блоггер']}}</a></td>
           <td>{{blogger['Подписчики']}}</td>
           <td><a href="mailto:{{blogger['E-mail']}}">{{blogger['E-mail']}}</a></td>
           <td><a ng-show="blogger['Instagram']" target="_blank" href="{{blogger['Instagram']}}"><img src="img/instagram.png" width="24"></a></td>
