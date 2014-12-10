@@ -5,7 +5,25 @@ $( "#StartTale" ).click(function() {
 });
 
 $( "#ContinueTale" ).click(function() {
-  alert('Ашаля техтенбех расказама')
+  window.location = "tale.html";
 });
+
+$( "#btnContinue" ).click(function() {
+  $('#continueText')[0].style.display="block";
+  $('#btnContinue')[0].className = "btn btn-info";
+  $('#btnContinue')[0].innerHTML = "ОТПРАВИТЬ";
+  $("html, body").animate({ scrollTop: $('#continueText').offset().top  }, "slow");
+  $('#btnContinue').blur();
+
+  $('#btnContinue').click(function() {
+    alert('Ашаля техтенбех расказама');
+  });
+});
+
+$(".tale-preview").click(function() {
+  window.location = "tale.html";
+})
+
+
 
 

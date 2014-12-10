@@ -137,7 +137,38 @@
   padding-right: 5px;
 }
 
+.editor {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: rgba(255,255,255, .9);
+  padding: 15px;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;  
 
+  margin-right: 5px;
+  margin-top: 15px;
+}
+
+.editor-counter-chapter {
+  position:absolute;
+  margin-left: -135px;
+  margin-top: -15px;
+  width: 120px;
+
+  background-color: rgba(255,255,255, .9);
+  padding: 15px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;  
+}
+
+.editor-counter-chapter img{
+  padding-right: 5px;
+}
 
 /* ==========================================================================
    Author's custom styles
