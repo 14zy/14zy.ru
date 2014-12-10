@@ -7,6 +7,11 @@
   font-family: 'Dancing Script'; font-size: 40pt; color: white;margin-top: -20px
 }
 
+.navbar-brand:hover {
+  color: lightgray;
+}
+
+
 #logo {
   display: inline;
   margin-top: -20px;
@@ -15,10 +20,11 @@
 
 #navbar {
   font-family: 'Open Sans'; font-size: 19px; color: black; padding: 20px 60px 20px 0;
+  color: white;
 }
 
 .menu-item {
-  color: black;
+  color: white;
 }
 
 .menu-item:hover {
@@ -29,7 +35,7 @@
   padding: 30px 0 30px 0;
 }
 
-.main-button {
+.button {
   display: inline-block;
   margin: auto 10px;
   width: 270px;
@@ -50,12 +56,13 @@
   background-color: rgba(255,255,255,0.7);
 }
 
-.main-button:hover {
+.button:hover {
   background-color: rgba(255,255,255,0.7);
   cursor: pointer;
 }
 
 #writer {
+  font-family: 'Open Sans', sans-serif;
   text-align: center;
   background-color: rgba(255,255,255, 1);
   padding-top: 18pt;
@@ -65,6 +72,71 @@
           box-sizing: border-box;  
   
 }
+
+#about {
+  font-family: 'Open Sans', sans-serif;
+  text-align: left;
+  background-color: rgba(255,255,255, 1);
+  padding-top: 18pt;
+  border-radius: 10px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;  
+  font-size: 18px
+}
+
+.tale-preview {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: rgba(255,255,255, .9);
+  padding: 15px;
+  border-radius: 10px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;  
+
+  margin-right: 5px;
+  margin-top: 15px;
+  
+  height: 170px;
+
+}
+
+.tale-preview:hover {
+  cursor: pointer;
+  background-color: rgba(255,255,255, 1);
+}
+
+.tale-title {
+  height: 40px;
+  overflow: hidden;
+}
+
+
+
+.tale-counter-chapters {
+  display: inline-block;
+  margin-top: 5px;
+}
+
+
+.tale-counter-chapters img{
+  margin-top: -3px;
+  padding-right: 5px;
+}
+
+
+.tale-counter-likes {
+  display: inline-block;
+  margin-bottom: 5px;  
+}
+
+.tale-counter-likes img{
+  margin-top: -10px;
+  padding-right: 5px;
+}
+
 
 
 /* ==========================================================================
