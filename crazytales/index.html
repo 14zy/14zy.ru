@@ -14,7 +14,12 @@
         <style>
             body {
                 padding-top: 50px;
-                padding-bottom: 20px;;
+                padding-bottom: 20px;
+                background: url('img/background.png') no-repeat center center fixed;
+                  -webkit-background-size: cover;
+                  -moz-background-size: cover;
+                  -o-background-size: cover;
+                  background-size: cover;              
             };
         </style>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
@@ -26,17 +31,11 @@
             <script src="js/vendor/html5-3.6-respond-1.1.0.min.js"></script>
         <![endif]-->
     </head>
-    <body style="
-    background: url('img/background.png') no-repeat center center fixed;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover;
-    ">
+    <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <nav class="navbar" role="navigation" style="background-color: rgba(0,0,0,0.2); height: 70px;">
+    <nav class="navbar" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -45,10 +44,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#" style="font-family: 'Dancing Script'; font-size: 40pt; color: white;margin-top: -20px">
-            <img style="display: inline; margin-top: -20px" class="img-circle" width="110" src="img/logo-pic.jpg"> Crazy Tales</a>
+          <a class="navbar-brand" href="#">
+            <img id="logo" class="img-circle" src="img/logo-pic.jpg"> Crazy Tales</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse" style="font-family: 'Open Sans'; font-size: 19px; color: black; padding: 20px 60px 20px 0;">
+        <div id="navbar" class="navbar-collapse collapse">
           <div class="navbar-right">
             <a class="menu-item" href="#">Рассказы</a> | 
             <a class="menu-item" href="#">О проекте</a>
@@ -65,7 +64,7 @@
         <div style="text-align: center">
           <span style="font-family: 'Lobster', cursive; font-size: 51px; color: white;">Напиши свой рассказ</span>
           <div id="buttons">
-            <div class="main-button">
+            <div id="firstButton" class="main-button" onclick="showWriterDiv();">
               НАЧАТЬ<br>РАССКАЗ
             </div>
             <div class="main-button">
@@ -74,9 +73,23 @@
           </div>
         </div>
       </div>
-
-
-
+      
+      <div id="writerDiv" class="row" style="display: none">
+        <div id="writer" class="col-lg-offset-2 col-lg-8">
+          
+          <form class=""  role="form">
+            <div class="form-group">
+              <input type="text" placeholder="Название" class="form-control" style="background: lightgray">
+            </div>
+            <div class="form-group">
+              <textarea type="text" rows="10" placeholder="Текст" class="form-control" style="background: lightgray"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success" style="width: 220px; height: 50px">ПОЕХАЛИ</button>
+            <br><br>
+          </form>
+        
+        </div>
+      </div>
 
 <br>
 <br>
@@ -89,9 +102,6 @@
 <br>
 <br><br><br>
 <br><br>
-<br><br><br>
-<br><br>
-<br>
 <br><br><br>
 <br><br>
 
@@ -101,6 +111,15 @@
       </footer>
     </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+
+<script>
+  
+    function showWriterDiv() {
+      document.getElementById("writerDiv").style.display="block";
+      document.getElementById("firstButton").className += " active";
+    }
+  
+</script>
 
         <script src="js/vendor/bootstrap.min.js"></script>
 
