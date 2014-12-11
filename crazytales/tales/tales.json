@@ -1,0 +1,47 @@
+{
+  "id": 1,
+  "title": "Тестовый экземплярчик",
+  "author": "Игорь",
+  "avatar": "",
+  "profile": "",
+  "email": "",
+  "likes": {
+    "facebook": 15,
+    "vk": 4,
+    "twitter": 11 },
+  "tags": ["fun", "sex"],
+  "link": "1",
+  "parts": [
+        {"id": 1,
+        "author": "Игорь",
+        "avatar": "",
+        "profile": "",
+        "email": "",
+        "text": "Часть первая"
+        },
+  
+        {"id": 1,
+        "author": "Максим Давыдович",
+        "avatar": "",
+        "profile": "",
+        "email": "",
+        "text": "Часть вторая скучная"
+        },
+  
+        {"id": 1,
+        "author": "Рубен",
+        "avatar": "",
+        "profile": "",
+        "email": "",
+        "text": "Часть, блять, с матами"
+        },
+
+        {"id": 1,
+        "author": "Андрей",
+        "avatar": "",
+        "profile": "",
+        "email": "",
+        "text": "Часть последняя, четвертая"
+        }
+    ]
+  }

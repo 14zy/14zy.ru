@@ -24,6 +24,19 @@ $(".tale-preview").click(function() {
   window.location = "tale.html";
 })
 
+$('#btnPost').click(function() { 
+  var userName = $('#txtName')[0].value;
+  var userTale = $('#txtTale')[0].value;
+  alert(userName + ": " + userTale)
+  // $.post( "http://178.62.133.139/test/crazytales/post.php", { name: userName, tale: userTale } );
+  return false;
+});
+
+$().ready(function() {
+  // $.getJSON("http://178.62.133.139/test/crazytales/tales/tales.json", function(json) {
+  //     alert( "Data Loaded: " + json );
+  // });  
+})
 
 
 
