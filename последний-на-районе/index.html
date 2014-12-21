@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>Последний на районе</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -46,41 +46,51 @@
             </ul>
           </div>
         </div>
-        <br><br>
+        <br>
       
       <button class="btn-lg btn-success">Вмазать им!</button>
     </div>
     <script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>    
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
     <script>
+    $().ready(function() {
+      window.a = new Audio('Кино - Группа Крови.mp3');
+      window.a.loop = true;
+    });
+    
       $( "a" ).click(function() {
         $( "#caption" )[0].innerHTML = this.innerHTML;
       });
     
       $( ".btn-lg" ).click(function() {
-        $("body")[0].style.background="url('pics/Последний на районе.002.jpg')";
+        window.a.play();
+        $("body")[0].style.backgroundImage="url('pics/Последний на районе.002.jpg')";
         $( "#choise" )[0].style.display ="none";
-        $( "#title" )[0].innerHTML ="Ты че, бля?";
-        $( "#message" )[0].style.padding="160px 0 0 250px";
+        $( "#title" )[0].innerHTML ="Ты чё, бля?";
+        $( "#message" )[0].style.padding="160px 0 0 320px";
         $( ".btn-lg" )[0].innerHTML="А чё такое?";
           $( ".btn-lg" ).click(function() { 
-            $("body")[0].style.background="url('pics/Последний на районе.003.jpg')";
+            $("body")[0].style.backgroundImage="url('pics/Последний на районе.003.jpg')";
             $( "#title" )[0].innerHTML ="Охуел?";
             $( ".btn-lg" )[0].innerHTML="Сам охуел!";
               $( ".btn-lg" ).click(function() { 
-                $("body")[0].style.background="url('pics/Последний на районе.004.jpg')";
-                $( "#message" )[0].style.padding="160px 0 0 60px";
+                $("body")[0].style.backgroundImage="url('pics/Последний на районе.004.jpg')";
+                $( "#message" )[0].style.padding="160px 0px 0 80px";
                 $( "#title" )[0].innerHTML ="Сюда иди!";
-                $( ".btn-lg" )[0].innerHTML="Фродо?";
+                $( ".btn-lg" )[0].innerHTML="Еб*ть, Элайджи Вуд?";
+                $( ".btn-lg" )[0].style.width="350px";
                   $( ".btn-lg" ).click(function() { 
-                    $("body")[0].style.background="url('pics/Последний на районе.005.jpg')";
-                    $( "#message" )[0].style.padding="0px 170px 0 0px";
-                    $( "#title" )[0].innerHTML ="Ну чё,<br>вьебать тебе?";
-                    $( ".btn-lg" )[0].innerHTML="Вьеби себе!";
+                    $( ".btn-lg" )[0].style.width="250px";
+                    $("body")[0].style.backgroundImage="url('pics/Последний на районе.005.jpg')";
+                    $( "#message" )[0].style.padding="0px 150px 0 0px";
+                    $( "#title" )[0].innerHTML ="Ну чё,<br>вписать тебе?";
+                    $( ".btn-lg" )[0].innerHTML="Впиши себе, сука!";
+                    $( ".btn-lg" )[0].style.height="100px";
                       $( ".btn-lg" ).click(function() { 
-                        $( "#message" )[0].style.padding="320px 100px 0 0px";
-                        $("body")[0].style.background="url('pics/Последний на районе.006.jpg')";
-                        $( "#title" )[0].innerHTML ="Ах ты, Гнида!";
+                        $( ".btn-lg" )[0].style.height="80px";
+                        $( "#message" )[0].style.padding="280px 100px 0 0px";
+                        $("body")[0].style.backgroundImage="url('pics/Последний на районе.006.jpg')";
+                        $( "#title" )[0].innerHTML ="Тебе пизда..";
                         $( ".btn-lg" )[0].innerHTML="[Ударить ногой]";
                         $( ".btn-lg" ).click(function() { 
                           document.location="https://mvd.ru";
