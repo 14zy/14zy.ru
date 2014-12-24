@@ -11,6 +11,23 @@ h1 {
   text-align: center;
 }
 
+#speech {
+  display: inline-block;
+  text-align: left;
+  margin-top: 260px;
+  width: 850px;
+  height: 150px;
+  color: white;
+  font-size: 36px;
+  background-color: rgba(0,0,0,0.2);
+  padding: 5px;
+  border-radius: 10px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;  
+  
+}
+
 
 
 
@@ -27,6 +44,13 @@ h1 {
   font-size: 28px;
 }
 
+.btn-lg-2 {
+  width: 250px;
+  height: 60px;
+  font-size: 28px;
+}
+
+
 
 .dropdown-menu {
   width: 250px;
@@ -34,6 +58,18 @@ h1 {
 
 li {
   font-size: 20px
+}
+
+.menu-item {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 20px 0 20px 0;
+  color: blue;
+
+}
+
+.active {
+  color: red;
 }
 
 
@@ -51,3 +87,25 @@ li {
 
 }
 /* /Ruben zone */
+
+.typed-cursor{
+    opacity: 1;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}

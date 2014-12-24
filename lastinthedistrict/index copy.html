@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Последний на районе</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <link rel="image_src" href="http://14zy.ru/lastinthedistrict/pics/006.jpg">
+    <meta property="og:url" content="http://14zy.ru/lastinthedistrict" />
+    <meta property="og:image" content="http://14zy.ru/lastinthedistrict/pics/006.jpg" />
+    <meta property="og:site_name" content="Последний на районе"/>    
+  </head>
+  
+  <style>
+      body {
+          padding-top: 50px;
+          padding-bottom: 20px;
+          background: url('pics/2/001.jpg') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;              
+      };
+            
+  </style>
+  
+  <body>
+    <div id="message">
+      <h1 id="title"></h1>
+      <h1 id="speech"></h1>
+    </div> 
+    
+    <div id="button">
+      
+      
+      <button id="btn1" class="btn-lg-2 btn-success">Да</button>
+      <button id="btn2" class="btn-lg-2 btn-success">Нет</button>
+      <a href="#"><img id="газманов" src="pics/2/газманов.jpg" style="width: 100px; position: fixed; top: 80%; right: 20%; display: none"></a>
+      <img id="айфон" src="pics/2/iphone5.png" style="position: absolute; bottom: 0px; right: 40%; width: 700px; display: none">
+      <div id="menu" style="display: none; position: absolute; bottom: 140px; right: 69%; width: 100px; text-align: left">
+        <br><br>
+        <h2>Музыка</h2>
+        <a href="#"><span class="menu-item" id="track1"><span class="glyphicon glyphicon-play">Искала.mp3</span></span></a>
+        <br><br>
+        <a href="#"><span class="menu-item" id="track2"><span class="glyphicon glyphicon-play">Мумий Тролль.mp3</span></span></a>
+        <br><br>
+        <a href="#"><span class="menu-item" id="track3"><span class="glyphicon glyphicon-play">Ария.mp3</span></span></a>
+        <br><br>
+        <a href="#"><span class="menu-item" id="track4"><span class="glyphicon glyphicon-play">Ты морячка.mp3</span></span></a>
+      </div>
+      
+      <div id="camera" style="display: none; position: absolute; bottom: 130px; right: 69%; width: 100px; display: none; text-align: center">
+        <img src="pics/2/лицо.jpg" width="142">
+        <br>
+        <button id="btnCamera" class="btn btn-success" style="width: 142px; margin-top: 5px;">Сфоткать</button>
+      </div>
+
+      <div id="share" style="display: none; position: absolute; bottom: 130px; right: 69%; width: 100px; display: none; text-align: center">
+        <h2>Share</h2>
+        <button class="btn btn-info btnShare" style="width: 142px; margin-top: 5px;">Пожаловаться<br>на Хабре</button>
+        <button class="btn btn-info btnShare" style="width: 142px; margin-top: 5px;">Отправить<br>в TJournal</button>
+        <button class="btn btn-info btnShare" style="width: 142px; margin-top: 5px;">Запостить<br>на дваче</button>
+        <br>
+        <br>
+      </div>
+
+      
+      <br>
+      
+      <!-- Последний на районе -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:728px;height:90px"
+           data-ad-client="ca-pub-2407992058828148"
+           data-ad-slot="6843845657"></ins>
+    </div>
+    
+
+    
+      <div style="position: absolute; bottom: 2%; right: 2%" data-yashareTitle="Последний на районе", data-yashareDescription="" class="yashare-auto-init" data-yashareL10n="ru", data-yashareQuickServices="vkontakte,facebook,twitter" data-yashareTheme="counter" data-yashareImage="http://14zy.ru/lastinthedistrict/pics/006.jpg" data-yashareLink="http://14zy.ru/lastinthedistrict/"></div>
+     
+    <script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>    
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/typed.js" type="text/javascript"></script>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    <script defer type="text/javascript" src="http://yandex.st/share/share.js"
+     charset="utf-8"></script>
+    <script>
+    $().ready(function() {
+      window.a = new Audio('audio/Аллегрова-МладшийЛентинант.mp3');
+      window.a.loop = true;
+      window.a.play();
+      $("#speech").typed({
+        strings: ["Вы были задержаны по ст. 116 и 119 УК РФ за уличную драку с нанесением тяжких телесных повреждений. Вину свою признаёте?"],
+        showCursor: false,
+        typeSpeed: 5
+      });
+    });
+    
+    $(".btn-lg-2").click(function() {
+      $("#speech")[0].innerHTML="Тогда направляйтесь к Василисе Петровне";
+      $("#btn1")[0].style.display="none";
+      $("#btn2")[0].innerHTML="Окей";
+      $("#btn2").click(function() {
+        $("#speech")[0].style.display="none";
+        $("#btn2")[0].style.display="none";
+        $( "#title" )[0].style.margin="200px 550px 0 0";
+        $("body")[0].style.backgroundImage="url('pics/loading3.gif')";
+        setTimeout(function() {
+          $("body")[0].style.backgroundImage="url('pics/2/002.jpg')";
+          $( "#title" )[0].style.fontSize="45px";
+          $( "#title" )[0].innerHTML ="Ах ты наркоман,<br>я тебя сейчас вздрючу!";
+          $("#газманов")[0].style.display="block";
+        }, 500);
+      });
+      $("#газманов").click(function() {
+        $("#газманов")[0].style.top="5%"; 
+        $("#газманов")[0].style.width="800px";        
+        $("#газманов").click(function() {
+          $("#газманов")[0].style.top="80%";
+          $("#газманов")[0].style.right="20%";        
+          $("#газманов")[0].style.width="100px";        
+        });
+        $("#btn1")[0].style.display="inline-block";
+        $("#btn1")[0].style.padding="20 0 0 0";
+        $("#btn1")[0].innerHTML="[Достать телефон]";
+        $("#btn1")[0].style.width="auto";
+        $("#btn1")[0].style.height="80px";
+        $("#btn1").click(function() {
+          $( "#title" )[0].innerHTML ="";
+          $("#айфон")[0].style.display="block";
+          $("#menu")[0].style.display="block";
+          $( "#title" )[0].style.margin="0 750px 0 0";
+        });
+      });
+      
+      $("#track1").click(function() {
+        $(".menu-item").removeClass('active');
+        $("#track1").addClass('active');
+        window.a.pause();
+        window.a = new Audio('audio/Земфира-Искала.mp3');
+        window.a.play();
+        $( "#title" )[0].innerHTML ="Подозреваемый,<br>вы чего?";
+      });
+
+      $("#track2").click(function() {
+        $(".menu-item").removeClass('active');
+        $("#track2").addClass('active');
+        window.a.pause();
+        window.a = new Audio('audio/МумийТролль-Дельфины.mp3');
+        window.a.play();
+        $( "#title" )[0].innerHTML ="Дебил,<br>что ты делаешь?";
+      });
+
+      $("#track3").click(function() {
+        $(".menu-item").removeClass('active');
+        $("#track3").addClass('active');
+        window.a.pause();
+        window.a = new Audio('audio/Ария-Жанна.mp3');
+        window.a.play();
+        $( "#title" )[0].innerHTML ="Нахуя<br>ты включаешь мне<br>свою музыку?";
+      });
+      
+      $("#track4").click(function() {
+        $(".menu-item").removeClass('active');
+        $("#track4").addClass('active');
+        window.a.pause();
+        window.a = new Audio('audio/Газманов-Морячка.mp3');
+        window.a.play();
+        $( "#title" )[0].innerHTML ="Интересная песня,<br>кто это?";
+        setTimeout(function() {
+            $( "#title" )[0].innerHTML ="";
+            $("#title").typed({
+              strings: ["♪ Это же Газманов!", "♪ Это же Газманов!", "♪ Ля-яяяяя", "♪ Ля ля ля", "♪ Ля ля ля", "♪ Уру ру ру", "♪ Ня ня ня", "♪ Пу пу пу", "♪ Ля ля ля"],
+              showCursor: false,
+              typeSpeed: 1
+            });
+            
+            setTimeout(function() {
+                $("#menu")[0].style.display="none";
+                $("#camera")[0].style.display="block";
+            }, 8000);
+        }, 8000);
+      });
+      
+      $("#btnCamera").click(function() { 
+        $("#menu")[0].style.display="none";
+        $("#camera")[0].style.display="none";
+        $("#share")[0].style.display="block";      
+      });
+
+      $(".btnShare").click(function() { 
+        $("#share")[0].style.display="none";
+        $("#айфон")[0].style.display="none";
+        setTimeout(function() {
+          $( "#title" )[0].innerHTML ="Кажется, меня форсят?!";
+          setTimeout(function() {
+            $( "#title" )[0].innerHTML ="Кажется, меня форсят?!<br>Это ты устроил?";
+            $("#btn1")[0].style.display="inline-block";
+            $("#btn1")[0].innerHTML="А то!";
+          }, 2000);
+                    
+          $("#btn1").click(function() {
+            $("#айфон")[0].style.display="none";
+            $("#menu")[0].style.display="none";
+            $( "#title" )[0].style.margin="0 750px 0 0";
+            $( "#title" )[0].innerHTML ="Да ты крут..<br>Ладно, гуляй, пока молодой";
+            $("#btn1")[0].style.display="inline-block";
+            $("#btn1")[0].innerHTML="[Выйти на улицу]";
+            $("#btn1").click(function() {
+              // FINAL
+            });
+          });
+          
+        }, 5000);
+      });
+      
+    })
+    
+
+      
+    </script>
+      
+      <script type="text/javascript">
+      (function (d, w, c) {
+          (w[c] = w[c] || []).push(function() {
+              try {
+                  w.yaCounter12907687 = new Ya.Metrika({id:12907687, enableAll: true, webvisor:true});
+              } catch(e) {}
+          });
+    
+          var n = d.getElementsByTagName("script")[0],
+              s = d.createElement("script"),
+              f = function () { n.parentNode.insertBefore(s, n); };
+          s.type = "text/javascript";
+          s.async = true;
+          s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+          if (w.opera == "[object Opera]") {
+              d.addEventListener("DOMContentLoaded", f);
+          } else { f(); }
+      })(document, window, "yandex_metrika_callbacks");
+      </script>
+      <noscript><div><img src="//mc.yandex.ru/watch/12907687" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+      
+  </body>
+</html>
