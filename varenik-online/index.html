@@ -3,17 +3,93 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>Вареники Online</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Гадание на варениках через интернет">
+    <meta name="keywords" content="Вареники Online, вареники, гадание на варениках черех интернет" />  
+    <meta name="author" content="Рубен Бабаев">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">    
+
+    <link rel="canonical" href="http://14zy.ru/varenik-online" />
+    <meta property="og:url" content="http://14zy.ru/varenik-online" />
+
+    <link rel="icon" type="image/ico" href="/favicon.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="http://14zy.ru/apple-touch-icon.png" />
+
+    <link rel='image_src' href="http://14zy.ru/varenik-online/logo.png">
+    <meta property="og:image" content="http://14zy.ru/varenik-online/logo.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Вареники Online" />
+
   </head>
   <body>
     <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="page-header">
+            <h1>Вареники Online<br><small>Съешьте вареник, чтобы получить предсказание на этот год</small></h1>
+          </div>
+        </div>    
+      </div> <!-- /row -->
+      <div class="row" style="text-align: center;">
+        <div class="col-md-5">
+            <img src="pics/вареники.png" class="img-responsive">
+            <button id="btnEat" class="btn btn-success" style="
+            margin: 30px 0 50px 0;
+            width: 250px;
+            height: 50px;
+            font-size: 24px;
+            ">Съесть вареник</button>
+            <div id="das">
+              <!-- Последний на районе -->
+              <ins class="adsbygoogle"
+                   style="display:inline-block;width:728px;height:90px"
+                   data-ad-client="ca-pub-2407992058828148"
+                   data-ad-slot="6843845657"></ins>
+            </div>
+        </div>    
+
+        <div class="col-md-1" >
+        </div>    
+
+        <div class="col-md-6">
+            <img id="imgEat" src="pics/eat-still.gif" style="width: 100%"> 
+            <br><br>
+            <div id="divPrediction">
+              <img id="imgPrediction" src="" style="width: 100%"> 
+              <br><br>
+              <button id="btnShareVK" class="btn btn-primary btnShare" onclick="ShareVK();">
+              <span class='glyphicon glyphicon-thumbs-up'></span> ВКонтакте</button>
+              <button id="btnShareFB" class="btn btn-primary btnShare" onclick="ShareFB();">
+              <span class='glyphicon glyphicon-thumbs-up'></span> Facebook</button>
+              <button id="btnShareTW" class="btn btn-info btnShare" onclick="ShareTW();">
+              <span class='glyphicon glyphicon-thumbs-up'></span> Twitter</button>
+            </div>
+        </div>    
+      </div> <!-- /row -->
+
+    <br><br>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="page-header" style="padding-left: 5px;">
+          <div style="float:right" data-yashareTitle="Вареники Online", data-yashareDescription="Гадание на варениках через интернет" class="yashare-auto-init" data-yashareL10n="ru", data-yashareQuickServices="vkontakte,facebook,twitter" data-yashareTheme="counter" data-yashareImage="http://14zy.ru/varenik-online/logo.png" data-yashareLink="http://14zy.ru/varenik-online/"></div>
+          Созданно на макаронной фабрике <a href="http://14zy.ru"><img src="http://14zy.ru/favicon.png"> Рубена Бабаева</a>
+        </div>
+        
+      </div>
+    </div> <!-- /row -->
+    
     </div> <!-- /container -->
     <script defer src="js/jquery-1.11.0.min.js" type="text/javascript"></script>    
     <script defer src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script defer src="js/engine.js" type="text/javascript"></script>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    <script defer type="text/javascript" src="http://yandex.st/share/share.js"
+     charset="utf-8"></script>
   </body>
 </html>

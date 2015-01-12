@@ -1,7 +1,17 @@
 /* Ruben zone */
 
 
+.btnShare {
+  margin: 0px 5px 5px 0;
+  min-width: 140px;
+  height: 50px;
+  font-size: 20px;
+}
 
+#divPrediction {
+  display: none;
+  
+}
 
 
 
