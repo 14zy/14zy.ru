@@ -14,7 +14,7 @@ $("#btnEat").click(function() {
 });
 
 function ShareFB() {
-  url = "https://www.facebook.com/dialog/feed?app_id=220570058040487&display=popup&link=http://14zy.ru/varenik-online/?utm_source=fb-share&redirect_uri=http://www.14zy.ru/1.html&picture=http://14zy.ru/varenik-online/pics/predictions/" + window.prediction + ".jpg&source=http://14zy.ru/varenik-online/pics/predictions/" + window.prediction + ".jpg&name=Вареники Online&description=Гадание на варениках через интернет";
+  url = "https://www.facebook.com/dialog/feed?app_id=220570058040487&display=popup&link=http://14zy.ru/varenik-online/?utm_source=fb-share&redirect_uri=http://www.14zy.ru/varenik-online/1.html&picture=http://14zy.ru/varenik-online/pics/predictions/" + window.prediction + ".jpg&source=http://14zy.ru/varenik-online/pics/predictions/" + window.prediction + ".jpg&name=Вареники Online&description=Гадание на варениках через интернет";
   window.open(url,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=604,height=401');
 };
 
