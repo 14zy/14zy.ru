@@ -14,17 +14,17 @@ $("#btnEat").click(function() {
 });
 
 function ShareFB() {
-  url = "https://www.facebook.com/dialog/feed?app_id=220570058040487&display=popup&link=http://14zy.ru/varenik-online/?utm_source=fb-share&redirect_uri=http://www.14zy.ru/1.html&picture=http://14zy.ru/varenik-online/predictions/" + window.prediction + ".jpg&source=http://14zy.ru/varenik-online/predictions/" + window.prediction + ".jpg&name=Вареники Online&description=Гадание на варениках через интернет";
+  url = "https://www.facebook.com/dialog/feed?app_id=220570058040487&display=popup&link=http://14zy.ru/varenik-online/?utm_source=fb-share&redirect_uri=http://www.14zy.ru/1.html&picture=http://14zy.ru/varenik-online/pics/predictions/" + window.prediction + ".jpg&source=http://14zy.ru/varenik-online/predictions/" + window.prediction + ".jpg&name=Вареники Online&description=Гадание на варениках через интернет";
   window.open(url,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=604,height=401');
 };
 
 function ShareVK() {
-  url = "http://vk.com/share.php?url=http://14zy.ru/varenik-online/?utm_source=vk-share&title=Вареники Online %23вареники&description=Гадание на варениках через интернет&image=http://14zy.ru/varenik-online/predictions/" + window.prediction + ".jpg&noparse=true";
+  url = "http://vk.com/share.php?url=http://14zy.ru/varenik-online/?utm_source=vk-share&title=Вареники Online %23вареники&description=Гадание на варениках через интернет&image=http://14zy.ru/varenik-online/pics/predictions/" + window.prediction + ".jpg&noparse=true";
   window.open(url,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=604,height=401');
 };  
 
 function ShareTW() {
-  url = "http://twitter.com/share?text=Вареники Online http://14zy.ru/varenik-online/predictions/" + window.prediction + ".jpg&url=http://14zy.ru/varenik-online/&hashtags=вареники";
+  url = "http://twitter.com/share?text=Вареники Online http://14zy.ru/varenik-online/pics/predictions/" + window.prediction + ".jpg&url=http://14zy.ru/varenik-online/&hashtags=вареники";
   window.open(url,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=604,height=401');
 };
 
