@@ -19,7 +19,7 @@ function ShareFB() {
 };
 
 function ShareVK() {
-  url = "http://vk.com/share.php?url=http://14zy.ru/varenik-online/?utm_source=vk-share&title=Вареники Online %23вареники&description=Гадание на варениках через интернет&image=http://14zy.ru/varenik-online/pics/predictions/" + window.prediction + ".jpg&noparse=true";
+  url = "http://vk.com/share.php?url=http://14zy.ru/varenik-online/?utm_source=vk-share&title=%23Вареники Online&description=Гадание на варениках через интернет&image=http://14zy.ru/varenik-online/pics/predictions/" + window.prediction + ".jpg&noparse=true";
   window.open(url,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=604,height=401');
 };  
 
