@@ -1,0 +1,225 @@
+Player One card: <span id="player1card"></span>
+
+<br>
+
+Player Two card: <span id="player2card"></span>
+
+<br><br>
+
+Result: <span id="currentWin"></span>
+<br><br>
+
+<button onclick="NewRound();">Play</button>
+<button onclick="ManyRounds();">Play 100 games</button>
+
+<br><br>
+
+
+Player One total wins: <span id="player1wins">0</span><br>
+<div style="font-size: 18px">
+with card K: <span id="player1Kwins">0</span><br>
+with card A: <span id="player1Awins">0</span><br>
+with card 2: <span id="player12wins">0</span><br>
+with card 3: <span id="player13wins">0</span><br>
+</div>
+<br>
+Player Two total wins: <span id="player2wins">0</span><br>
+<div style="font-size: 18px">
+with card K: <span id="player2Kwins">0</span><br>
+with card A: <span id="player2Awins">0</span><br>
+with card 2: <span id="player22wins">0</span><br>
+with card 3: <span id="player23wins">0</span><br>
+</div>
+
+<script>
+
+  window.player1Wins = 0;
+  window.player2Wins = 0;
+  
+  window.player1Kwins = 0;
+  window.player1Awins = 0;
+  window.player12wins = 0;  
+  window.player13wins = 0;  
+  
+  window.player2Kwins = 0;
+  window.player2Awins = 0;
+  window.player22wins = 0;  
+  window.player23wins = 0;  
+    
+  function NewRound() {
+    GiveCards();
+  };
+
+  function ManyRounds() {
+    for (i = 0; i<100; i++) {
+      GiveCards();
+    }
+  };
+
+  function GiveCards() {
+
+    player1Card = "";
+    player2Card = "";
+    
+    switch(Math.floor((Math.random() * 4) + 1)) {
+      case 1:
+        player1Card = "K"
+        break;
+      case 2:
+        player1Card = "A"
+        break;
+      case 3:
+        player1Card = "2"
+        break;
+      case 4:
+        player1Card = "3"
+        break;
+    }
+
+    switch(Math.floor((Math.random() * 4) + 1)) {
+      case 1:
+        player2Card = "K"
+        break;
+      case 2:
+        player2Card = "A"
+        break;
+      case 3:
+        player2Card = "2"
+        break;
+      case 4:
+        player2Card = "3"
+        break;
+    }
+
+    document.getElementById("player1card").innerHTML=player1Card;
+    document.getElementById("player2card").innerHTML=player2Card;
+    CheckResult(player1Card,player2Card);
+  }
+
+  function CheckResult(p1, p2) {
+  
+    if (p1 == "K" && p2 == "K") {
+      document.getElementById("currentWin").innerHTML="Two Kings, Player One wins!";
+      window.player1Wins++;
+      window.player1Kwins++;
+    } else if (p1 == "K" ||  p2 == "K" ) {
+      document.getElementById("currentWin").innerHTML="One King, Player Two wins!";
+      window.player2Wins++;
+      window.player2Kwins++;
+    }
+    else if (p1 != p2) {
+      document.getElementById("currentWin").innerHTML="Different Cards, Player One wins!";
+      window.player1Wins++;
+      
+      switch(p1) {
+        case "K":
+          alert("Danger");
+          break;
+
+        case "A":
+          window.player1Awins++;
+          break;
+
+        case "2":
+          window.player12wins++;
+          break;
+
+        case "3":
+          window.player13wins++;
+          break;
+      };
+      
+      
+    } else {
+      document.getElementById("currentWin").innerHTML="Same Cards, Player Two wins!";
+      window.player2Wins++;
+      
+      switch(p2) {
+        case "K":
+          alert("Danger 2");
+          break;
+
+        case "A":
+          window.player2Awins++;
+          break;
+
+        case "2":
+          window.player22wins++;
+          break;
+
+        case "3":
+          window.player23wins++;
+          break;
+      };
+      
+      
+    };
+
+     //total wins
+    document.getElementById("player1wins").innerHTML = window.player1Wins + " (" + (100/(window.player1Wins + window.player2Wins)*window.player1Wins).toFixed(2) + " %)";
+    document.getElementById("player2wins").innerHTML = window.player2Wins + " (" + (100/(window.player1Wins + window.player2Wins)*window.player2Wins).toFixed(2) + " %)";
+
+    //player 1 cards
+    document.getElementById("player1Kwins").innerHTML = window.player1Kwins + " (" + (100/(window.player1Kwins+window.player1Awins+window.player12wins+window.player13wins)*window.player1Kwins).toFixed(2) + " %)";
+    document.getElementById("player1Awins").innerHTML = window.player1Awins + " (" + (100/(window.player1Kwins+window.player1Awins+window.player12wins+window.player13wins)*window.player1Awins).toFixed(2) + " %)";
+    document.getElementById("player12wins").innerHTML = window.player12wins + " (" + (100/(window.player1Kwins+window.player1Awins+window.player12wins+window.player13wins)*window.player12wins).toFixed(2) + " %)";
+    document.getElementById("player13wins").innerHTML = window.player13wins + " (" + (100/(window.player1Kwins+window.player1Awins+window.player12wins+window.player13wins)*window.player13wins).toFixed(2) + " %)";
+
+    //player2 cards
+    document.getElementById("player2Kwins").innerHTML = window.player2Kwins + " (" + (100/(window.player2Kwins+window.player2Awins+window.player22wins+window.player23wins)*window.player2Kwins).toFixed(2) + " %)";
+    document.getElementById("player2Awins").innerHTML = window.player2Awins + " (" + (100/(window.player2Kwins+window.player2Awins+window.player22wins+window.player23wins)*window.player2Awins).toFixed(2) + " %)";
+    document.getElementById("player22wins").innerHTML = window.player22wins + " (" + (100/(window.player2Kwins+window.player2Awins+window.player22wins+window.player23wins)*window.player22wins).toFixed(2) + " %)";
+    document.getElementById("player23wins").innerHTML = window.player23wins + " (" + (100/(window.player2Kwins+window.player2Awins+window.player22wins+window.player23wins)*window.player23wins).toFixed(2) + " %)";
+
+
+  }
+
+</script>
+
+
+
+
+
+
+
+<style>
+  body {
+    font-size: 24px;
+  }
+  
+  button {
+    width: 150px;
+    height: 30px;
+  }
+
+  #player1wins, #player1card, #player1Kwins, #player1Awins, #player12wins, #player13wins {
+    color: red;
+  }
+
+  #player2wins, #player2card {
+    color: black;
+  }
+  
+</style>
+
+    <script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter12907687 = new Ya.Metrika({id:12907687, enableAll: true, webvisor:true});
+            } catch(e) {}
+        });
+    
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+    </script>
+    <noscript><div><img src="//mc.yandex.ru/watch/12907687" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
