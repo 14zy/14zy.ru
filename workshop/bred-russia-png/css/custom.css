@@ -1,0 +1,89 @@
+/* Ruben zone */
+
+
+body {
+/*  padding-top: 50px;
+  padding-bottom: 20px;
+*//*  background-color: white;*/
+  
+  background: url('../pics/tumblr_mcoi5zeuDS1rijbyfo1_500.gif') no-repeat center center fixed;
+	  -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	  -o-background-size: cover;
+	  background-size: cover;              
+  
+  
+  
+}
+
+.container1 {
+  height: 700px;  
+  background: url('../pics/myidem.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+
+  
+  
+  
+}
+
+h1 {
+  margin: 0;
+  color: white;
+  text-transform: uppercase;
+  font-family: 'Buran USSR';
+  font-size: 48px;
+}
+
+h1:hover {
+  color: pink;
+  cursor: pointer;
+}
+
+
+textarea {
+text-transform: uppercase;
+  font-family: 'Monitorica-Rg';
+  font-size: 24px;
+	width: 90%;
+	height: 200px;
+}
+
+button {
+	font-family: 'Monitorica-Rg';
+  	font-size: 28px!important;
+	margin: 20px;
+	width: 40%;
+	height: 50px;
+}
+
+
+@font-face {
+  font-family: 'Buran USSR';
+  src: url('../fonts/Buran USSR.ttf');
+}
+
+@font-face {
+  font-family: 'Monitorica-Rg';
+  src: url('../fonts/Monitorica-Rg.otf');
+}
+
+
+@media (max-width: 992px) {
+     
+}
+  
+@media (max-width: 600px) {
+  
+}
+
+@media (max-width: 470px) {
+	button {
+		width: 50%;
+}
+
+}
+/* /Ruben zone */
