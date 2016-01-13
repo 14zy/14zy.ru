@@ -5,7 +5,7 @@ $("#btnEat").click(function() {
   $("html, body").animate({ scrollTop: $("#imgEat").offset().top-200 }, "slow"); //360
   setTimeout(function() {
     $("#imgEat")[0].src="pics/eat-still.gif";
-    $("#btnEat")[0].innerHTML="Съесть ещё";
+    $("#btnEat")[0].innerHTML="<span class='glyphicon glyphicon-refresh'></span> Съесть ещё";
     window.prediction = Math.floor((Math.random()*43)+1);
     $("#imgPrediction")[0].src="pics/predictions/" + window.prediction + ".jpg";
     $("#divPrediction")[0].style.display="block";
@@ -21,10 +21,9 @@ function ShareFB() {
 function ShareVK() {
   url = "http://vk.com/share.php?url=http://14zy.ru/varenik-online/?utm_source=vk-share&title=%23Вареники Online&description=Гадание на варениках через интернет&image=http://14zy.ru/varenik-online/pics/predictions/vk/" + window.prediction + ".jpg&noparse=true";
   window.open(url,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=604,height=401');
-};  
+};
 
 function ShareTW() {
   url = "http://twitter.com/share?text=Вареники Online http://14zy.ru/varenik-online/pics/predictions/" + window.prediction + ".jpg&url=http://14zy.ru/varenik-online/&hashtags=вареники";
   window.open(url,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=604,height=401');
 };
-
