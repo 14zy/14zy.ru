@@ -1,13 +1,13 @@
 /**
  * This is a stylesheet for a demo presentation for impress.js
- * 
+ *
  * It is not meant to be a part of impress.js and is not required by impress.js.
  * I expect that anyone creating a presentation for impress.js would create their own
  * set of styles.
  */
 
 
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -21,8 +21,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
     margin: 0;
@@ -34,7 +34,7 @@ time, mark, audio, video {
 }
 
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
@@ -61,7 +61,7 @@ table {
 
 body {
     font-family: 'PT Sans', sans-serif;
-    
+
     min-height: 800px;
 
     background: rgb(0, 0, 0);
@@ -79,14 +79,14 @@ i, em { font-style: italic}
 
 a {
     color: inherit;
-    
+
     text-decoration: none;
 
     padding: 0 0.1em;
-    
+
     text-shadow: -1px -1px 2px rgba(100,100,100,0.9);
     border-radius: 0.2em;
-    
+
     -webkit-transition: 0.5s;
     -moz-transition:    0.5s;
     -ms-transition:     0.5s;
@@ -132,7 +132,7 @@ body     { pointer-events: none; }
 /* fade out inactive slides */
 .step:not(.active) {
     opacity: 0.2;
-    
+
 }
 
 /* STEP SPECIFIC STYLES */
@@ -144,18 +144,18 @@ body     { pointer-events: none; }
     left: 0;
     right: 0;
     bottom: 40px;
-    
+
     background: rgba(0,0,0,0.7);
     color: #EEE;
     text-align: center;
-    
+
     font-size: 22px;
     padding: 10px;
-    
+
     z-index: 100;
-    
+
     opacity: 1;
-    
+
     -webkit-transform: translateY(0px);
     -moz-transform:    translateY(0px);
     -ms-transform:     translateY(0px);
@@ -179,13 +179,13 @@ body     { pointer-events: none; }
 
     color: #EEE;
     text-align: center;
-    
+
     font-size: 48px;
 
-    
+
     z-index: 100;
-    
-    opacity: 1; 
+
+    opacity: 1;
 }
 
 .navi-next {
@@ -193,18 +193,13 @@ body     { pointer-events: none; }
     left: 10;
     right: 0;
     bottom: 400px;
-
-
     color: #EEE;
     text-align: center;
-    
     font-size: 80px;
-
-    
     z-index: 100;
-    
-    opacity: 0.6;    
-  
+    opacity: 0.6;
+    padding: 0 10px 0 0;
+
 }
 
 .navi-back {
@@ -212,35 +207,30 @@ body     { pointer-events: none; }
     left: 0;
     right: 10;
     bottom: 400px;
-    
-
     color: #EEE;
     text-align: center;
-    
     font-size: 80px;
-
-    
     z-index: 100;
-    
-    opacity: 0.6;    
-  
+    opacity: 0.6;
+    padding: 0 0 0 10px;
+
 }
 
 
 
 .impress-on-etolegko .hint {
-    
-    
-    
+
+
+
     background: rgba(0,0,0,0);
-    
-    
+
+
     color: #000;
     text-align: left;
     left: 168px;
-    
-    
-   
+
+
+
 }
 
 /* impress.js title */
@@ -254,7 +244,7 @@ body     { pointer-events: none; }
     position: absolute;
     top: -0.5em;
     left: 1.5em;
-    
+
     -webkit-transform: translateZ(20px);
     -moz-transform:    translateZ(20px);
     -ms-transform:     translateZ(20px);
@@ -264,7 +254,7 @@ body     { pointer-events: none; }
 
 #title h1 {
     font-size: 190px;
-    
+
     -webkit-transform: translateZ(50px);
     -moz-transform:    translateZ(50px);
     -ms-transform:     translateZ(50px);
@@ -367,7 +357,7 @@ body     { pointer-events: none; }
 #source {
     width: 700px;
     padding-bottom: 300px;
-    
+
     /* Yoda Icon :: Pixel Art from Star Wars http://www.pixeljoint.com/pixelart/1423.htm */
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAAEYCAMAAACwUBm+AAAAAXNSR0IArs4c6QAAAKtQTFRFsAAAvbWSLUUrLEQqY1s8UYJMqJ1vNTEgOiIdIzYhjIFVLhsXZ6lgSEIsP2U8JhcCVzMsSXZEgXdOO145XJdWOl03LzAYMk4vSXNExr+hwcuxRTs1Qmk+RW9Am49eFRANQz4pUoNMQWc+OSMDTz0wLBsCNVMxa2NBOyUDUoNNSnlEWo9VRGxAVzYFl6tXCggHbLNmMUIcHhwTXkk5f3VNRT8wUT8xAAAACQocRBWFFwAAAAF0Uk5TAEDm2GYAAAPCSURBVHja7d3JctNAFIZRMwRCCGEmzPM8z/D+T8bu/ptbXXJFdij5fMt2Wuo+2UgqxVmtttq5WVotLzBgwIABAwYMGDCn0qVqbo69psPqVpWx+1XG5iaavF8wYMCAAQMGDBgwi4DJ6Y6qkxB1HNlcN3a92gbR5P2CAQMGDBgwYMCAWSxMlrU+UY5yu2l9okfV4bAxUVbf7TJnAwMGDBgwYMCAAbMLMHeqbGR82Zy+VR1Ht81nVca6R+UdTLaU24Ruzd3qM/e4yjnAgAEDBgwYMGDA7AJMd1l/3NRdVGcj3eX/2WEhCmDGxnM7yqygu8XIPjJj8iN/MGDAgAEDBgwYMAuDGb8q0RGlLCHLv1t9qDKWn3vdNHVuEI6HPaxO9Jo3GDBgwIABAwYMmIXBdC9ShGgMk+XnkXUeuGcsP/e1+lhNnZsL/G5Vs3OAAQMGDBgwYMCAWSxMR3SzOmraG5atdy9wZKzb+vg16qyqe2FltbnAgAEDBgwYMGDALAxmTJSuN3WA76rnVca6GTnemGN1WoEBAwYMGDBgwIBZGMxUomy4+xO899V4LAg5Xnc2MGDAgAEDBgwYMGA218Wq+2K1LDqvY9xZu8zN8fICdM6btYABAwYMGDBgwIABMzfH0+pGU5afze2tXebmeAfVz+p8BQYMGDBgwIABAwbMPBzZ+oWmfJrln1273FhkbHzee9WWbw7AgAEDBgwYMGDALAKm43hcdctKgblcPamOhuXnXlY5Xs6bsW4FGyQCAwYMGDBgwIABswiYMceZKgvMo+h8mrHLTdn676rj+FEFoTtHd8MwOxEYMGDAgAEDBgyYRcBM5UhXqiymW3R3c9ARhWO/OmjqfjVZy+xEYMCAAQMGDBgwYBYG073OnCV0RFNhMhaOa9WfKmOB6XjHMN1tQmaAAQMGDBgwYMCA2VWY7vXjz1U4croAzgPztwIDBgwYMGDAgAEDZhswh035NBw59Dww3RgYMGDAgAEDBgwYMJuD6f4tXT7NUqfCdBvZLkxXdgQGDBgwYMCAAQNmt2DGj8WzwAfV/w7T/aq7mxwwYMCAAQMGDBgwuwqTOo7uTwTngflSzQ3TdaJvAwEDBgwYMGDAgAED5gSvgbyo5oHZ4Pc+gwEDBgwYMGDAgAEzhOm+5G0qTGaAAQMGDBgwYMCAAXNaMOcnls3tNwWm+zRzp54NDBgwYMCAAQMGDJh5YNL36k1TLuGvVq+qnKMbS5n7tulT9asCAwYMGDBgwIABA2ZumKuztLnjgQEDBgwYMGDAgNl5mH/4/ltKA6vBNAAAAABJRU5ErkJggg==);
     background-position: bottom right;
@@ -396,7 +386,7 @@ body     { pointer-events: none; }
     -ms-transform:     translateZ(40px);
     -o-transform:      translateZ(40px);
      transform:        translateZ(40px);
-            
+
     -webkit-transition: 0.5s;
     -moz-transition:    0.5s;
     -ms-transition:     0.5s;
@@ -529,7 +519,7 @@ body     { pointer-events: none; }
 .fallback-message {
     font-family: sans-serif;
     line-height: 1.3;
-    
+
     display: none;
     width: 780px;
     padding: 10px 10px 0;
