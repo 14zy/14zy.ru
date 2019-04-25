@@ -1,0 +1,14 @@
+{
+   "version" : 1,
+   "initialAssetCount" : 4,
+   "assets" : [
+      {
+         "id" : "829E69BA-BB53-4841-A138-4DF0C2A74236",
+         "url-1080-SDR" : "https://14zy.ru/i/eywa.mov",
+         "url-1080-HDR" : "https://14zy.ru/i/eywa.mov",
+         "url-4K-SDR" : "https://14zy.ru/i/eywa.mov",
+         "url-4K-HDR" : "https://14zy.ru/i/eywa.mov",
+         "accessibilityLabel" : "EYWA smart kitchen"
+      }
+   ]
+}
