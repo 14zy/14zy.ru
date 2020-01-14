@@ -30,13 +30,13 @@
 		<!-- Header -->
 			<div id="header-wrapper">
 				<header id="header" class="container">
-				
+
 					<!-- Logo -->
 						<div id="logo">
 							<h1><a href="index.html">Robot-Couturier</a></h1>
 							<span>by <a href='http://14zy.ru'>Ruben Babaev</a></span>
 						</div>
-					
+
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
@@ -46,10 +46,10 @@
 								<li><a href="#footer-wrapper">Контакты</a></li>
 							</ul>
 						</nav>
-					
+
 				</header>
 			</div>
-		
+
 		<!-- Banner -->
 			<div id="banner-wrapper">
 				<div id="banner" class="box container">
@@ -67,15 +67,15 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<br><br>
-			
+
 			<!-- Main -->
 				<div id="main-wrapper">
 					<div class="container">
 						<div class="row">
 							<div class="4u">
-						
+
 								<!-- Sidebar -->
 									<div id="sidebar">
 										<section class="widget thumbnails">
@@ -93,7 +93,7 @@
 											<!-- <a href="#" class="button icon fa-file-text-o">More</a> -->
 										</section>
 									</div>
-						
+
 							</div>
 							<div class="8u important(collapse)">
 
@@ -103,11 +103,11 @@
 											<h2>Что за туфту ты мне паришь?</h2>
 											<p>Короче, <strong>уникальный алгоритм</strong>, написанный пришельцем с другой планеты, генерирует футболки размеров S, M и XL с безумными дизайнерскими принтами! Всего он сгенерировал 100 футболок, после чего самоуничтожился.</p>
 											<p>Так что, футболки ниже – это <strong>творчество больного робота</strong>, которое присутствует на земле в единственном экземпляре.</p>
-											
-											<p>Рука человека ни в коем случае <strong>не притрагивалась к этим дизайнам</strong>, все композиции составлены  искуственным интеллектом на его собственный вкус.</p>
-											
 
-											
+											<p>Рука человека ни в коем случае <strong>не притрагивалась к этим дизайнам</strong>, все композиции составлены  искуственным интеллектом на его собственный вкус.</p>
+
+
+
 											<!-- <a href="#" class="button icon fa-arrow-circle-right">Continue Reading</a> -->
 										</section>
 									</div>
@@ -116,7 +116,7 @@
 						</div>
 					</div>
 				</div>
-		
+
 		<!-- Features -->
 			<div id="features-wrapper">
 				<div class="container">
@@ -133,7 +133,7 @@
 				<footer id="footer" class="container">
 					<div class="row">
 						<div class="3u">
-						
+
 							<!-- Links -->
 								<section class="widget links">
 									<h3>Random Stuff</h3>
@@ -145,10 +145,10 @@
 										<li><a href="#">Nullam scelerisque blandit leo</a></li>
 									</ul>
 								</section>
-						
+
 						</div>
 						<div class="3u">
-						
+
 							<!-- Links -->
 								<section class="widget links">
 									<h3>Random Stuff</h3>
@@ -160,7 +160,7 @@
 										<li><a href="#">Nullam scelerisque blandit leo</a></li>
 									</ul>
 								</section>
-						
+
 						</div>
 						<!-- <div class="3u">
 
@@ -178,7 +178,7 @@
 
 						</div> -->
 						<div class="6u">
-						
+
 							<!-- Contact -->
 								<section class="widget contact last">
 									<h3>Контакты</h3>
@@ -192,7 +192,7 @@
 									<p>Кнопки соц. сетей выше нихера не работают, просто были в шаблоне<br />
 									Если че нужно, звоните мне на мобилу 8 (926) 86-1337-5</p>
 								</section>
-						
+
 						</div>
 					</div>
 					<div class="row">
@@ -210,17 +210,47 @@
 				</footer>
 			</div>
 
+			<!-- Yandex.Metrika counter -->
+		  <script type="text/javascript">
+		    (function(d, w, c) {
+		      (w[c] = w[c] || []).push(function() {
+		        try {
+		          w.yaCounter12907687 = new Ya.Metrika({id: 12907687, enableAll: true, webvisor: true});
+		        } catch (e) {}
+		      });
+
+		      var n = d.getElementsByTagName("script")[0],
+		        s = d.createElement("script"),
+		        f = function() {
+		          n.parentNode.insertBefore(s, n);
+		        };
+		      s.type = "text/javascript";
+		      s.async = true;
+		      s.src = (d.location.protocol == "https:"
+		        ? "https:"
+		        : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+		      if (w.opera == "[object Opera]") {
+		        d.addEventListener("DOMContentLoaded", f);
+		      } else {
+		        f();
+		      }
+		    })(document, window, "yandex_metrika_callbacks");
+		  </script>
+		  <noscript><div><img src="//mc.yandex.ru/watch/12907687" style="position:absolute; left:-9999px;" alt=""/></div></noscript>
+		  <!-- /Yandex.Metrika counter -->
+
 	</body>
-	
+
 	<script>
-	
-	
-	
+
+
+
 	for (var i = 1; i<=100; i++) {
 		image = '<div class="6u"><section class="box feature"><a href="result/' + i + '.png" class="image featured"><img src="result/' + i + '.png" alt="" /></a><div class="inner"><header><h2>R-Shirt #{' + i + '}</h2><p>Maybe here you will find satisfaction</p></header><p><a  class="button alt icon fa-rub">1 500</a> <a onclick="buy(' + i + ')" class="button icon fa-arrow-circle-right">Ба, хочу такой футбич</a></p></div></section></div>'
-		
+
 		$('#pictures').append(image);
-		
+
 		function buy(number) {
 
 			swal({
@@ -234,8 +264,8 @@
 			  preConfirm: function(email) {
 			    return new Promise(function(resolve, reject) {
 			      setTimeout(function() {
-					  
-					  
+
+
 					  jQuery.ajax({
 					    type: "POST",
 					    url: "https://mandrillapp.com/api/1.0/messages/send.json",
@@ -257,9 +287,9 @@
 					  }).done(function(response) {
 						resolve();
 					  });
-					  
+
 					  // console.log(email);
-					  
+
 
 			      }, 500);
 			    });
@@ -274,9 +304,9 @@
 			  });
 			})
 		}
-		
+
 	}
-						
-	
+
+
 	</script>
 </html>
