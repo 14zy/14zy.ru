@@ -15,12 +15,12 @@
     <meta property="og:image" content="http://14zy.ru/vk/givemesugar.jpg" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="GiveMeSugar - Бесплатный анализатор ВКонтакте" />
-    
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <script src="http:////cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular.min.js"></script>
   </head>
-  
+
   <body ng-controller="ScannerCtl" ng-init="">
     <div class="container">
     <h1><small><a href="http://14zy.ru/vk/"><span class="glyphicon glyphicon-cutlery"></span> GiveMeSugar</a></small></h1>
@@ -42,13 +42,13 @@
 
     <div ng-cloak class="row" ng-show="profile != null">
       <div class="col-md-4">
-        <span ng-repeat="field in profile" on-finish-render="getCity();">    
+        <span ng-repeat="field in profile" on-finish-render="getCity();">
           <h3>{{field.first_name}} {{field.last_name}}<br><a target="_blank" href="http://vk.com/{{field.screen_name}}"><small><span class="glyphicon glyphicon-user"></span> {{field.screen_name}}</small></a></h3>
           <p><a target="_blank" href="http://vk.com/{{field.screen_name}}"><img ng-src='{{field.photo_100}}'></a></p>
           <span ng-show="!field.deactivated">
             <span ng-show="field.screen_name != ('id' + field.uid.toString())"><small style="color: gray;">id: {{field.uid}}</small><br></span>
             <span style="color: green;" ng-show="field.online==1">Online<br></span>
-            <span ng-show="field.city != 0">Город: {{field.city}}<br></span> 
+            <span ng-show="field.city != 0">Город: {{field.city}}<br></span>
             Пол: {{field.sex}}<br>
             <span ng-show="field.bdate !=nil">День рождения: {{field.bdate}}<br></span>
             <span ng-show="field.relation">Семейное положение: {{field.relation}}<br></span>
@@ -60,11 +60,11 @@
             <span ng-show="field.skype !=nil"><a target="_blank" href="skype:{{field.skype}}">Skype</a><br></span>
             <span ng-show="field.livejourna !=nil">livejournal: {{field.livejourna}}<br></span>
           </span>
-        </span>    
+        </span>
         <br>
         <span ng-show="profile.interests">
         <h4>Интересы:</h4>
-        <span ng-repeat="interest in profile.interests">    
+        <span ng-repeat="interest in profile.interests">
         <li ng-if="!$last">{{interest[interest.length-1]['name']}}</li>
         <li ng-if="$last">{{interest[interest.length-1]['name']}}</li>
         </span>
@@ -74,8 +74,8 @@
       </div>
 
       <div class="col-md-4" ng-cloak ng-show="friends.length >= 0">
-        <h3>Аудитория:</h3>        
-        <span>{{friends.length}} друзей</span><br>  
+        <h3>Аудитория:</h3>
+        <span>{{friends.length}} друзей</span><br>
         <span ng-show="friends.length > 10">
         <span title="Друзья, которые сделали хоть один лайк, репост или коммент на стене пользователя за последние 100 постов">Вовлечены в коммуникацию:
           <span ng-show="engaged == 'loading'"> loading...</span>
@@ -96,14 +96,14 @@
     <div class="row" ng-cloak ng-show="friends.length >= 10">
 
       <div class="col-md-4">
-        <h3>Вовлечены <span class="badge">{{engaged.length}}</span></h3> 
+        <h3>Вовлечены <span class="badge">{{engaged.length}}</span></h3>
           <span ng-repeat="friend in engaged">
             <a target="_blank" href="http://vk.com/id{{friend.uid}}">
               <span class="glyphicon glyphicon-user"></span>
               <span>{{friend.first_name}} {{friend.last_name}}</span>
             </a>
             <br>
-          </span>    
+          </span>
       </div>
 
 
@@ -135,12 +135,12 @@
 
     <!-- row group start -->
     <div class="row" ng-cloak ng-show="group != null">
-      <div class="col-md-4">        
+      <div class="col-md-4">
         <span ng-repeat="field in group">
           <h3>{{field.name}}<br><a href="http://vk.com/{{field.screen_name}}"><small><span class="glyphicon glyphicon-comment"></span> {{field.screen_name}}</small></a></h3>
           <p><a target="_blank" href="http://vk.com/{{field.screen_name}}"><img ng-src='{{field.photo_100}}'></a></p>
-          <span ng-show="field.screen_name != ('id' + field.uid.toString())"><small style="color: gray;">id: {{field.gid}}</small><br></span>      
-          <span ng-show="group['online'] > 0" style="color: green;">Online: {{group['online'] | number : fractionSize}} ({{(group['online'] / (group[0]['members_count']/100)).toFixed(0)}}%)<br></span>    
+          <span ng-show="field.screen_name != ('id' + field.uid.toString())"><small style="color: gray;">id: {{field.gid}}</small><br></span>
+          <span ng-show="group['online'] > 0" style="color: green;">Online: {{group['online'] | number : fractionSize}} ({{(group['online'] / (group[0]['members_count']/100)).toFixed(0)}}%)<br></span>
           <!-- <span ng-show="field.counters.photos">Фотографий: {{field.counters.photos | number : fractionSize}}<br></span>
           <span ng-show="field.counters.albums">Альбомов: {{field.counters.albums | number : fractionSize}}<br></span>
           <span ng-show="field.counters.topics">Обсуждения: {{field.counters.topics | number : fractionSize}}<br></span>
@@ -152,19 +152,19 @@
           <div id="GroupMobilesChart" style="margin: 0 0 0 -40px; width: 400px; height: 200px"></div>
         </div>
       </div>
-      
+
       <div class="col-md-4" ng-cloak ng-show="group[0].members_count >= 0">
-        <h3>Аудитория:</h3>        
+        <h3>Аудитория:</h3>
 
         <span ng-show="loading">
         {{loading}}<br>
         </span>
-        
+
         <span ng-show="!loading">
         <span ng-show="members.length >= group[0]['members_count']">{{members.length | number : fractionSize}} подписчиков<br></span>
-        <span ng-show="members.length < group[0]['members_count']">Анализируем {{members.length | number : fractionSize}} из {{group[0]['members_count'] | number : fractionSize}} подписчиков<br></span>          
-        
-        <span>Вовлечены в коммуникацию: 
+        <span ng-show="members.length < group[0]['members_count']">Анализируем {{members.length | number : fractionSize}} из {{group[0]['members_count'] | number : fractionSize}} подписчиков<br></span>
+
+        <span>Вовлечены в коммуникацию:
           <span ng-show = "group_engagedListLoad == 'loading'">загружаем...<br></span>
           <span ng-show = "group_engagedListLoad == 'calculating' && group_engagedList.length < 1">считаем...<br></span>
           <span ng-show = "group_engagedList.length == 0 && group_engagedListLoad != 'loading' && group_engagedListLoad != 'calculating'">0<br></span>
@@ -176,13 +176,13 @@
           <div ng-show="group[0]['members_count'] > 50" id="donutchartGroup" style="margin: -5px 0 0 -80px ; width: 500px; height: 300px"></div>
         </span>
       </div>
-      
+
       <div ng-cloak ng-show="members.length >= 0" class="col-md-4">
         <!-- <h3>Тут будет реклама</h3>
         <img src="why-would-you-do-that.jpg"> -->
       </div>
 
-      
+
     </div> <!-- row group end -->
     <br><br>
     <div class="row" ng-cloak ng-show="profile || group">
@@ -193,26 +193,26 @@
             Все права принадлежат вам.<br>
             <a target="_blank" href="http://14zy.ru">Рубен Бабаев</a>
         </div>
-      </div>        
+      </div>
     </div>
     <br>
   </div> <!-- container end -->
-      
-    
+
+
     <!-- Agular Controller -->
     <script>
     var ScannerApp = angular.module('ScannerApp', []).config( [
       '$compileProvider',
       function( $compileProvider )
-      {   
+      {
           $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|skype|tel):/);
         // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
       }
     ]);
-    
+
     ScannerApp.controller('ScannerCtl', ['$scope', '$http', '$q', function (scope, http, q) {
-      
-      
+
+
       scope.deside = function() {
         scope.clean();
         scope.id = scope.link.split("/")[scope.link.split("/").length-1];
@@ -224,8 +224,8 @@
             if (!data.response.type) {scope.wrongId="has-error"; return};
         });
       };
-            
-      
+
+
       scope.getProfile = function() {
         if (scope.id == "id1") {alert('Вы не можете устремить свой никчёмный взгляд на Создателя!'); return;};
         http.jsonp('https://api.vk.com/method/users.get?user_ids=' + scope.id + '&fields=sex,bdate,city,country,photo_50,photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,online_mobile,lists,domain,has_mobile,contacts,connections,site,education,universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message,status,last_seen,relation,relatives,counters,screen_name,timezone&callback=JSON_CALLBACK').success(function(data) {
@@ -239,8 +239,8 @@
           }
         });
       };
-      
-      scope.getGroup = function() {        
+
+      scope.getGroup = function() {
         http.jsonp('https://api.vk.com/method/groups.getById?group_id=' + scope.id + '&fields=photo_200,photo_100,description,members_count,counters&callback=JSON_CALLBACK').success(function(data) {
           if (data.response[0]['deactivated'] || data.response[0]['name'] == "Закрытая группа" || data.response[0]['photo_100'] == 'http://vk.com/images/community_100.gif') {
             scope.random();
@@ -252,7 +252,7 @@
           };
         });
       };
-      
+
       scope.getGroupWall = function() {
         scope.loading="Инициализация..."
         var url = "https://api.vk.com/method/wall.get?owner_id=-" + scope.group[0]['gid'] + "&count=100&filter=owner&callback=JSON_CALLBACK";
@@ -260,9 +260,9 @@
           scope.groupWall = data.response;
           scope.parseGroupWall();
           scope.getMembers();
-        });        
+        });
       };
-      
+
       scope.parseGroupWall = function(){
         scope.groupWallLikes = [];
         scope.groupWallComments = [];
@@ -284,8 +284,8 @@
           });
         });
       };
-      
-      
+
+
       scope.getMembers = function() {
         window.iphones = scope.group['iPhoneUsers'] = 0;
         window.ipads = scope.group['iPadUsers'] = 0;
@@ -333,22 +333,22 @@
               scope.analyzeMembers(data.response.users);
               scope.loading = false
             });
-            
+
           }; // end for
 
         }; // end if
 
       };
-      
+
       scope.render = function(){
         console.log('render');
         window.group_engaged = scope.group_engagedList.length;
         drawChartGroup();
       }
-      
-      
+
+
       scope.getEngagedMembers = function(membersList) {
-        
+
         //var defer = q.defer();
         console.log('getEngagedMembers: ' + membersList.length);
           angular.forEach(scope.groupWallLikes, function(likes){
@@ -358,9 +358,9 @@
                   };
                 };
                 //window.group_engaged = scope.group_engagedList.length;
-             
+
           });
-              
+
           angular.forEach(scope.groupWallComments, function(comments){
                 for (var i = 1; i < comments.length; i++) {
                     if (scope.group_engagedList.indexOf(comments[i]['uid']) < 0 && membersList.indexOf(comments[i]['uid']) >= 0) {
@@ -370,10 +370,10 @@
                 //window.group_engaged = scope.group_engagedList.length;
 
           });
-          
+
           console.log('before q');
           q.all(scope.group_engagedList).then(scope.render());
-          
+
           // function lastTask(){
 //             window.group_engaged = scope.group_engagedList.length;
 //             drawChartGroup();
@@ -384,7 +384,7 @@
 //              };
         //return defer.promise;
         //return true;
-        
+
       };
 
 
@@ -415,9 +415,9 @@
           if (member['deactivated'] || member['photo_50'] == 'http://vk.com/images/camera_50.gif') {window.group_bots++; scope.group['bots']++};
 
           if (member['online'] == 1) {scope.group['online']++};
-          
+
         });
-      drawChartMobiles(); 
+      drawChartMobiles();
       drawChartGroup();
       };
 
@@ -438,7 +438,7 @@
               if (friend['deactivated']) {
                 scope.suspected.push(friend);
                 window.suspected = scope.suspected.length;
-              };                
+              };
             });
            };
         });
@@ -465,14 +465,14 @@
                 angular.forEach(result['items'], function(user){
                   if (scope.friendsList.indexOf(user['uid']) >= 0) {
                     if (scope.engagedList.indexOf(user['uid']) < 0) {scope.engaged.push(user); scope.engagedList.push(user['uid'])};
-                  };                   
+                  };
                 });
               };
               window.engaged = scope.engaged.length;
               drawChart();
-            });              
+            });
 
-            // //count commenters              
+            // //count commenters
             url = "https://api.vk.com/method/wall.getComments?owner_id=" + scope.profile[0]['uid'] + "&post_id=" + scope.wall[i]['id'] + "&count=100&callback=JSON_CALLBACK";
             http.jsonp(url).success(function(data) {
               result = data.response;
@@ -485,7 +485,7 @@
                         scope.engaged.push(user);
                         scope.engagedList.push(user['uid'])
                       };
-                    };                   
+                    };
                   };
                 });
               };
@@ -504,13 +504,13 @@
           scope.profile.interest_city = response.city;
         });
       };
-      
-      
-      scope.getGroups = function() { 
+
+
+      scope.getGroups = function() {
         var url = 'https://api.vk.com/method/users.getSubscriptions?user_id=' + scope.profile[0]['uid'] + '&extended=1&count=200&callback=JSON_CALLBACK';
         http.jsonp(url).success(function(data) {
           scope.groups = data.response;
-          if (scope.groups.length > 1) { 
+          if (scope.groups.length > 1) {
             // scope.getInterests();
             angular.forEach(scope.groups, function(group){
               if (group.type=="profile") {
@@ -525,9 +525,9 @@
           };
         });
       };
-      
-      
-      scope.digestProfile = function() {  
+
+
+      scope.digestProfile = function() {
         http.jsonp('https://api.vk.com/method/database.getCitiesById?city_ids=' + scope.profile[0]['city'] + "&callback=JSON_CALLBACK").success(function(data) {
           if (scope.profile[0]['city']) {scope.profile[0]['city'] = data.response[0]['name']};
         });
@@ -562,9 +562,9 @@
 
           // case 7:
           //   scope.profile[0]['mobile'] = null // Через сайт
-          //   break; 
+          //   break;
         };
-          
+
         switch (scope.profile[0]['relation']) {
           case 1:
             if (scope.profile[0]['sex'] == "Мужской") {scope.profile[0]['relation'] = "не женат"};
@@ -612,8 +612,8 @@
             break;
         };
         scope.deside();
-      };    
-      
+      };
+
       scope.clean = function() {
         scope.getLost = true;
         scope.group = null;
@@ -628,7 +628,7 @@
         window.group_bots = 0;
         window.members = 0;
 
-        
+
         window.iphones = null;
         window.ipads = null;
         window.androids = null;
@@ -638,18 +638,18 @@
         drawChartMobiles();
         drawChartGroup();
       };
-      
-      
+
+
     }]); //controller end
     </script>
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-    
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    
-    <!-- Latest compiled and minified JavaScript -->    
+
+    <!-- Latest compiled and minified JavaScript -->
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
     <!-- Google Chart -->
@@ -718,27 +718,21 @@
 
     </script>
 
-    <script type="text/javascript">
-    (function (d, w, c) {
-        (w[c] = w[c] || []).push(function() {
-            try {
-                w.yaCounter12907687 = new Ya.Metrika({id:12907687, enableAll: true, webvisor:true});
-            } catch(e) {}
-        });
-    
-        var n = d.getElementsByTagName("script")[0],
-            s = d.createElement("script"),
-            f = function () { n.parentNode.insertBefore(s, n); };
-        s.type = "text/javascript";
-        s.async = true;
-        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-        if (w.opera == "[object Opera]") {
-            d.addEventListener("DOMContentLoaded", f);
-        } else { f(); }
-    })(document, window, "yandex_metrika_callbacks");
+       ym(12907687, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+       });
     </script>
-    <noscript><div><img src="//mc.yandex.ru/watch/12907687" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <noscript><div><img src="https://mc.yandex.ru/watch/12907687" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
 
 
 <script id="sid0020000063824935506">(function() {function async_load(){s.id="cid0020000063824935506";s.src=(window.location.href.indexOf('file:///') > -1 ? 'http:' : '') + '//st.chatango.com/js/gz/emb.js';s.style.cssText="width:361px;height:374px;";s.async=true;s.text='{"handle":"givemesugar","arch":"js","styles":{"a":"428bca","b":100,"c":"FFFFFF","d":"FFFFFF","k":"428bca","l":"428bca","m":"428bca","n":"FFFFFF","q":"428bca","r":100,"t":0,"ab":false,"pos":"br","cv":1,"cvbg":"428bca","cvw":200,"cvh":30,"surl":0,"allowpm":0,"cnrs":"0.35","ticker":1}}';var ss = document.getElementsByTagName('script');for (var i=0, l=ss.length; i < l; i++){if (ss[i].id=='sid0020000063824935506'){ss[i].id +='_';ss[i].parentNode.insertBefore(s, ss[i]);break;}}}var s=document.createElement('script');if (s.async==undefined){if (window.addEventListener) {addEventListener('load',async_load,false);}else if (window.attachEvent) {attachEvent('onload',async_load);}}else {async_load();}})();</script>
