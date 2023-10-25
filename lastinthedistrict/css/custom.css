@@ -32,9 +32,10 @@ h1 {
 
 
 #button {
-  position: fixed;
+  /* position: fixed;
   bottom: 80px;
-  left: 40%;
+  left: 50%; */
+  padding-top: 80%;
   text-align: center;
 }
 
