@@ -35,7 +35,7 @@ var query = getQueryParams(document.location.search);
         meme = rows[parseInt(query.meme) -1];
         console.log(meme);
 
-        window.memeTitle.innerHTML = "Видео с мемом №" + meme["Card Number"] + " – " +  meme["Card Name"];
+        window.memeTitle.innerHTML = "NFT KEY №" + meme["Card Number"] + " – " +  meme["Card Name"];
         // window.memeId.innerHTML = 
         // window.memeName.innerHTML = 
 
